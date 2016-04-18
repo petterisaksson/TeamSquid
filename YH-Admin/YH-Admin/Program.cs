@@ -18,6 +18,7 @@ class Program
         Console.WriteLine("Lösenord:");
         password = Console.ReadLine();
 
+        // Commment
         string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Petter\Documents\Login.txt");
 
         foreach (string line in lines)
