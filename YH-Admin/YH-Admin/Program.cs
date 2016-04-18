@@ -13,7 +13,7 @@ class Program
 
         string userName;
         string password;
-        Console.WriteLine("Användarnamn:");
+        Console.WriteLine("Användarnamn:");//test
         userName = Console.ReadLine();
         Console.WriteLine("Lösenord:");
         password = Console.ReadLine();
