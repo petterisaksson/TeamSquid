@@ -32,7 +32,7 @@ namespace YH_Admin
             {
                 var cl = new SchoolClass(line);
                 SchoolClasses.Add(cl);
-                Console.WriteLine(cl);
+                //Console.WriteLine(cl);
             }
         }
 
