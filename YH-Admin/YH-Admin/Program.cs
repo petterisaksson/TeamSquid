@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,10 @@ class Program
 {
     static void Main(string[] args)
     {
+        string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        var userPath = Path.Combine(soluPath, @"DataFiles\user.txt");
+        Console.WriteLine(userPath);
+
         string[] usernamePassword;
 
 
@@ -18,12 +24,15 @@ class Program
         Console.WriteLine("Lösenord:");
         password = Console.ReadLine();
 
-        // Comment 
-        // Comment 2
-        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Petter\Documents\Login.txt");
+
+        string[] lines = System.IO.File.ReadAllLines(userPath);
 
         foreach (string line in lines)
         {
+            Console.WriteLine(line);
+
+            if (true)
+                break;
 
             usernamePassword = line.Split(',');
             if (usernamePassword[0] == userName)
@@ -41,4 +50,5 @@ class Program
 
         }
     }
+
 }
