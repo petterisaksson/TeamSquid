@@ -17,6 +17,7 @@ class Program
 
 
 
+
         string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         var userPath = Path.Combine(soluPath, @"DataFiles\user.txt");
         Console.WriteLine(userPath);
