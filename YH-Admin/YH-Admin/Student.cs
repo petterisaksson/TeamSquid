@@ -43,13 +43,6 @@ namespace YH_Admin
             ClassId = classId;
         }
 
-        public string GetStringForOutput()
-        {
-            string str = "";
-
-            return str;
-        }
-
         /// <summary>
         /// Default string output.
         /// </summary>
