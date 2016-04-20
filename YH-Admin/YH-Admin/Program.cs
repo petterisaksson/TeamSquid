@@ -16,47 +16,27 @@ class Program
         mySchool.LoadData();
 
 
+        #region TestRegion
 
-
-        string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        var userPath = Path.Combine(soluPath, @"DataFiles\user.txt");
-        Console.WriteLine(userPath);
-
-        string[] usernamePassword;
-
-
-        string userName;
-        string password;
-        Console.WriteLine("Användarnamn:");//test
-        userName = Console.ReadLine();
-        Console.WriteLine("Lösenord:");
-        password = Console.ReadLine();
-
-
-        string[] lines = System.IO.File.ReadAllLines(userPath);
-
-        foreach (string line in lines)
+        // Test code: GetClasses in a certain education.
+        Console.WriteLine("GetClasses in education: 0");
+        var classes = mySchool.GetClasses(0);
+        foreach (var s in classes)
         {
-            Console.WriteLine(line);
-
-            if (true)
-                break;
-
-            usernamePassword = line.Split(',');
-            if (usernamePassword[0] == userName)
-            {
-                Console.WriteLine("Hittade användare... kontrollerar lösenord..");
-                if (usernamePassword[1] == password)
-                {
-                    Console.WriteLine("Lösesnord korrekt... loggar in användare.. ");
-                }
-                //asd
-
-            }
-            Console.ReadLine();
-
-
+            Console.WriteLine(s.ShowClassStatus());
         }
+
+        // Test code: GetStudents in a certain class.
+        Console.WriteLine("GetStudents in class: 2");
+        var students = mySchool.GetStudents(2);
+        foreach (var s in students)
+        {
+            Console.WriteLine(s);
+        }
+
+        #endregion //TestRegion
+
+
     }
 
 }

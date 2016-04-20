@@ -8,63 +8,86 @@ namespace YH_Admin
 {
     public class SchoolClass
     {
+        /// <summary>
+        /// Identifier to this school class.
+        /// </summary>
         public int ClassId { get; set; }
 
+        /// <summary>
+        /// Name to this school class.
+        /// </summary>
         public string Name { get; set; }
 
-        public List<int> StudentIds { get; set; }
+        /// <summary>
+        /// The education id that this class belongs to.
+        /// </summary>
+        public int EducationId { get; set; }
 
+        /// <summary>
+        /// The starting date of this school class.
+        /// </summary>
         public DateTime StartDate { get; set; }
 
+        /// <summary>
+        /// The ending date of this school class.
+        /// </summary>
         public DateTime EndDate { get; set; }
 
-        public SchoolClass(string line)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="name"></param>
+        /// <param name="educationId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        public SchoolClass(int classId, string name, int educationId, DateTime startDate, DateTime endDate)
         {
-
-            try
-            {
-                var splits = line.Split(' ');
-                ClassId = int.Parse(splits[0]);
-                Name = splits[1];
-                var nums = splits[2].Split(',');
-                StudentIds = new List<int>();
-                foreach (var n in nums)
-                {
-                    StudentIds.Add(int.Parse(n));
-                }
-                StartDate = DateTime.ParseExact(splits[3], "yyyymmdd", null);
-                EndDate = DateTime.ParseExact(splits[4], "yyyymmdd", null);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception caught in creating SchoolClass: " + ex);
-            }
-
+            ClassId = classId;
+            Name = name;
+            EducationId = educationId;
+            StartDate = startDate;
+            EndDate = endDate;
         }
 
+        /// <summary>
+        /// Default string output.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return ClassId + ": " + Name + ", studIds: " + GetStudentIds() + "; " + GetStartDate() + "->" + GetEndDate();
+            return ClassId + ": " + Name + ", eduId: " + EducationId + "; " + GetStartDate() + "->" + GetEndDate();
         }
 
-        string GetStudentIds()
-        {
-            string str = "";
-            foreach (var id in StudentIds)
-            {
-                str += id + ",";
-            }
-            return str.Remove(str.Length - 1);
-        }
-
+        /// <summary>
+        /// Get the start date of this school class as a string.
+        /// </summary>
+        /// <returns></returns>
         string GetStartDate()
         {
-            return StartDate.ToString("yyyymmdd");
+            return StartDate.ToString("yyyyMMdd");
         }
 
+        /// <summary>
+        /// Get the end date of this school class as a string.
+        /// </summary>
+        /// <returns></returns>
         string GetEndDate()
         {
-            return EndDate.ToString("yyyymmdd");
+            return EndDate.ToString("yyyyMMdd");
+        }
+
+        /// <summary>
+        /// Get of name, start date and whether the class has ended or not.
+        /// </summary>
+        /// <returns></returns>
+        public string ShowClassStatus()
+        {
+            string str = "Class: " + Name + "; Startdate: " + GetStartDate();
+            if (EndDate > DateTime.Today)
+                return str + ", Status: active.";
+            else
+                return str + ", Status: ended on " + GetEndDate();
         }
     }
 }
