@@ -10,6 +10,7 @@ namespace YH_Admin
     {
         public void Menu()
         {
+            Console.WriteLine("1. Utbildning\n 2. Klasser\n 3. Kurser \n 4. Undervisare\n 5. Studerande\n");
             string input = Console.ReadLine();
             switch (input)
             {
