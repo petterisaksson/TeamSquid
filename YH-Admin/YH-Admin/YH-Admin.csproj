@@ -47,11 +47,17 @@
     <Compile Include="ConsoleOutput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="School.cs" />
+    <Compile Include="SchoolClass.cs" />
+    <Compile Include="Student.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataFiles\classes.txt" />
+    <Content Include="DataFiles\education.txt" />
+    <Content Include="DataFiles\students.txt" />
     <Content Include="DataFiles\user.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
