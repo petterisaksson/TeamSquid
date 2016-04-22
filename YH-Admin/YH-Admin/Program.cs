@@ -11,31 +11,30 @@ class Program
 {
     static void Main(string[] args)
     {
-        School mySchool = new School();
-        
-
+        ConsoleOutput output = new ConsoleOutput();
+        School mySchool = new School(output);
         mySchool.LoadData();
+        mySchool.ShowMainMenu();
 
+        //#region TestRegion
 
-        #region TestRegion
+        //// Test code: GetClasses in a certain education.
+        //Console.WriteLine("GetClasses in education: 0");
+        //var classes = mySchool.GetClasses(0);
+        //foreach (var s in classes)
+        //{
+        //    Console.WriteLine(s.ShowClassStatus());
+        //}
 
-        // Test code: GetClasses in a certain education.
-        Console.WriteLine("GetClasses in education: 0");
-        var classes = mySchool.GetClasses(0);
-        foreach (var s in classes)
-        {
-            Console.WriteLine(s.ShowClassStatus());
-        }
+        //// Test code: GetStudents in a certain class.
+        //Console.WriteLine("GetStudents in class: 2");
+        //var students = mySchool.GetStudents(2);
+        //foreach (var s in students)
+        //{
+        //    Console.WriteLine(s);
+        //}
 
-        // Test code: GetStudents in a certain class.
-        Console.WriteLine("GetStudents in class: 2");
-        var students = mySchool.GetStudents(2);
-        foreach (var s in students)
-        {
-            Console.WriteLine(s);
-        }
-
-        #endregion //TestRegion
+        //#endregion //TestRegion
 
 
     }

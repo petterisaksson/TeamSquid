@@ -10,14 +10,31 @@ namespace YH_Admin
     public class School
     {
         /// <summary>
-        /// A list of all school classes
+        /// A list of all school classes.
         /// </summary>
         List<SchoolClass> SchoolClasses { get; set; }
 
         /// <summary>
-        /// A list of all students
+        /// A list of all students.
         /// </summary>
         List<Student> Students { get; set; }
+
+        ConsoleOutput Output { get; set; }
+
+        public School(ConsoleOutput output)
+        {
+            Output = output;
+        }
+
+        public void UpdateView()
+        {
+
+        }
+
+        public void ShowMainMenu()
+        {
+            Output.Menu();
+        }
 
         /// <summary>
         /// Read all the datafiles in a specific folder.
@@ -71,7 +88,7 @@ namespace YH_Admin
         /// <returns></returns>
         public List<SchoolClass> GetClasses(int educationId)
         {
-            var classes = SchoolClasses.Where(s => s.EducationId == educationId).ToList();
+            var classes = SchoolClasses.Where(s => s.EducationId == educationId).ToList(); 
             return classes;
         }
 
@@ -109,6 +126,8 @@ namespace YH_Admin
         public List<Student> GetStudents(int classId)
         {
             var students = Students.Where(s => s.ClassId == classId).ToList();
+
+
 
             return students;
         }

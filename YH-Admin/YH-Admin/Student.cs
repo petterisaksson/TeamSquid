@@ -10,7 +10,7 @@ namespace YH_Admin
     {
         /// <summary>
         /// Identifier to this student.
-        /// </summary>
+        /// </summary>  
         public int StudentId { get; set; }
 
         /// <summary>
