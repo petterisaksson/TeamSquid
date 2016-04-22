@@ -36,7 +36,7 @@ namespace YH_Admin.View
         /// </summary>
         public void ShowMainMenu()
         {
-            string[] alts = { "Avsluta", "Utbildning", "Klasser", "Kurser", "Undervisare", "Studerande" };
+            string[] alts = { "Avsluta", "Utbildning", "Klasser", "Kurser", "Undervisare", "Studerande", "Betyg" };
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowListAndWaitForChoice(alts);
         }
@@ -63,6 +63,9 @@ namespace YH_Admin.View
                     break;
                 case "5":
                     ShowStudentMenu();
+                    break;
+                case "6":
+                    Console.WriteLine("Betyg - ej implementerat");
                     break;
                 case "x":
                     return;
