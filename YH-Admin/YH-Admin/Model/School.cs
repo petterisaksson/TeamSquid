@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace YH_Admin.Model
 {
-    public class School
+    public class School 
     {
         /// <summary>
         /// A list of all school classes.
         /// </summary>
-        List<SchoolClass> SchoolClasses { get; set; }
+        public List<SchoolClass> SchoolClasses { get; private set; }
 
         /// <summary>
         /// A list of all students.
         /// </summary>
-        List<Student> Students { get; set; }
+        public List<Student> Students { get; private set; }
 
         /// <summary>
         /// Read all the datafiles in a specific folder.
@@ -109,10 +109,17 @@ namespace YH_Admin.Model
         public List<Student> GetStudents(int classId)
         {
             var students = Students.Where(s => s.ClassId == classId).ToList();
-
-
-
             return students;
+        }
+
+        /// <summary>
+        /// Get students from a class with schoolClass.
+        /// </summary>
+        /// <param name="schoolClass"></param>
+        /// <returns></returns>
+        public List<Student> GetStudents(SchoolClass schoolClass)
+        {
+            return GetStudents(schoolClass.ClassId);
         }
 
     }

@@ -23,6 +23,8 @@ namespace YH_Admin.Model
         /// </summary>
         public String LastName { get; set; }
 
+        public String Name { get { return $"{FirstName} {LastName}"; } }
+
         /// <summary>
         /// The class id that this student belongs to.
         /// </summary>
@@ -51,5 +53,6 @@ namespace YH_Admin.Model
         {
             return StudentId + " " + FirstName + " " + LastName + " classId: " + ClassId;
         }
+
     }
 }
