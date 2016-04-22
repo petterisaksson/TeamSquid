@@ -19,23 +19,6 @@ namespace YH_Admin
         /// </summary>
         List<Student> Students { get; set; }
 
-        ConsoleOutput Output { get; set; }
-
-        public School(ConsoleOutput output)
-        {
-            Output = output;
-        }
-
-        public void UpdateView()
-        {
-
-        }
-
-        public void ShowMainMenu()
-        {
-            Output.Menu();
-        }
-
         /// <summary>
         /// Read all the datafiles in a specific folder.
         /// </summary>

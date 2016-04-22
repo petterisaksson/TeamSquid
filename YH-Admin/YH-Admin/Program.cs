@@ -6,15 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YH_Admin;
+using YH_Admin.View;
 
 class Program
 {
     static void Main(string[] args)
     {
         ConsoleOutput output = new ConsoleOutput();
-        School mySchool = new School(output);
-        mySchool.LoadData();
-        mySchool.ShowMainMenu();
+        School school = new School();
+        school.LoadData();
+
+        ConsoleController controller = new ConsoleController(school, output);
+        controller.ShowMenu();
 
         //#region TestRegion
 
