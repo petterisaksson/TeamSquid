@@ -10,6 +10,7 @@ namespace YH_Admin.View
     class ConsoleController
     {
         School Model { get; set; }
+
         ConsoleOutput View { get; set; }
 
         public delegate void DelMenu();
@@ -19,12 +20,20 @@ namespace YH_Admin.View
 
         List<Student> CurrentStudents { get; set; }
 
+        /// <summary>
+        /// Constructor to set up Model and View.
+        /// </summary>
+        /// <param name="school"></param>
+        /// <param name="output"></param>
         public ConsoleController(School school, ConsoleOutput output)
         {
             Model = school;
             View = output;
         }
 
+        /// <summary>
+        /// Show the main menu.
+        /// </summary>
         public void ShowMainMenu()
         {
             string[] alts = { "Avsluta", "Utbildning", "Klasser", "Kurser", "Undervisare", "Studerande" };
@@ -32,6 +41,10 @@ namespace YH_Admin.View
             View.ShowListAndWaitForChoice(alts);
         }
 
+        /// <summary>
+        /// Handle the choices from the main menu.
+        /// </summary>
+        /// <param name="choice"></param>
         private void HandleMainMenuChoice(string choice)
         {
             switch (choice)
@@ -59,8 +72,9 @@ namespace YH_Admin.View
             }
         }
 
-        public void ShowClassMenu()
+        private void ShowClassMenu()
         {
+            PreviousMenu = ShowMainMenu;
             string[] alts = { "Tillbaka", "Visa klasser i en viss utbildning" };
             View.ChoiceHandler = HandleClassMenu;
             View.ShowListAndWaitForChoice(alts);
@@ -68,12 +82,31 @@ namespace YH_Admin.View
 
         private void HandleClassMenu(string choice)
         {
+            if (choice.Equals("x"))
+            {
+                PreviousMenu();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 /*&& index <= CurrentClasses.Count*/)
+                {
+                    PreviousMenu = ShowClassMenu;
+                    // TODO : Get classes from an education.
+                    CurrentClasses = new List<SchoolClass>();
+                    ShowCurrentClasses();
+                    return;
+                }
+            }
+            ShowClassMenu();
 
         }
 
 
-        public void ShowStudentMenu()
+        private void ShowStudentMenu()
         {
+            PreviousMenu = ShowMainMenu;
             string[] alts = { "Tillbaka", "Visa studerande i en viss klass" };
             View.ChoiceHandler = HandleStudentMenuChoice;
             View.ShowListAndWaitForChoice(alts);
@@ -81,15 +114,15 @@ namespace YH_Admin.View
 
         private void HandleStudentMenuChoice(string choice)
         {
-            PreviousMenu = ShowStudentMenu;
             switch (choice)
             {
                 case "1":
+                    PreviousMenu = ShowStudentMenu;
                     CurrentClasses = Model.SchoolClasses;
                     ShowCurrentClasses();
                     break;
                 case "x":
-                    ShowMainMenu();
+                    PreviousMenu();
                     break;
                 default:
                     ShowStudentMenu();
