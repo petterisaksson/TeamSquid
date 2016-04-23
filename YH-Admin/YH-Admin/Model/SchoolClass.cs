@@ -84,10 +84,10 @@ namespace YH_Admin.Model
         public string ShowClassStatus()
         {
             string str = "Class: " + Name + "; Startdate: " + GetStartDate();
-            if (EndDate > DateTime.Today)
-                return str + ", Status: active.";
-            else
+            if (EndDate < DateTime.Today)
                 return str + ", Status: ended on " + GetEndDate();
+            else
+                return str + ", Status: active.";
         }
     }
 }

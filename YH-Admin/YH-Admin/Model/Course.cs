@@ -12,15 +12,20 @@ namespace YH_Admin.Model
 
         public string CourseName { get; set; }
 
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
 
-        public Course(int courseId, string courseName, DateTime startDate, DateTime endDate)
+        public Course(int courseId, string courseName)
         {
-            courseId = CourseId;
-            courseName = CourseName;
-            startDate = StartDate;
-            endDate = EndDate;
+            CourseId = courseId;
+            CourseName = courseName;
+        }
+
+        /// <summary>
+        /// Default string output.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return CourseId + " " + CourseName;
 
         }
 

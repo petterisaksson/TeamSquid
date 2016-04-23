@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace YH_Admin.Model
 {
-    public class School 
+    public class School
     {
+        public List<Education> Educations { get; set; }
+
         /// <summary>
         /// A list of all school classes.
         /// </summary>
@@ -18,6 +20,12 @@ namespace YH_Admin.Model
         /// A list of all students.
         /// </summary>
         public List<Student> Students { get; private set; }
+
+        public List<Course> Courses { get; private set; }
+
+        public List<EducationCourse> EducationCourses { get; private set; }
+
+        public List<ClassCourse> ClassCourseTable { get; private set; }
 
         /// <summary>
         /// Read all the datafiles in a specific folder.
@@ -33,6 +41,117 @@ namespace YH_Admin.Model
             // Read class file
             ReadClassFile(Path.Combine(soluPath, @"DataFiles\classes.txt"));
 
+            // Read course file
+            ReadCourseFile(Path.Combine(soluPath, @"DataFiles\courses.txt"));
+
+            // Read class-course file
+            ReadClassCourseFile(Path.Combine(soluPath, @"DataFiles\class_courses.txt"));
+
+            // Read education file
+            ReadEducationFile(Path.Combine(soluPath, @"DataFiles\education.txt"));
+
+            // Read education-course file
+            ReadEducationCourseFile(Path.Combine(soluPath, @"DataFiles\education_courses.txt"));
+        }
+
+        private void ReadEducationFile(string path)
+        {
+            try
+            {
+                Educations = new List<Education>();
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(' ');
+                    var name = splits[1];
+                    for (int i = 2; i < splits.Length - 1; i++)
+                    {
+                        name += " " + splits[i];
+                    }
+                    var e = new Education(int.Parse(splits[0]), name, int.Parse(splits.Last()));
+                    Educations.Add(e);
+
+                    //Test code: 
+                    //Console.WriteLine(e);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating Educations: " + ex);
+            }
+        }
+
+        private void ReadEducationCourseFile(string path)
+        {
+            try
+            {
+                EducationCourses = new List<EducationCourse>();
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(' ');
+                    var ec = new EducationCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]));
+                    EducationCourses.Add(ec);
+
+                    //Test code: 
+                    //Console.WriteLine(ec);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
+            }
+        }
+
+        private void ReadClassCourseFile(string path)
+        {
+            try
+            {
+                ClassCourseTable = new List<ClassCourse>();
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(' ');
+                    var startDate = DateTime.ParseExact(splits[splits.Length - 2], "yyyyMMdd", null);
+                    var endDate = DateTime.ParseExact(splits[splits.Length - 1], "yyyyMMdd", null);
+                    var cc = new ClassCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), startDate, endDate);
+                    ClassCourseTable.Add(cc);
+
+                    //Test code: 
+                    //Console.WriteLine(cc);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating Courses: " + ex);
+            }
+        }
+
+        private void ReadCourseFile(string path)
+        {
+            try
+            {
+                Courses = new List<Course>();
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(' ');
+                    var name = splits[1];
+                    for (int i = 2; i < splits.Length; i++)
+                    {
+                        name += " " + splits[i];
+                    }
+                    var c = new Course(int.Parse(splits[0]), name);
+                    Courses.Add(c);
+
+                    //Test code: 
+                    //Console.WriteLine(c);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating Courses: " + ex);
+            }
         }
 
         /// <summary>
@@ -64,6 +183,18 @@ namespace YH_Admin.Model
 
         }
 
+        public List<Education> GetEducations(int userId)
+        {
+            var educations = Educations.Where(e => e.UserId == userId).ToList();
+            return educations;
+        }
+
+        public List<Education> GetEducations(User user)
+        {
+            // TODO: Implement User-class
+            return GetEducations(0);
+        }
+
         /// <summary>
         /// Get the classes within an education with educationId.
         /// </summary>
@@ -71,8 +202,13 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public List<SchoolClass> GetClasses(int educationId)
         {
-            var classes = SchoolClasses.Where(s => s.EducationId == educationId).ToList(); 
+            var classes = SchoolClasses.Where(s => s.EducationId == educationId).ToList();
             return classes;
+        }
+
+        public List<SchoolClass> GetClasses(Education education)
+        {
+            return GetClasses(education.EducationId);
         }
 
         /// <summary>

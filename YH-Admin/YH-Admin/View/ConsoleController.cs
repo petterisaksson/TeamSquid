@@ -17,6 +17,8 @@ namespace YH_Admin.View
 
         Stack<DelMenu> PreviousMenus { get; set; }
 
+        List<Education> CurrentEducations { get; set; }
+
         List<SchoolClass> CurrentClasses { get; set; }
 
         List<Student> CurrentStudents { get; set; }
@@ -59,12 +61,11 @@ namespace YH_Admin.View
             {
                 case "1":
                     PreviousMenus.Push(ShowMainMenu);
-
-                    Console.WriteLine("Utbildningar - ej implementerat");
+                    CurrentEducations = Model.GetEducations(0);
+                    ShowCurrentEducation();
                     break;
                 case "2":
                     PreviousMenus.Push(ShowMainMenu);
-
                     ShowClassMenu();
                     break;
                 case "3":
@@ -95,44 +96,19 @@ namespace YH_Admin.View
             }
         }
 
-        private void ShowClassMenu()
+        private void ShowCurrentEducation()
         {
-            string[] alts = { "Tillbaka", "Visa klasser i en viss utbildning" };
-            View.ChoiceHandler = HandleClassMenu;
+            string[] alts = new string[CurrentEducations.Count + 1];
+            alts[0] = "Tillbaka";
+            for (int i = 0; i < CurrentEducations.Count; i++)
+            {
+                alts[i + 1] = CurrentEducations[i].ToString();
+            }
+            View.ChoiceHandler = HandleCurrentEducations;
             View.ShowListAndWaitForChoice(alts);
         }
 
-        private void HandleClassMenu(string choice)
-        {
-
-            switch (choice)
-            {
-                case "1":
-                    PreviousMenus.Push(ShowClassMenu);
-                    // Show All Education
-                    break;
-                case "x":
-                    GoBack();
-                    break;
-                default:
-                    ShowClassMenu();
-                    break;
-            }
-        }
-
-        private void ShowEducations()
-        {
-            //string[] alts = new string[CurrentClasses.Count + 1];
-            //alts[0] = "Tillbaka";
-            //for (int i = 0; i < CurrentClasses.Count; i++)
-            //{
-            //    alts[i + 1] = CurrentClasses[i].ShowClassStatus();
-            //}
-            //View.ChoiceHandler = HandleEducations;
-            //View.ShowListAndWaitForChoice(alts);
-        }
-
-        private void HandleEducations(string choice)
+        private void HandleCurrentEducations(string choice)
         {
             if (choice.Equals("x"))
             {
@@ -142,19 +118,42 @@ namespace YH_Admin.View
             int index;
             if (int.TryParse(choice, out index))
             {
-                if (index > 0 /*&& index <= CurrentClasses.Count*/)
+                if (index > 0 && index <= CurrentEducations.Count)
                 {
-                    PreviousMenus.Push(ShowClassMenu);
-                    // TODO : Get classes from an education.
-                    CurrentClasses = new List<SchoolClass>();
+                    PreviousMenus.Push(ShowCurrentEducation);
+                    CurrentClasses = Model.GetClasses(CurrentEducations[index - 1]);
                     ShowCurrentClasses();
                     return;
                 }
             }
-            ShowClassMenu();
+            ShowCurrentEducation();
 
         }
 
+        private void ShowClassMenu()
+        {
+            string[] alts = { "Tillbaka", "Visa klasser i en viss utbildning" };
+            View.ChoiceHandler = HandleClassMenu;
+            View.ShowListAndWaitForChoice(alts);
+        }
+
+        private void HandleClassMenu(string choice)
+        {
+            switch (choice)
+            {
+                case "1":
+                    PreviousMenus.Push(ShowClassMenu);
+                    CurrentEducations = Model.Educations;
+                    ShowCurrentEducation();
+                    break;
+                case "x":
+                    GoBack();
+                    break;
+                default:
+                    ShowClassMenu();
+                    break;
+            }
+        }
 
         private void ShowStudentMenu()
         {
