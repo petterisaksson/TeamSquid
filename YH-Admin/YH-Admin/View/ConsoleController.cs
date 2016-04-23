@@ -13,8 +13,9 @@ namespace YH_Admin.View
 
         ConsoleOutput View { get; set; }
 
-        public delegate void DelMenu();
-        DelMenu PreviousMenu { get; set; }
+        delegate void DelMenu();
+
+        Stack<DelMenu> PreviousMenus { get; set; }
 
         List<SchoolClass> CurrentClasses { get; set; }
 
@@ -29,6 +30,13 @@ namespace YH_Admin.View
         {
             Model = school;
             View = output;
+            PreviousMenus = new Stack<DelMenu>();
+        }
+
+        private void GoBack()
+        {
+            var p = PreviousMenus.Pop();
+            p();
         }
 
         /// <summary>
@@ -50,21 +58,33 @@ namespace YH_Admin.View
             switch (choice)
             {
                 case "1":
+                    PreviousMenus.Push(ShowMainMenu);
+
                     Console.WriteLine("Utbildningar - ej implementerat");
                     break;
                 case "2":
+                    PreviousMenus.Push(ShowMainMenu);
+
                     ShowClassMenu();
                     break;
                 case "3":
+                    PreviousMenus.Push(ShowMainMenu);
+
                     Console.WriteLine("Kurser - ej implementerat");
                     break;
                 case "4":
+                    PreviousMenus.Push(ShowMainMenu);
+
                     Console.WriteLine("Undervisare - ej implementerat");
                     break;
                 case "5":
+                    PreviousMenus.Push(ShowMainMenu);
+
                     ShowStudentMenu();
                     break;
                 case "6":
+                    PreviousMenus.Push(ShowMainMenu);
+
                     Console.WriteLine("Betyg - ej implementerat");
                     break;
                 case "x":
@@ -77,7 +97,6 @@ namespace YH_Admin.View
 
         private void ShowClassMenu()
         {
-            PreviousMenu = ShowMainMenu;
             string[] alts = { "Tillbaka", "Visa klasser i en viss utbildning" };
             View.ChoiceHandler = HandleClassMenu;
             View.ShowListAndWaitForChoice(alts);
@@ -85,9 +104,39 @@ namespace YH_Admin.View
 
         private void HandleClassMenu(string choice)
         {
+
+            switch (choice)
+            {
+                case "1":
+                    PreviousMenus.Push(ShowClassMenu);
+                    // Show All Education
+                    break;
+                case "x":
+                    GoBack();
+                    break;
+                default:
+                    ShowClassMenu();
+                    break;
+            }
+        }
+
+        private void ShowEducations()
+        {
+            //string[] alts = new string[CurrentClasses.Count + 1];
+            //alts[0] = "Tillbaka";
+            //for (int i = 0; i < CurrentClasses.Count; i++)
+            //{
+            //    alts[i + 1] = CurrentClasses[i].ShowClassStatus();
+            //}
+            //View.ChoiceHandler = HandleEducations;
+            //View.ShowListAndWaitForChoice(alts);
+        }
+
+        private void HandleEducations(string choice)
+        {
             if (choice.Equals("x"))
             {
-                PreviousMenu();
+                GoBack();
                 return;
             }
             int index;
@@ -95,7 +144,7 @@ namespace YH_Admin.View
             {
                 if (index > 0 /*&& index <= CurrentClasses.Count*/)
                 {
-                    PreviousMenu = ShowClassMenu;
+                    PreviousMenus.Push(ShowClassMenu);
                     // TODO : Get classes from an education.
                     CurrentClasses = new List<SchoolClass>();
                     ShowCurrentClasses();
@@ -109,7 +158,6 @@ namespace YH_Admin.View
 
         private void ShowStudentMenu()
         {
-            PreviousMenu = ShowMainMenu;
             string[] alts = { "Tillbaka", "Visa studerande i en viss klass" };
             View.ChoiceHandler = HandleStudentMenuChoice;
             View.ShowListAndWaitForChoice(alts);
@@ -120,12 +168,12 @@ namespace YH_Admin.View
             switch (choice)
             {
                 case "1":
-                    PreviousMenu = ShowStudentMenu;
+                    PreviousMenus.Push(ShowStudentMenu);
                     CurrentClasses = Model.SchoolClasses;
                     ShowCurrentClasses();
                     break;
                 case "x":
-                    PreviousMenu();
+                    GoBack();
                     break;
                 default:
                     ShowStudentMenu();
@@ -149,7 +197,7 @@ namespace YH_Admin.View
         {
             if (choice.Equals("x"))
             {
-                PreviousMenu();
+                GoBack();
                 return;
             }
             int index;
@@ -157,6 +205,7 @@ namespace YH_Admin.View
             {
                 if (index > 0 && index <= CurrentClasses.Count)
                 {
+                    PreviousMenus.Push(ShowCurrentClasses);
                     CurrentStudents = Model.GetStudents(CurrentClasses[index - 1]);
                     ShowCurrentStudents();
                     return;
@@ -182,7 +231,7 @@ namespace YH_Admin.View
         {
             if (choice.Equals("x"))
             {
-                PreviousMenu();
+                GoBack();
                 return;
             }
             int index;
@@ -190,6 +239,7 @@ namespace YH_Admin.View
             {
                 if (index > 0 && index <= CurrentStudents.Count)
                 {
+                    PreviousMenus.Push(ShowClassMenu);
                     // Visar betyg ?
                     return;
                 }
