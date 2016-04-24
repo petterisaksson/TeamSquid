@@ -9,6 +9,8 @@ namespace YH_Admin.Model
 {
     public class School
     {
+        public List<User> Users { get; set; }
+
         public List<Education> Educations { get; set; }
 
         /// <summary>
@@ -35,6 +37,9 @@ namespace YH_Admin.Model
             // Path to the application solution
             string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
+            // Read user file
+            ReadUserFile(Path.Combine(soluPath, @"DataFiles\users.txt"));
+
             // Read student file
             ReadStudentFile(Path.Combine(soluPath, @"DataFiles\students.txt"));
 
@@ -52,6 +57,28 @@ namespace YH_Admin.Model
 
             // Read education-course file
             ReadEducationCourseFile(Path.Combine(soluPath, @"DataFiles\education_courses.txt"));
+        }
+
+        private void ReadUserFile(string path)
+        {
+            try
+            {
+                Users = new List<User>();
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(' ');
+                    var u = new User(int.Parse(splits[0]), splits[1], splits[2], splits[3], splits[4]);
+                    Users.Add(u);
+
+                    //Test code: 
+                    //Console.WriteLine(u);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
+            }
         }
 
         private void ReadEducationFile(string path)
@@ -191,8 +218,25 @@ namespace YH_Admin.Model
 
         public List<Education> GetEducations(User user)
         {
-            // TODO: Implement User-class
-            return GetEducations(0);
+            return GetEducations(user.UserId);
+        }
+
+        public List<Course> GetCourses(int classId)
+        {
+            var ccs = ClassCourseTable.Where(c => c.ClassId == classId);
+            var sorted = ccs.OrderBy(c => c.StartDate);
+            List<Course> output = new List<Course>();
+            foreach (var cc in sorted)
+            {
+                output.Add(Courses.Find(c => c.CourseId == cc.CourseId));
+                // Måste lägga till start, slut och status.
+            }
+            return output;
+        }
+
+        public List<Course> GetCourses(SchoolClass schoolClass)
+        {
+            return GetCourses(schoolClass.ClassId);
         }
 
         /// <summary>

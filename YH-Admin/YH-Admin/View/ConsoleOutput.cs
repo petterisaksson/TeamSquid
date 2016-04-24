@@ -15,13 +15,20 @@ namespace YH_Admin.View
         public void ShowListAndWaitForChoice(string[] strList)
         {
             Console.Clear();
-            for (int i = 1; i < strList.Length; i++)
+            if (strList.Length > 1)
             {
-                Console.WriteLine($"{i}: {strList[i]}");
+                for (int i = 1; i < strList.Length; i++)
+                {
+                    Console.WriteLine($"{i}: {strList[i]}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Hittar tyvärr inget i databasen.");
             }
             Console.WriteLine();
             Console.WriteLine($"x: {strList[0]}");
-            Console.Write("Your choice: ");
+            Console.Write("Ditt val: ");
             var choice = Console.ReadLine();
             ChoiceHandler(choice);
         }

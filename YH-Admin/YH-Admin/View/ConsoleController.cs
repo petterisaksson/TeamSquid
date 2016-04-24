@@ -23,6 +23,8 @@ namespace YH_Admin.View
 
         List<Student> CurrentStudents { get; set; }
 
+        List<Course> CurrentCourses { get; set; }
+
         /// <summary>
         /// Constructor to set up Model and View.
         /// </summary>
@@ -70,8 +72,7 @@ namespace YH_Admin.View
                     break;
                 case "3":
                     PreviousMenus.Push(ShowMainMenu);
-
-                    Console.WriteLine("Kurser - ej implementerat");
+                    ShowCourseMenu();
                     break;
                 case "4":
                     PreviousMenus.Push(ShowMainMenu);
@@ -80,7 +81,6 @@ namespace YH_Admin.View
                     break;
                 case "5":
                     PreviousMenus.Push(ShowMainMenu);
-
                     ShowStudentMenu();
                     break;
                 case "6":
@@ -95,6 +95,8 @@ namespace YH_Admin.View
                     break;
             }
         }
+
+
 
         private void ShowCurrentEducation()
         {
@@ -155,6 +157,31 @@ namespace YH_Admin.View
             }
         }
 
+        private void ShowCourseMenu()
+        {
+            string[] alts = { "Tillbaka", "Visa kurser som läses en viss klass" };
+            View.ChoiceHandler = HandleCourseMenu;
+            View.ShowListAndWaitForChoice(alts);
+        }
+
+        private void HandleCourseMenu(string choice)
+        {
+            switch (choice)
+            {
+                case "1":
+                    PreviousMenus.Push(ShowCourseMenu);
+                    CurrentClasses = Model.SchoolClasses;
+                    ShowCurrentClasses();
+                    break;
+                case "x":
+                    GoBack();
+                    break;
+                default:
+                    ShowCourseMenu();
+                    break;
+            }
+        }
+
         private void ShowStudentMenu()
         {
             string[] alts = { "Tillbaka", "Visa studerande i en viss klass" };
@@ -204,15 +231,55 @@ namespace YH_Admin.View
             {
                 if (index > 0 && index <= CurrentClasses.Count)
                 {
+                    var peek = PreviousMenus.Peek();
                     PreviousMenus.Push(ShowCurrentClasses);
-                    CurrentStudents = Model.GetStudents(CurrentClasses[index - 1]);
-                    ShowCurrentStudents();
+                    if (peek.Method.Name == "ShowCourseMenu")
+                    {
+                        CurrentCourses = Model.GetCourses(CurrentClasses[index - 1]);
+                        ShowCurrentCourses();
+                    }
+                    else
+                    {
+                        CurrentStudents = Model.GetStudents(CurrentClasses[index - 1]);
+                        ShowCurrentStudents();
+                    }
                     return;
                 }
             }
             ShowCurrentClasses();
         }
 
+        private void ShowCurrentCourses()
+        {
+            string[] strs = new string[CurrentCourses.Count + 1];
+            strs[0] = "Tillbaka";
+            for (int i = 0; i < CurrentCourses.Count; i++)
+            {
+                strs[i + 1] = CurrentCourses[i].ToString();
+            }
+            View.ChoiceHandler = HandleShowCurrentCourses;
+            View.ShowListAndWaitForChoice(strs);
+        }
+
+        private void HandleShowCurrentCourses(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentCourses.Count)
+                {
+                    PreviousMenus.Push(ShowCurrentCourses);
+
+                    return;
+                }
+            }
+            ShowCurrentCourses();
+        }
 
         private void ShowCurrentStudents()
         {
@@ -240,6 +307,10 @@ namespace YH_Admin.View
                 {
                     PreviousMenus.Push(ShowClassMenu);
                     // Visar betyg ?
+                    {
+                        PreviousMenus.Clear();
+                        ShowMainMenu();
+                    }
                     return;
                 }
             }
