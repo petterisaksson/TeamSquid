@@ -17,6 +17,8 @@ namespace YH_Admin.View
 
         Stack<DelMenu> PreviousMenus { get; set; }
 
+        User CurrentUser { get; set; }
+
         List<Education> CurrentEducations { get; set; }
 
         List<SchoolClass> CurrentClasses { get; set; }
@@ -37,6 +39,30 @@ namespace YH_Admin.View
             PreviousMenus = new Stack<DelMenu>();
         }
 
+        public void ShowWelcomeScreen()
+        {
+            View.Title = "Inloggning till Yh-Admin";
+            View.ChoiceHandler = HandleLogIn;
+            View.ShowLogIn();
+        }
+
+        public void HandleLogIn(string choice)
+        {
+            var splits = choice.Split('\n');
+            if (splits.Length == 2)
+            {
+                var user = Model.Users.Find(u => u.Username.Equals(splits[0]) && u.PassWord.Equals(splits[1]));
+                if (user != null)
+                {
+                    CurrentUser = user;
+                    ShowMainMenu();
+                    return;
+                }
+            }
+            ShowWelcomeScreen();
+
+        }
+
         private void GoBack()
         {
             var p = PreviousMenus.Pop();
@@ -48,6 +74,7 @@ namespace YH_Admin.View
         /// </summary>
         public void ShowMainMenu()
         {
+            View.Title = $"Huvudmeny - {CurrentUser.Name}";
             string[] alts = { "Avsluta", "Utbildning", "Klasser", "Kurser", "Undervisare", "Studerande", "Betyg" };
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowListAndWaitForChoice(alts);
@@ -63,7 +90,7 @@ namespace YH_Admin.View
             {
                 case "1":
                     PreviousMenus.Push(ShowMainMenu);
-                    CurrentEducations = Model.GetEducations(0);
+                    CurrentEducations = Model.GetEducations(CurrentUser);
                     ShowCurrentEducation();
                     break;
                 case "2":
@@ -96,10 +123,9 @@ namespace YH_Admin.View
             }
         }
 
-
-
         private void ShowCurrentEducation()
         {
+            View.Title = $"Utbildningar - {CurrentUser.Name}";
             string[] alts = new string[CurrentEducations.Count + 1];
             alts[0] = "Tillbaka";
             for (int i = 0; i < CurrentEducations.Count; i++)
@@ -134,6 +160,8 @@ namespace YH_Admin.View
 
         private void ShowClassMenu()
         {
+            View.Title = $"Klasser - ";
+
             string[] alts = { "Tillbaka", "Visa klasser i en viss utbildning" };
             View.ChoiceHandler = HandleClassMenu;
             View.ShowListAndWaitForChoice(alts);
@@ -159,6 +187,8 @@ namespace YH_Admin.View
 
         private void ShowCourseMenu()
         {
+            View.Title = $"Kurser - ";
+
             string[] alts = { "Tillbaka", "Visa kurser som läses av en viss klass" };
             View.ChoiceHandler = HandleCourseMenu;
             View.ShowListAndWaitForChoice(alts);
@@ -184,6 +214,8 @@ namespace YH_Admin.View
 
         private void ShowStudentMenu()
         {
+            View.Title = $"Studenter - ";
+
             string[] alts = { "Tillbaka", "Visa studerande i en viss klass" };
             View.ChoiceHandler = HandleStudentMenuChoice;
             View.ShowListAndWaitForChoice(alts);
@@ -209,6 +241,8 @@ namespace YH_Admin.View
 
         private void ShowCurrentClasses()
         {
+            View.Title = $"Klasser - ";
+
             string[] alts = new string[CurrentClasses.Count + 1];
             alts[0] = "Tillbaka";
             for (int i = 0; i < CurrentClasses.Count; i++)
@@ -252,6 +286,8 @@ namespace YH_Admin.View
 
         private void ShowCurrentCourses()
         {
+            View.Title = $"Kurser - ";
+
             var alts = new List<string>(CurrentCourses);
             alts.Insert(0, "Tillbaka");
             View.ChoiceHandler = HandleShowCurrentCourses;
@@ -271,6 +307,8 @@ namespace YH_Admin.View
 
         private void ShowCurrentStudents()
         {
+            View.Title = $"Studenter - ";
+
             string[] strs = new string[CurrentStudents.Count + 1];
             strs[0] = "Tillbaka";
             for (int i = 0; i < CurrentStudents.Count; i++)

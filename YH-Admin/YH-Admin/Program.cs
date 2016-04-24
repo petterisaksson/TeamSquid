@@ -11,7 +11,7 @@ class Program
         school.LoadData();
 
         ConsoleController controller = new ConsoleController(school, output);
-        controller.ShowMainMenu();
+        controller.ShowWelcomeScreen();
  
     }
 
