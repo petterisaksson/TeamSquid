@@ -221,20 +221,20 @@ namespace YH_Admin.Model
             return GetEducations(user.UserId);
         }
 
-        public List<Course> GetCourses(int classId)
+        public List<string> GetCourses(int classId)
         {
             var ccs = ClassCourseTable.Where(c => c.ClassId == classId);
             var sorted = ccs.OrderBy(c => c.StartDate);
-            List<Course> output = new List<Course>();
+            var output = new List<string>();
             foreach (var cc in sorted)
             {
-                output.Add(Courses.Find(c => c.CourseId == cc.CourseId));
-                // Måste lägga till start, slut och status.
+                var course = Courses.Find(c => c.CourseId == cc.CourseId);
+                output.Add(course.ToString() + " | " + cc.ShowCourseStatus());
             }
             return output;
         }
 
-        public List<Course> GetCourses(SchoolClass schoolClass)
+        public List<string> GetCourses(SchoolClass schoolClass)
         {
             return GetCourses(schoolClass.ClassId);
         }

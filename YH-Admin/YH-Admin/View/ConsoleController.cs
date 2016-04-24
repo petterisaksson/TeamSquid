@@ -23,7 +23,7 @@ namespace YH_Admin.View
 
         List<Student> CurrentStudents { get; set; }
 
-        List<Course> CurrentCourses { get; set; }
+        List<string> CurrentCourses { get; set; }
 
         /// <summary>
         /// Constructor to set up Model and View.
@@ -159,7 +159,7 @@ namespace YH_Admin.View
 
         private void ShowCourseMenu()
         {
-            string[] alts = { "Tillbaka", "Visa kurser som läses en viss klass" };
+            string[] alts = { "Tillbaka", "Visa kurser som läses av en viss klass" };
             View.ChoiceHandler = HandleCourseMenu;
             View.ShowListAndWaitForChoice(alts);
         }
@@ -235,6 +235,7 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowCurrentClasses);
                     if (peek.Method.Name == "ShowCourseMenu")
                     {
+
                         CurrentCourses = Model.GetCourses(CurrentClasses[index - 1]);
                         ShowCurrentCourses();
                     }
@@ -251,14 +252,10 @@ namespace YH_Admin.View
 
         private void ShowCurrentCourses()
         {
-            string[] strs = new string[CurrentCourses.Count + 1];
-            strs[0] = "Tillbaka";
-            for (int i = 0; i < CurrentCourses.Count; i++)
-            {
-                strs[i + 1] = CurrentCourses[i].ToString();
-            }
+            var alts = new List<string>(CurrentCourses);
+            alts.Insert(0, "Tillbaka");
             View.ChoiceHandler = HandleShowCurrentCourses;
-            View.ShowListAndWaitForChoice(strs);
+            View.ShowListAndWaitForChoice(alts.ToArray());
         }
 
         private void HandleShowCurrentCourses(string choice)
@@ -268,16 +265,7 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
-            int index;
-            if (int.TryParse(choice, out index))
-            {
-                if (index > 0 && index <= CurrentCourses.Count)
-                {
-                    PreviousMenus.Push(ShowCurrentCourses);
 
-                    return;
-                }
-            }
             ShowCurrentCourses();
         }
 
