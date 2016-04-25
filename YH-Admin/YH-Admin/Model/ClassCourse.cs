@@ -33,7 +33,7 @@ namespace YH_Admin.Model
         /// Get the start date of this course as a string.
         /// </summary>
         /// <returns></returns>
-        string GetStartDate()
+        public string GetStartDate()
         {
             return StartDate.ToString("yyyyMMdd");
         }
