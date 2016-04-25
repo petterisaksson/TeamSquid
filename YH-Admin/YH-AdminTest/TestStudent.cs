@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace YH_AdminTest
 {
     [TestClass]
-    public class UnitTest1
+    public class TestStudent
     {
         [TestMethod]
         public void TestMethod1()
