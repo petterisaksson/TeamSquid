@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using YH_Admin.Model;
 
 namespace YH_AdminTest
 {
@@ -9,6 +10,11 @@ namespace YH_AdminTest
         [TestMethod]
         public void TestMethod1()
         {
+            Student s = new Student(1, "Al", "Baak", 2);
+            string expected = $"Id: 1; Name: Al Baak; ClassId: 2";
+
+            var actual = s.ToString();
+            Assert.AreEqual(expected, actual);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return StudentId + " " + FirstName + " " + LastName + " classId: " + ClassId;
+            return $"Id: {StudentId}; Name: {Name}; ClassId: {ClassId}";
         }
 
     }
