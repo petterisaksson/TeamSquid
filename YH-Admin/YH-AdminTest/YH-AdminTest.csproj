@@ -55,6 +55,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestStudent.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YH-Admin\YH-Admin.csproj">
+      <Project>{923ceba5-8563-415e-ab9c-29d0f546bd7a}</Project>
+      <Name>YH-Admin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
