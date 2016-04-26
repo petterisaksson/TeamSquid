@@ -34,11 +34,8 @@ namespace YH_AdminTest
         }
         public void TestToString()
         {
-
-
-
             ClassCourse cc = new ClassCourse(1, 2, 3, new DateTime(2016, 01, 01), new DateTime(2016, 02, 02));
-            string expected = $"0 2 3; 20160101->20160202";
+            string expected = $"1 2 3; 20160101->20160202";
 
             var actual = cc.ToString();
             Assert.AreEqual(expected, actual);

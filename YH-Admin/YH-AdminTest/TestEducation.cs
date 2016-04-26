@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using YH_Admin.Model;
 
 namespace YH_AdminTest
 {
