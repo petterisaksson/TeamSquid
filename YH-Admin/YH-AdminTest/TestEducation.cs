@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using YH_Admin.Model;
 
 namespace YH_AdminTest
 {
@@ -10,7 +11,7 @@ namespace YH_AdminTest
         public void TestMethod1()
         {
             //Arrange
-            Education edu = new Education(1, "EducationId" + 2, "Name", 3);
+            Education edu = new Education(1, "EducationId",  3);
             string expected = $"EducationId: 1; Name: Systemutveckling Agila Applikationsprogrammering; UserId: 2";
 
             var actual = edu.ToString();
