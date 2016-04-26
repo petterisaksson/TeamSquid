@@ -19,9 +19,20 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
-        public void TestToString()
-        public void GetStartDate()
+       
+        public void TestGetStartDate()
         {
+            //Arange
+            ClassCourse gsd = new ClassCourse(1, 2, 3, new DateTime(2016,04,26), new DateTime(2016,02,02));
+            string expected = "20160426";
+
+            //Act
+            var actual = gsd.GetStartDate();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+
+
         }
     }
     
