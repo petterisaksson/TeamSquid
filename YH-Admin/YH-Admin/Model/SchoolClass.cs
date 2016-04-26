@@ -11,7 +11,7 @@ namespace YH_Admin.Model
         /// <summary>
         /// Identifier to this school class.
         /// </summary>
-        public int ClassId { get; set; }
+        public int SchoolClassId { get; set; }
 
         /// <summary>
         /// Name to this school class.
@@ -43,20 +43,11 @@ namespace YH_Admin.Model
         /// <param name="endDate"></param>
         public SchoolClass(int classId, string name, int educationId, DateTime startDate, DateTime endDate)
         {
-            ClassId = classId;
+            SchoolClassId = classId;
             Name = name;
             EducationId = educationId;
             StartDate = startDate;
             EndDate = endDate;
-        }
-
-        /// <summary>
-        /// Default string output.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return ClassId + ": " + Name + ", eduId: " + EducationId + "; " + GetStartDate() + "->" + GetEndDate();
         }
 
         /// <summary>
@@ -75,6 +66,33 @@ namespace YH_Admin.Model
         string GetEndDate()
         {
             return EndDate.ToString("yyyyMMdd");
+        }
+
+        /// <summary>
+        /// Default string output.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return SchoolClassId + ": " + Name + ", eduId: " + EducationId + "; " + GetStartDate() + "->" + GetEndDate();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            SchoolClass sc = obj as SchoolClass;
+            if ((System.Object)sc == null)
+                return false;
+
+            // Return true if the fields match:
+            return (SchoolClassId == sc.SchoolClassId) && (StartDate == sc.StartDate) && (EndDate == sc.EndDate);
+        }
+
+        public override int GetHashCode()
+        {
+            return SchoolClassId ^ StartDate.GetHashCode() ^ EndDate.GetHashCode();
         }
 
         /// <summary>

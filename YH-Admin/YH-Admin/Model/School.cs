@@ -234,7 +234,7 @@ namespace YH_Admin.Model
 
         public List<string> GetCourses(SchoolClass schoolClass)
         {
-            return GetCourses(schoolClass.ClassId);
+            return GetCourses(schoolClass.SchoolClassId);
         }
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public List<Student> GetStudents(SchoolClass schoolClass)
         {
-            return GetStudents(schoolClass.ClassId);
+            return GetStudents(schoolClass.SchoolClassId);
         }
 
     }

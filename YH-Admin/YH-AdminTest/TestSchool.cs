@@ -14,7 +14,9 @@ namespace YH_AdminTest
         {
             //Arrangeare
             School sc = new School();
-            sc.LoadData();
+            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            sc.LoadData(Path.Combine(soluPath, "YH-Admin"));
+
             List<SchoolClass> schoolClassListExpected = new List<SchoolClass>();
             SchoolClass scc = new SchoolClass(0, "SU13", 0, new DateTime(2013, 09, 01), new DateTime(2015, 05, 30));
             schoolClassListExpected.Add(new SchoolClass(0, "SU13", 0, new DateTime(2013, 09, 01), new DateTime(2015, 05, 30)));
