@@ -45,5 +45,12 @@ namespace YH_AdminTest
 
             CollectionAssert.AreEqual(expectedList, actualList);
         }
+
+
+        [TestMethod]
+        public void TestGetEducation()
+        {
+            
+        }
     }
 }
