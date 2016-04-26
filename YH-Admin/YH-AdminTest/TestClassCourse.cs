@@ -12,10 +12,10 @@ namespace YH_AdminTest
         {
             //Arange
             ClassCourse gsd = new ClassCourse(1, 2, 3, new DateTime(2016,04,26), new DateTime(2016,02,02));
-            string expected = $"classCourseId:1; classId:2; courseId:3; 20160426; 20160202;";
+            string expected = "20160426";
 
             //Act
-            var actual = $"classCourseId:1; classId:2; courseId:3; 20160426; 20160202;";
+            var actual = gsd.GetStartDate();
 
             //Assert
             Assert.AreEqual(expected, actual);
