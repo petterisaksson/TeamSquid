@@ -23,7 +23,7 @@ namespace YH_AdminTest
        
         public void TestGetStartDate()
         {
-            //Arange
+            //Arrange
             ClassCourse gsd = new ClassCourse(1, 2, 3, new DateTime(2016, 04, 26), new DateTime(2016, 02, 02));
             string expected = "20160426";
 
