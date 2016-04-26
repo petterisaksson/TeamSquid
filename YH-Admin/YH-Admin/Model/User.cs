@@ -29,6 +29,24 @@ namespace YH_Admin.Model
             Lastname = lastname;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            User sc = obj as User;
+            if ((System.Object)sc == null)
+                return false;
+
+            // Return true if the fields match:
+            return (UserId == sc.UserId) && (Firstname == sc.Firstname) && (Lastname == sc.Lastname);
+        }
+
+        public override int GetHashCode()
+        {
+            return UserId ^ Firstname.GetHashCode() ^ Lastname.GetHashCode();
+        }
+
         public override string ToString()
         {
             return UserId + " " + Name;

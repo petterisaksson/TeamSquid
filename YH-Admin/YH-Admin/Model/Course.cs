@@ -19,6 +19,24 @@ namespace YH_Admin.Model
             CourseName = courseName;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Course c = obj as Course;
+            if ((System.Object)c == null)
+                return false;
+
+            // Return true if the fields match:
+            return (CourseId == c.CourseId) && (CourseName == c.CourseName);
+        }
+
+        public override int GetHashCode()
+        {
+            return CourseId ^ CourseName.GetHashCode();
+        }
+
         /// <summary>
         /// Default string output.
         /// </summary>

@@ -45,6 +45,24 @@ namespace YH_Admin.Model
             ClassId = classId;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Student sc = obj as Student;
+            if ((System.Object)sc == null)
+                return false;
+
+            // Return true if the fields match:
+            return (StudentId == sc.StudentId) && (Name == sc.Name) && (ClassId == sc.ClassId);
+        }
+
+        public override int GetHashCode()
+        {
+            return StudentId ^ Name.GetHashCode() ^ ClassId;
+        }
+
         /// <summary>
         /// Default string output.
         /// </summary>

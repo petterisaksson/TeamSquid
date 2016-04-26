@@ -47,6 +47,24 @@ namespace YH_Admin.Model
             return EndDate.ToString("yyyyMMdd");
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            ClassCourse cc = obj as ClassCourse;
+            if ((System.Object)cc == null)
+                return false;
+
+            // Return true if the fields match:
+            return (ClassCourseId == cc.ClassCourseId) && (ClassId == cc.ClassId) && (CourseId == cc.CourseId);
+        }
+
+        public override int GetHashCode()
+        {
+            return ClassCourseId ^ ClassId ^ CourseId;
+        }
+
         /// <summary>
         /// Default string output.
         /// </summary>
