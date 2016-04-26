@@ -32,11 +32,8 @@ namespace YH_Admin.Model
         /// <summary>
         /// Read all the datafiles in a specific folder.
         /// </summary>
-        public void LoadData()
+        public void LoadData(string soluPath)
         {
-            // Path to the application solution
-            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
             // Read user file
             ReadUserFile(Path.Combine(soluPath, @"DataFiles\users.txt"));
 
@@ -100,6 +97,7 @@ namespace YH_Admin.Model
 
                     //Test code: 
                     //Console.WriteLine(e);
+                    //Console.ReadLine();
                 }
             }
             catch (Exception ex)
