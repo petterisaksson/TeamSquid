@@ -11,8 +11,10 @@ namespace YH_AdminTest
         public void TestMethod1()
         {
             SchoolClass n = new SchoolClass(1, "name", 2, new DateTime(2013,09,01), new DateTime(2015,05,30));
-            string expected = $"classId: 0 SU13 0 20130901 20150530"
+            string expected = $"classId: 0; Name: SU13; DateTime: 20130901 20150530";
 
+            var actual = n.ToString();
+            Assert.AreEqual(expected, actual);
         }
     }
 }
