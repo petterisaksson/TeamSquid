@@ -12,6 +12,7 @@ namespace YH_AdminTest
         {
             //Arrange
             Education edu = new Education(1, "EducationId",  3);
+            Education edu = new Education(1, "EducationId", 3); //Education vill ha 3 in variabler, första en int, andra en string och tredje en int.
             string expected = $"EducationId: 1; Name: Systemutveckling Agila Applikationsprogrammering; UserId: 2";
 
             var actual = edu.ToString();
