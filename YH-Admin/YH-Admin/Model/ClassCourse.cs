@@ -22,7 +22,7 @@ namespace YH_Admin.Model
 
         public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate)
         {
-            ClassCourseId = ClassCourseId;
+            ClassCourseId = classCourseId;
             ClassId = classId;
             CourseId = courseId;
             StartDate = startDate;
