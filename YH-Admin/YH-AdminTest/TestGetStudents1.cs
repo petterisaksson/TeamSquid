@@ -5,7 +5,7 @@ using YH_Admin.Model;
 namespace YH_AdminTest
 {
     [TestClass]
-    public class GetStudents1
+    public class TestGetStudents1
     {
         [TestMethod]
         public void TestMethod1()
