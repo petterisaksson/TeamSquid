@@ -21,6 +21,11 @@ namespace YH_Admin.Model
             UserId = uId;
         }
 
+        public Education()
+        {
+
+        }
+
         public override string ToString()
         {
             return EducationId + " " + Name + " " + UserId;

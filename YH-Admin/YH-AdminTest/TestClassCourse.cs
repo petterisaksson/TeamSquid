@@ -20,12 +20,28 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
+       
+        public void TestGetStartDate()
+        {
+            //Arange
+            ClassCourse gsd = new ClassCourse(1, 2, 3, new DateTime(2016, 04, 26), new DateTime(2016, 02, 02));
+            string expected = "20160426";
+
+            //Act
+            var actual = gsd.GetStartDate();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         public void TestToString()
         {
-            ClassCourse cc = new ClassCourse(1, 2, 3, new DateTime(2016, 01, 01), new DateTime(2016,02,02));
-            string expected = $"ClassCourseId: 1; CourseId: 1; ClassId: 2; 20160101; 20160202";
 
-            var actual = $"ClassCourseId: 1; CourseId: 1; ClassId: 2; 20160101; 20160202";
+
+
+            ClassCourse cc = new ClassCourse(1, 2, 3, new DateTime(2016, 01, 01), new DateTime(2016, 02, 02));
+            string expected = $"0 2 3; 20160101->20160202";
+
+            var actual = cc.ToString();
             Assert.AreEqual(expected, actual);
         }
 
@@ -45,4 +61,7 @@ namespace YH_AdminTest
 
 
     }
+    
+
+
 }

@@ -9,6 +9,12 @@ namespace YH_AdminTest
         [TestMethod]
         public void TestMethod1()
         {
+            //Arrange
+            Education edu = new Education(1, "EducationId" + 2, "Name", 3);
+            string expected = $"EducationId: 1; Name: Systemutveckling Agila Applikationsprogrammering; UserId: 2";
+
+            var actual = edu.ToString();
+            Assert.AreEqual(expected, actual);
         }
     }
 }
