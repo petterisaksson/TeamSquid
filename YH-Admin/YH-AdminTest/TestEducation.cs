@@ -8,7 +8,7 @@ namespace YH_AdminTest
     public class TestEducation
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestToString()
         {
             //Arrange
             Education edu = new Education(1, "Systemutveckling Agila Applikationsprogrammering", 2);
