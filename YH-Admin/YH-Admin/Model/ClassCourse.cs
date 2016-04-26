@@ -42,7 +42,7 @@ namespace YH_Admin.Model
         /// Get the end date of this course as a string.
         /// </summary>
         /// <returns></returns>
-        string GetEndDate()
+        public string GetEndDate()
         {
             return EndDate.ToString("yyyyMMdd");
         }

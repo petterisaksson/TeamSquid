@@ -8,7 +8,7 @@ namespace YH_AdminTest
     public class TestStudent
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestToString()
         {
             Student s = new Student(1, "Al", "Baak", 2);
             string expected = $"Id: 1; Name: Al Baak; ClassId: 2";
