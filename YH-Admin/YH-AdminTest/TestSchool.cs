@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YH_Admin.Model;
 using System.IO;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace YH_AdminTest
 {
@@ -51,6 +52,25 @@ namespace YH_AdminTest
         public void TestGetEducation()
         {
             
+        }
+
+        [TestMethod]
+        public void TestGetStudents()
+        {
+            //Arrenge
+            var expectedList = new List<Student>() {new Student(0,"Allan", "Allansson", 0)};
+
+            School school = new School();
+            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            school.LoadData(Path.Combine(soluPath, "YH-Admin"));
+            var actualList = school.GetStudents(0);
+
+            //Act
+            Console.WriteLine(expectedList[0]);
+            Console.WriteLine(actualList[0]);
+
+            //Assert
+            CollectionAssert.AreEqual(expectedList,actualList);
         }
     }
 }
