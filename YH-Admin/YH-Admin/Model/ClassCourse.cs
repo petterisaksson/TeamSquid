@@ -18,7 +18,13 @@ namespace YH_Admin.Model
 
         public DateTime EndDate { get; set; }
 
+        public string StartDateString { get { return StartDate.ToString("yyyyMMdd"); } }
+
+        public string EndDateString { get { return EndDate.ToString("yyyyMMdd"); } }
+
         public bool IsFinished { get { return EndDate < DateTime.Today; } }
+
+        public string Status { get { return IsFinished ? "Avslutat" : "Aktiv"; } }
 
         public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate)
         {
@@ -77,7 +83,7 @@ namespace YH_Admin.Model
 
         public string ShowCourseStatus()
         {
-            return GetStartDate() + "->" + GetEndDate() + " Status: " + (IsFinished ? "Avslutat" : "Pågående" );
+            return GetStartDate() + "->" + GetEndDate() + " Status: " + (IsFinished ? "Avslutat" : "Pågående");
         }
 
     }

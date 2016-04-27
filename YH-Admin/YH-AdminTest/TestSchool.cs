@@ -32,6 +32,20 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
+        public void TestGetClasses2()
+        {
+            School sc = new School();
+            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            sc.LoadData(Path.Combine(soluPath, "YH-Admin"));
+
+            List<ClassCourse> expectedList = new List<ClassCourse>() { new ClassCourse(9, 1, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)) };
+
+            List<ClassCourse> actualList = sc.GetClassCourse(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
+
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
+
+        [TestMethod]
         public void TestGetEducations()
         {
             var expectedList = new List<Education>() { new Education(1, "Webutveckling Agila Webprogrammering", 1) };

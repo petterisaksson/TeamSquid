@@ -26,12 +26,18 @@ namespace YH_Admin.Model
         /// <summary>
         /// The starting date of this school class.
         /// </summary>
-        public DateTime StartDate { get; set; }
+        private DateTime StartDate { get; set; }
 
         /// <summary>
         /// The ending date of this school class.
         /// </summary>
-        public DateTime EndDate { get; set; }
+        private DateTime EndDate { get; set; }
+
+        public string StartDateString { get { return StartDate.ToString("yyyyMMdd"); } }
+
+        public string EndDateString { get { return EndDate.ToString("yyyyMMdd"); } }
+
+        public string Status { get { return (EndDate < DateTime.Today) ? $"Avslutat {EndDateString}" : "Aktiv"; } }
 
         /// <summary>
         /// Constructor.
@@ -50,23 +56,23 @@ namespace YH_Admin.Model
             EndDate = endDate;
         }
 
-        /// <summary>
-        /// Get the start date of this school class as a string.
-        /// </summary>
-        /// <returns></returns>
-        string GetStartDate()
-        {
-            return StartDate.ToString("yyyyMMdd");
-        }
+        ///// <summary>
+        ///// Get the start date of this school class as a string.
+        ///// </summary>
+        ///// <returns></returns>
+        //string GetStartDate()
+        //{
+        //    return StartDate.ToString("yyyyMMdd");
+        //}
 
-        /// <summary>
-        /// Get the end date of this school class as a string.
-        /// </summary>
-        /// <returns></returns>
-        string GetEndDate()
-        {
-            return EndDate.ToString("yyyyMMdd");
-        }
+        ///// <summary>
+        ///// Get the end date of this school class as a string.
+        ///// </summary>
+        ///// <returns></returns>
+        //string GetEndDate()
+        //{
+        //    return EndDate.ToString("yyyyMMdd");
+        //}
 
         /// <summary>
         /// Default string output.
@@ -74,7 +80,7 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return SchoolClassId + ": " + Name + ", eduId: " + EducationId + "; " + GetStartDate() + "->" + GetEndDate();
+            return SchoolClassId + ": " + Name + ", eduId: " + EducationId + "; " + StartDateString + "->" + EndDateString;
         }
 
         public override bool Equals(object obj)
@@ -99,13 +105,13 @@ namespace YH_Admin.Model
         /// Get of name, start date and whether the class has ended or not.
         /// </summary>
         /// <returns></returns>
-        public string ShowClassStatus()
-        {
-            string str = "Class: " + Name + "; Startdate: " + GetStartDate();
-            if (EndDate < DateTime.Today)
-                return str + ", Status: ended on " + GetEndDate();
-            else
-                return str + ", Status: active.";
-        }
+        //public string ShowClassStatus()
+        //{
+        //    string str = "Class: " + Name + "; Startdate: " + GetStartDate();
+        //    if (EndDate < DateTime.Today)
+        //        return str + ", Status: ended on " + GetEndDate();
+        //    else
+        //        return str + ", Status: active.";
+        //}
     }
 }

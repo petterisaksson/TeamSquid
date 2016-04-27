@@ -237,6 +237,11 @@ namespace YH_Admin.Model
             return GetCourses(schoolClass.SchoolClassId);
         }
 
+        public List<ClassCourse> GetClassCourse(SchoolClass schoolClass)
+        {
+            return ClassCourseTable.Where(c => c.ClassId == schoolClass.SchoolClassId).OrderBy(c => c.StartDate).ToList();
+        }
+
         /// <summary>
         /// Get the classes within an education with educationId.
         /// </summary>
