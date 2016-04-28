@@ -161,8 +161,21 @@ namespace YH_AdminTest
 
         }
 
-        
+        [TestMethod]
+        public void TestGetCourses2()
+        {
+            
+            School gc = GetTestSchool();
+            List<string> expectedList = new List<string>();
+            expectedList.Add("CourseId: 0, Name: Första Course | 20140901->20140930 Status: Avslutat");
+            
+            var actualList = gc.GetCourses(0);
+            
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
 
-       
+
+
+
     }
 }
