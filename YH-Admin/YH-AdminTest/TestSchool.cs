@@ -54,11 +54,24 @@ namespace YH_AdminTest
         [TestMethod]
         public void TestGetClassCourses()
         {
-            School sc = new School();
-            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            sc.LoadData(Path.Combine(soluPath, "YH-Admin"));
+            School sc = GetTestSchool();
 
-            List<ClassCourse> expectedList = new List<ClassCourse>() { new ClassCourse(9, 1, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)) };
+            List<ClassCourse> expectedList = new List<ClassCourse>();
+            expectedList.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
+            expectedList.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
+
+            List<ClassCourse> actualList = sc.GetClassCourses(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
+
+            CollectionAssert.AreNotEqual(expectedList, actualList);
+        }
+
+        [TestMethod]
+        public void TestGetClassCourses1()
+        {
+            School sc = GetTestSchool();
+
+            List<ClassCourse> expectedList = new List<ClassCourse>();
+            expectedList.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
 
             List<ClassCourse> actualList = sc.GetClassCourses(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
 
