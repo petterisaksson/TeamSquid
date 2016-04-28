@@ -249,7 +249,7 @@ namespace YH_Admin.Model
             return GetCourses(schoolClass.SchoolClassId);
         }
 
-        public List<ClassCourse> GetClassCourse(SchoolClass schoolClass)
+        public List<ClassCourse> GetClassCourses(SchoolClass schoolClass)
         {
             return ClassCourseTable.Where(c => c.ClassId == schoolClass.SchoolClassId).OrderBy(c => c.StartDate).ToList();
         }
