@@ -238,7 +238,7 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowCourseMenu);
                     var chosen = CurrentClasses[index - 1];
                     View.Titles.Push($"Kurser som läses av {chosen.Name}");
-                    CurrentClassCourses = Model.GetClassCourse(chosen);
+                    CurrentClassCourses = Model.GetClassCourses(chosen);
                     ShowCurrentClassCourses();
                     return;
                 }

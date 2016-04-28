@@ -32,7 +32,7 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
-        public void TestGetClasses2()
+        public void TestGetClassCourses()
         {
             School sc = new School();
             string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -40,7 +40,7 @@ namespace YH_AdminTest
 
             List<ClassCourse> expectedList = new List<ClassCourse>() { new ClassCourse(9, 1, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)) };
 
-            List<ClassCourse> actualList = sc.GetClassCourse(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
+            List<ClassCourse> actualList = sc.GetClassCourses(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
 
             CollectionAssert.AreEqual(expectedList, actualList);
         }
