@@ -10,13 +10,13 @@ namespace YH_Admin.Model
     {
         public int CourseId { get; set; }
 
-        public string CourseName { get; set; }
+        public string Name { get; set; }
 
 
         public Course(int courseId, string courseName)
         {
             CourseId = courseId;
-            CourseName = courseName;
+            Name = courseName;
         }
 
         public override bool Equals(object obj)
@@ -29,12 +29,12 @@ namespace YH_Admin.Model
                 return false;
 
             // Return true if the fields match:
-            return (CourseId == c.CourseId) && (CourseName == c.CourseName);
+            return (CourseId == c.CourseId) && (Name == c.Name);
         }
 
         public override int GetHashCode()
         {
-            return CourseId ^ CourseName.GetHashCode();
+            return CourseId ^ Name.GetHashCode();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return $"CourseId: {CourseId}, Name: {CourseName}";
+            return $"CourseId: {CourseId}, Name: {Name}";
         }
 
 

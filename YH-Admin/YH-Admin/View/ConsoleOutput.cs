@@ -12,8 +12,82 @@ namespace YH_Admin.View
         public delegate void DelHandle(string choice);
         public DelHandle ChoiceHandler { get; set; }
 
-        public string Title { get; set; }
-        
+        public Stack<string> Titles { get; set; }
+
+        public ConsoleOutput()
+        {
+            Titles = new Stack<string>();
+        }
+
+        public void ShowTableAndWaitForChoice(string[,] content, bool choosable = true, bool isMainMenu = false)
+        {
+            Console.Clear();
+            ShowTitle();
+            var lengths = ColumnLengths(content);
+            string seperator = new String('-', lengths.Sum() + 7);
+            var numRows = content.GetLength(0);
+            if (numRows < 2)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Finns inget i databasen");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("[Alt.] ");
+                var numCols = content.GetLength(1);
+                for (int j = 0; j < numCols; j++)
+                {
+                    SetColor(j);
+                    Console.Write(content[0, j].PadRight(lengths[j]));
+                }
+                Console.Write("\n");
+                Console.ResetColor();
+                Console.WriteLine(seperator);
+
+                for (int i = 1; i < numRows; i++)
+                {
+                    if (choosable)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"[{i}]".PadRight(7));
+                    }
+                    else
+                    {
+                        Console.Write(" ".PadRight(7));
+                    }
+                    for (int j = 0; j < numCols; j++)
+                    {
+                        SetColor(j);
+                        Console.Write(content[i, j].PadRight(lengths[j]));
+                    }
+                    Console.Write("\n");
+                }
+            }
+            Console.ResetColor();
+            Console.WriteLine(seperator);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[x]".PadRight(7));
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            if (isMainMenu)
+                Console.WriteLine("Avsluta");
+            else
+                Console.WriteLine("Tillbaka");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\nDitt val> ");
+            var choice = Console.ReadLine();
+            Console.ResetColor();
+            ChoiceHandler(choice);
+        }
+
+        public void SetColor(int num)
+        {
+            if (num % 2 == 0)
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+            else
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+        }
+
         public void ShowListAndWaitForChoice(string[] strList)
         {
             Console.Clear();
@@ -49,12 +123,27 @@ namespace YH_Admin.View
 
         private void ShowTitle()
         {
-            Console.WriteLine(Title);
-            for (int i = 0; i < Title.Length; i++)
+            var title = Titles.Peek();
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine(title + "\n");
+            Console.ResetColor();
+        }
+
+        public int[] ColumnLengths(string[,] content)
+        {
+            int[] lengths = new int[content.GetLength(1)];
+            for (int j = 0; j < content.GetLength(1); j++)
             {
-                Console.Write("=");
+                for (int i = 0; i < content.GetLength(0); i++)
+                {
+                    if (content[i, j].Length > lengths[j])
+                        lengths[j] = content[i, j].Length;
+                }
+                lengths[j]++; // Space between columns
+                //Console.WriteLine($"{j}: {lengths[j]}");
             }
-            Console.WriteLine("\n");
+
+            return lengths;
         }
 
     }
