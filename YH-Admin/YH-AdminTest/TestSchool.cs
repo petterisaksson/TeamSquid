@@ -81,9 +81,18 @@ namespace YH_AdminTest
 
 
         [TestMethod]
-        public void TestGetEducation()
+        public void TestGetEducations2()
         {
-            
+            var expectedList = new List<Education>() { new Education(1, "Webutveckling Agila Webprogrammering", 1) };
+
+            School school = new School();
+            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            school.LoadData(Path.Combine(soluPath, "YH-Admin"));
+
+            var actualList = school.GetEducations(1);
+
+            CollectionAssert.AreEqual(expectedList, actualList);
+
         }
 
         [TestMethod]
