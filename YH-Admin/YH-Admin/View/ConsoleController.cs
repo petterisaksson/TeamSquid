@@ -127,6 +127,9 @@ namespace YH_Admin.View
                 //    break;
                 case "x":
                     return;
+
+                case "h":
+                    return;
                 default:
                     ShowMainMenu();
                     break;
@@ -151,6 +154,11 @@ namespace YH_Admin.View
             if (choice.Equals("x"))
             {
                 GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
                 return;
             }
             int index;
@@ -192,6 +200,11 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
             int index;
             if (int.TryParse(choice, out index))
             {
@@ -230,6 +243,11 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
             int index;
             if (int.TryParse(choice, out index))
             {
@@ -266,6 +284,11 @@ namespace YH_Admin.View
             if (choice.Equals("x"))
             {
                 GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
                 return;
             }
             int index;
@@ -309,6 +332,11 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
             int index;
             if (int.TryParse(choice, out index))
             {
@@ -350,6 +378,11 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
             ShowCurrentClassCourses();
         }
 
@@ -370,8 +403,15 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+
 
             ShowCurrentCourses();
+           
         }
 
         private void ShowCurrentStudents()
@@ -391,6 +431,11 @@ namespace YH_Admin.View
             if (choice.Equals("x"))
             {
                 GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
                 return;
             }
             int index;

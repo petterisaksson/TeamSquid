@@ -73,6 +73,17 @@ namespace YH_Admin.View
                 Console.WriteLine("Avsluta");
             else
                 Console.WriteLine("Tillbaka");
+            if (isMainMenu)
+            {
+                
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("[h]".PadRight(7));
+                Console.ForegroundColor = ConsoleColor.DarkRed; ;
+                Console.WriteLine("Huvudmeny");
+            }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nDitt val> ");
             var choice = Console.ReadLine();
