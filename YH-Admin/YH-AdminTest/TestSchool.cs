@@ -63,14 +63,14 @@ namespace YH_AdminTest
             School school = new School();
             string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             school.LoadData(Path.Combine(soluPath, "YH-Admin"));
-            var actualList = school.GetStudents(0);
 
             //Act
-            Console.WriteLine(expectedList[0]);
-            Console.WriteLine(actualList[0]);
+            var actualList = school.GetStudents(0);
 
             //Assert
             CollectionAssert.AreEqual(expectedList,actualList);
         }
+
+       
     }
 }
