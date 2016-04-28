@@ -156,6 +156,11 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
             int index;
             if (int.TryParse(choice, out index))
             {
@@ -396,6 +401,11 @@ namespace YH_Admin.View
             if (choice.Equals("x"))
             {
                 GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
                 return;
             }
 
