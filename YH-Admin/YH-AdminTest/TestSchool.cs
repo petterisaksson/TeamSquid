@@ -112,6 +112,19 @@ namespace YH_AdminTest
             CollectionAssert.AreEqual(expectedList,actualList);
         }
 
+        [TestMethod]
+        public void TestGetCourses()
+        {
+            //Arrenge
+            School gc = GetTestSchool();
+            List<string> expectedList = new List<string>();
+            expectedList.Add("CourseId: 0, Name: Första Course | 20140901->20140930 Status: Avslutat");
+            //Act
+            var actualList = gc.GetCourses(0);
+            //Assert
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
+
         School GetTestSchool()
         {
             School school = new School();
@@ -134,6 +147,8 @@ namespace YH_AdminTest
             return school;
 
         }
+
+        
 
        
     }
