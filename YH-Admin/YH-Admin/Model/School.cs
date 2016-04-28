@@ -30,6 +30,17 @@ namespace YH_Admin.Model
 
         public List<ClassCourse> ClassCourseTable { get; private set; }
 
+        public School()
+        {
+            Users = new List<User>();
+            Educations = new List<Education>();
+            SchoolClasses = new List<SchoolClass>();
+            Students = new List<Student>();
+            Courses = new List<Course>();
+            EducationCourses = new List<EducationCourse>();
+            ClassCourseTable = new List<ClassCourse>();
+        }
+
         /// <summary>
         /// Read all the datafiles in a specific folder.
         /// </summary>
@@ -238,7 +249,7 @@ namespace YH_Admin.Model
             return GetCourses(schoolClass.SchoolClassId);
         }
 
-        public List<ClassCourse> GetClassCourse(SchoolClass schoolClass)
+        public List<ClassCourse> GetClassCourses(SchoolClass schoolClass)
         {
             return ClassCourseTable.Where(c => c.ClassId == schoolClass.SchoolClassId).OrderBy(c => c.StartDate).ToList();
         }

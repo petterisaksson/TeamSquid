@@ -52,7 +52,7 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
-        public void TestGetClasses2()
+        public void TestGetClassCourses()
         {
             School sc = new School();
             string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -60,7 +60,7 @@ namespace YH_AdminTest
 
             List<ClassCourse> expectedList = new List<ClassCourse>() { new ClassCourse(9, 1, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)) };
 
-            List<ClassCourse> actualList = sc.GetClassCourse(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
+            List<ClassCourse> actualList = sc.GetClassCourses(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
 
             CollectionAssert.AreEqual(expectedList, actualList);
         }
@@ -110,6 +110,29 @@ namespace YH_AdminTest
 
             //Assert
             CollectionAssert.AreEqual(expectedList,actualList);
+        }
+
+        School GetTestSchool()
+        {
+            School school = new School();
+
+
+            school.Educations.Add(new Education(0, "Första education", 0));
+            school.Educations.Add(new Education(1, "Andra education", 1));
+            school.Courses.Add(new Course(0, "Första Course"));
+            school.Courses.Add(new Course(1, "Andra Course"));
+            school.SchoolClasses.Add(new SchoolClass(0, "Första schoolclasses", 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
+            school.SchoolClasses.Add(new SchoolClass(1, "Andra schoolclasses", 0, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
+            school.Students.Add(new Student(0, "Allan", "Allansson", 0));
+            school.Students.Add(new Student(1, "Billy", "Butt", 0));
+            school.EducationCourses.Add(new EducationCourse(0,0,0));
+            school.EducationCourses.Add(new EducationCourse(1,1,1));
+            school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
+            school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
+            school.Users.Add(new User(0, "Tina","Tina1", "Tina", "Kraft"));
+
+            return school;
+
         }
 
        
