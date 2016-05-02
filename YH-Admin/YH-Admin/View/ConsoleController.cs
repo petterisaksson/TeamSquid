@@ -87,6 +87,9 @@ namespace YH_Admin.View
             table[2, 0] = "Klasser";
             table[3, 0] = "Kurser";
             table[4, 0] = "Studerande";
+            table[5, 0] = "Betyg";
+            table[6, 0] = "Bemanning";
+
 
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowTableAndWaitForChoice(table, isMainMenu: true);
@@ -117,14 +120,14 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowMainMenu);
                     ShowStudentMenu();
                     break;
-                //case "5":
-                //    PreviousMenus.Push(ShowMainMenu);
-                //    Console.WriteLine("Undervisare - ej implementerat");
-                //    break;
-                //case "6":
-                //    PreviousMenus.Push(ShowMainMenu);
-                //    Console.WriteLine("Betyg - ej implementerat");
-                //    break;
+                case "5":
+                    PreviousMenus.Push(ShowMainMenu);
+                    // TODO
+                    break;
+                case "6":
+                    PreviousMenus.Push(ShowMainMenu);
+                    // TODO
+                    break;
                 case "x":
                     return;
 
