@@ -81,7 +81,7 @@ namespace YH_Admin.View
             View.Titles.Clear();
             View.Titles.Push($"Huvudmeny - {CurrentUser.Name}");
 
-            var table = new string[5, 1];
+            var table = new string[7, 1];
             table[0, 0] = "Kategorier";
             table[1, 0] = "Utbildning";
             table[2, 0] = "Klasser";
@@ -89,7 +89,6 @@ namespace YH_Admin.View
             table[4, 0] = "Studerande";
             table[5, 0] = "Betyg";
             table[6, 0] = "Bemanning";
-
 
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowTableAndWaitForChoice(table, isMainMenu: true);
@@ -122,21 +121,70 @@ namespace YH_Admin.View
                     break;
                 case "5":
                     PreviousMenus.Push(ShowMainMenu);
-                    // TODO
+                    ShowGradeMenu();
                     break;
                 case "6":
                     PreviousMenus.Push(ShowMainMenu);
-                    // TODO
+                    ShowRecruitmentMenu();
                     break;
                 case "x":
-                    return;
-
-                case "h":
                     return;
                 default:
                     ShowMainMenu();
                     break;
             }
+        }
+
+        private void ShowGradeMenu()
+        {
+            View.Titles.Push($"Betygsmeny");
+
+            var table = new string[5, 1];
+            table[0, 0] = "Kategorier";
+            table[1, 0] = "Se studieresultat";
+            table[2, 0] = "Se enskilt betyg";
+            table[3, 0] = "Visa betyg";
+            table[4, 0] = "Sätta betyg";
+
+            View.ChoiceHandler = HandleGradeMenuChoice;
+            View.ShowTableAndWaitForChoice(table);
+        }
+
+        private void HandleGradeMenuChoice(string choice)
+        {
+            switch (choice)
+            {
+                case "1":
+                    //TODO:
+                    break;
+                case "2":
+                    //TODO:
+                    break;
+                case "3":
+                    //TODO:
+                    break;
+                case "4":
+                    //TODO:
+                    break;
+                case "x":
+                    GoBack();
+                    return;
+                case "h":
+                    ShowMainMenu();
+                    return;
+                default:
+                    ShowGradeMenu();
+                    break;
+            }
+        }
+
+        private void ShowRecruitmentMenu()
+        {
+            // TODO: Implement
+            Console.Clear();
+            Console.WriteLine("ShowRecruitmentMenu not implemented\nPress any key to return.");
+            Console.ReadLine();
+            ShowMainMenu();
         }
 
         private void ShowCurrentEducation()
@@ -426,7 +474,7 @@ namespace YH_Admin.View
                 table[i + 1, 0] = CurrentStudents[i].Name;
             }
             View.ChoiceHandler = HandleShowCurrentStudents;
-            View.ShowTableAndWaitForChoice(table);
+            View.ShowTableAndWaitForChoice(table, false);
         }
 
         private void HandleShowCurrentStudents(string choice)
