@@ -156,7 +156,7 @@ namespace YH_AdminTest
             school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
             school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
             school.Users.Add(new User(0, "Tina","Tina1", "Tina", "Kraft"));
-
+            school.Grades.Add(0, new Grade(0, 0, 0, "C"));
             return school;
 
         }
@@ -174,8 +174,43 @@ namespace YH_AdminTest
             CollectionAssert.AreEqual(expectedList, actualList);
         }
 
+        [TestMethod]
+        public void TestAddGrade()
+        {
+            School gc = GetTestSchool();
+            gc.AddGrade(1, 1, "B");
 
+            int expected = 2;
 
+            int actual = gc.Grades.Count;
 
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestAddGrade2()
+        {
+            School gc = GetTestSchool();
+            gc.AddGrade(0, 0, "B");
+
+            int expected = 1;
+
+            int actual = gc.Grades.Count;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestAddGrade3()
+        {
+            School gc = GetTestSchool();
+            gc.AddGrade(1, 1, "B");
+
+            var expected = "1 1 1 B";
+
+            var actual = gc.Grades[1].ToFileString();
+
+            Assert.AreEqual(expected, actual, actual);
+        }
     }
 }
