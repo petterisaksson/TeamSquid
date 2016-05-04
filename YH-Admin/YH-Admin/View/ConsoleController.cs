@@ -81,14 +81,13 @@ namespace YH_Admin.View
             View.Titles.Clear();
             View.Titles.Push($"Huvudmeny - {CurrentUser.Name}");
 
-            var table = new string[7, 1];
+            var table = new string[6, 1];
             table[0, 0] = "Kategorier";
             table[1, 0] = "Utbildning";
             table[2, 0] = "Klasser";
             table[3, 0] = "Kurser";
             table[4, 0] = "Studerande";
-            table[5, 0] = "Betyg";
-            table[6, 0] = "Bemanning";
+            table[5, 0] = "Bemanning";
 
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowTableAndWaitForChoice(table, isMainMenu: true);
@@ -117,13 +116,9 @@ namespace YH_Admin.View
                     break;
                 case "4":
                     PreviousMenus.Push(ShowMainMenu);
-                    ShowStudentMenu();
+                    ShowStudentGrade();
                     break;
                 case "5":
-                    PreviousMenus.Push(ShowMainMenu);
-                    ShowGradeMenu();
-                    break;
-                case "6":
                     PreviousMenus.Push(ShowMainMenu);
                     ShowRecruitmentMenu();
                     break;
@@ -135,22 +130,21 @@ namespace YH_Admin.View
             }
         }
 
-        private void ShowGradeMenu()
+        private void ShowStudentGrade()
         {
-            View.Titles.Push($"Betygsmeny");
+            View.Titles.Push($"Studentmeny");
 
-            var table = new string[5, 1];
+            var table = new string[4, 1];
             table[0, 0] = "Kategorier";
-            table[1, 0] = "Se studieresultat";
-            table[2, 0] = "Se enskilt betyg";
-            table[3, 0] = "Visa betyg";
-            table[4, 0] = "Sätta betyg";
+            table[1, 0] = "Visa alla studerande";
+            table[2, 0] = "Visa studerande i en viss klass";
+            table[3, 0] = "Visa ej godkända studenter";
 
-            View.ChoiceHandler = HandleGradeMenuChoice;
+            View.ChoiceHandler = HandleStudentGradeChoice;
             View.ShowTableAndWaitForChoice(table);
         }
 
-        private void HandleGradeMenuChoice(string choice)
+        private void HandleStudentGradeChoice(string choice)
         {
             switch (choice)
             {
@@ -158,12 +152,9 @@ namespace YH_Admin.View
                     //TODO:
                     break;
                 case "2":
-                    //TODO:
+                    ShowStudentMenu();
                     break;
                 case "3":
-                    //TODO:
-                    break;
-                case "4":
                     //TODO:
                     break;
                 case "x":
@@ -173,7 +164,7 @@ namespace YH_Admin.View
                     ShowMainMenu();
                     return;
                 default:
-                    ShowGradeMenu();
+                    ShowStudentGrade();
                     break;
             }
         }
