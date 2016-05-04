@@ -41,6 +41,7 @@ namespace YH_Admin.Model
             Courses = new List<Course>();
             EducationCourses = new List<EducationCourse>();
             ClassCourseTable = new List<ClassCourse>();
+            Grades = new List<Grade>();
         }
 
         /// <summary>

@@ -23,5 +23,23 @@ namespace YH_Admin.Model
             ClassCourseId = classCourseId;
             GradeString = grade;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Grade gr = obj as Grade;
+            if (gr == null)
+                return false;
+
+            // Return true if the fields match:
+            return (StudentId == gr.StudentId) && (ClassCourseId == gr.ClassCourseId);
+        }
+
+        public override int GetHashCode()
+        {
+            return StudentId ^ ClassCourseId;
+        }
     }
 }
