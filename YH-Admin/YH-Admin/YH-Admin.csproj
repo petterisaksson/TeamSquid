@@ -47,6 +47,7 @@
     <Compile Include="Model\ClassCourse.cs" />
     <Compile Include="Model\Education.cs" />
     <Compile Include="Model\EducationCourse.cs" />
+    <Compile Include="Model\Staffing.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="View\ConsoleController.cs" />
     <Compile Include="View\ConsoleOutput.cs" />
