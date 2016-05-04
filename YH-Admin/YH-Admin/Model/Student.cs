@@ -8,7 +8,7 @@ namespace YH_Admin.Model
 {
     public class Student
     {
-        public static int NextId { get; set; }
+        public static int NextStudentId { get; set; }
 
         /// <summary>
         /// Identifier to this student.
@@ -32,14 +32,14 @@ namespace YH_Admin.Model
         /// </summary>
         public int ClassId { get; set; }
 
-        public Student(string firstName, string lastName, int classId) : this(NextId, firstName, lastName, classId)
+        public Student(string firstName, string lastName, int classId) : this(NextStudentId, firstName, lastName, classId)
         {
         }
 
         public Student(int studentId, string firstName, string lastName, int classId)
         {
-            if (studentId >= NextId)
-                NextId = studentId + 1;
+            if (studentId >= NextStudentId)
+                NextStudentId = studentId + 1;
             StudentId = studentId;
             FirstName = firstName;
             LastName = lastName;

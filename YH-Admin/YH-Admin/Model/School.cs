@@ -19,7 +19,7 @@ namespace YH_Admin.Model
 
         public List<SchoolClass> SchoolClasses { get; private set; }
 
-        public Dictionary<int, Student> Students { get; private set; }
+        public List<Student> Students { get; private set; }
 
         public List<Course> Courses { get; private set; }
 
@@ -34,7 +34,7 @@ namespace YH_Admin.Model
             Users = new List<User>();
             Educations = new List<Education>();
             SchoolClasses = new List<SchoolClass>();
-            Students = new Dictionary<int, Student>();
+            Students = new List< Student>();
             Courses = new List<Course>();
             EducationCourses = new List<EducationCourse>();
             ClassCourseTable = new List<ClassCourse>();
@@ -86,7 +86,7 @@ namespace YH_Admin.Model
 
             foreach (var grade in failList)
             {
-                var student = Students.Values.ToList().Find(s => s.StudentId == grade.StudentId);
+                var student = Students.Find(s => s.StudentId == grade.StudentId);
                 if (student != null)
                     failedStudent.Add(student);
             }
@@ -193,12 +193,17 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public List<Student> GetStudents()
         {
-            return Students.Values.OrderBy(s => s.ClassId).ToList();
+            return Students.OrderBy(s => s.ClassId).ToList();
         }
 
+        /// <summary>
+        /// Add student to list without checking the studentId.
+        /// If student is instantiated correctly, there is no need to check .
+        /// </summary>
+        /// <param name="student"></param>
         public void AddStudents(Student student)
         {
-            Students.Add(student.StudentId, student);
+            Students.Add(student);
         }
 
     }

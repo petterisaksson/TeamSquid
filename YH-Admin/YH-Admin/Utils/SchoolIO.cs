@@ -112,10 +112,10 @@ namespace YH_Admin.Utils
             File.WriteAllLines(path, lines);
         }
 
-        public Dictionary<int, Student> ReadStudentFile()
+        public List<Student> ReadStudentFile()
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\students.txt");
-            var students = new Dictionary<int, Student>();
+            var students = new List<Student>();
             try
             {
                 string[] lines = File.ReadAllLines(path);
@@ -123,8 +123,8 @@ namespace YH_Admin.Utils
                 {
                     var splits = line.Split(' ');
                     var id = int.Parse(splits[0]);
-                    var st = new Student(id , splits[1], splits[2], int.Parse(splits[3]));
-                    students.Add(id, st);
+                    var st = new Student(id, splits[1], splits[2], int.Parse(splits[3]));
+                    students.Add(st);
 
                     //Test code: 
                     //Console.WriteLine(st);
