@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YH_Admin.Model;
-using static YH_Admin.View.ConsoleOutput;
 
 namespace YH_Admin.View
 {
@@ -29,10 +28,6 @@ namespace YH_Admin.View
         List<string> CurrentCourses { get; set; }
 
         List<ClassCourse> CurrentClassCourses { get; set; }
-
-        Student CurrentStudent { get; set; }
-
-        ClassCourse CurrentCourse { get; set; }
 
         /// <summary>
         /// Constructor to set up Model and View.
@@ -169,8 +164,7 @@ namespace YH_Admin.View
                     //TODO:
                     break;
                 case "4":
-                    CurrentStudents = Model.Students;
-                    
+                    //TODO:
                     break;
                 case "x":
                     GoBack();
@@ -357,7 +351,7 @@ namespace YH_Admin.View
                     var chosen = CurrentClasses[index - 1];
                     View.Titles.Push($"Studerande i {chosen.Name}");
                     CurrentStudents = Model.GetStudents(chosen);
-                    ShowCurrentStudents(HandleShowCurrentStudents);
+                    ShowCurrentStudents();
                     return;
                 }
             }
@@ -403,7 +397,7 @@ namespace YH_Admin.View
                     var chosen = CurrentClasses[index - 1];
                     View.Titles.Push($"Studerande i {chosen.Name}");
                     CurrentStudents = Model.GetStudents(chosen);
-                    ShowCurrentStudents(HandleShowCurrentStudents);
+                    ShowCurrentStudents();
                     return;
                 }
             }
@@ -471,7 +465,7 @@ namespace YH_Admin.View
            
         }
 
-        private void ShowCurrentStudents(DelHandle handleMethod)
+        private void ShowCurrentStudents()
         {
             var table = new string[CurrentStudents.Count + 1, 1];
             table[0, 0] = "Namn";
@@ -479,8 +473,7 @@ namespace YH_Admin.View
             {
                 table[i + 1, 0] = CurrentStudents[i].Name;
             }
-            //View.ChoiceHandler = HandleShowCurrentStudents;
-            View.ChoiceHandler = handleMethod;
+            View.ChoiceHandler = HandleShowCurrentStudents;
             View.ShowTableAndWaitForChoice(table, false);
         }
 
@@ -502,7 +495,6 @@ namespace YH_Admin.View
                 if (index > 0 && index <= CurrentStudents.Count)
                 {
                     PreviousMenus.Push(ShowClassMenu);
-                    CurrentStudent = CurrentStudents[index];
                     // Visar betyg ?
                     {
                         ShowMainMenu();
@@ -510,7 +502,7 @@ namespace YH_Admin.View
                     return;
                 }
             }
-            ShowCurrentStudents(HandleShowCurrentStudents);
+            ShowCurrentStudents();
         }
     }
 }
