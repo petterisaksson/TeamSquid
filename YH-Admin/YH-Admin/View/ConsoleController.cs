@@ -197,7 +197,7 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
-            if (choice.Equals("h"))
+			if (choice.Equals("h"))
             {
                 ShowMainMenu();
                 return;
@@ -205,13 +205,13 @@ namespace YH_Admin.View
             int index;
             if (int.TryParse(choice, out index))
             {
-                if (index > 0 && index <= CurrentEducations.Count)
+                if (index > 0 && index <= CurrentStudents.Count)
                 {
                     PreviousMenus.Push(ShowStudentMenu);
                     var chosen = CurrentStudents[index - 1];
                     View.Titles.Push($"Kurser som läses av {chosen.Name}");
-                    //CurrentStudent = Model.GetClasses(chosen);
-                    //ShowCurrentClasses();
+                    CurrentClassCourses = Model.GetClassCourses(chosen);
+                    ShowCurrentClassCourses();
                     return;
                 }
             }

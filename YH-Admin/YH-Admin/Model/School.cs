@@ -231,6 +231,12 @@ namespace YH_Admin.Model
             return GetEducations(user.UserId);
         }
 
+        public List<ClassCourse> GetClassCourses(Student student)
+        {
+            var schoolClass = SchoolClasses.Find(c => c.SchoolClassId == student.ClassId);
+            return GetClassCourses(schoolClass);
+        }
+
         public List<string> GetCourses(int classId)
         {
             var ccs = ClassCourseTable.Where(c => c.ClassId == classId);
