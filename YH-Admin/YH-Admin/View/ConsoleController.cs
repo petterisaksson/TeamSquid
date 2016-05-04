@@ -154,10 +154,12 @@ namespace YH_Admin.View
             switch (choice)
             {
                 case "1":
+                    PreviousMenus.Push(ShowStudentGrade);
                     CurrentStudents = Model.Students;
                     ShowStudentMenu();
                     break;
                 case "2":
+                    PreviousMenus.Push(ShowStudentGrade);
                     ShowStudentInClassMenu();
                     break;
                 //case "3":
@@ -208,9 +210,9 @@ namespace YH_Admin.View
                 if (index > 0 && index <= CurrentStudents.Count)
                 {
                     PreviousMenus.Push(ShowStudentMenu);
-                    var chosen = CurrentStudents[index - 1];
-                    View.Titles.Push($"Kurser som läses av {chosen.Name}");
-                    CurrentClassCourses = Model.GetClassCourses(chosen);
+                    CurrentStudent = CurrentStudents[index - 1];
+                    View.Titles.Push($"Kurser som läses av {CurrentStudent.Name}");
+                    CurrentClassCourses = Model.GetClassCourses(CurrentStudent);
                     ShowCurrentClassCourses();
                     return;
                 }
@@ -458,8 +460,7 @@ namespace YH_Admin.View
                 table[i + 1, 1] = CurrentClassCourses[i].StartDateString;
                 table[i + 1, 2] = CurrentClassCourses[i].EndDateString;
                 table[i + 1, 3] = CurrentClassCourses[i].Status;
-                table[i + 1, 4] = CurrentClassCourses[i].Status;
-
+                table[i + 1, 4] = Model.GetGrade(CurrentStudent, CurrentClassCourses[i]).GradeString;
             }
             View.ChoiceHandler = HandleShowCurrentClassCourses;
             View.ShowTableAndWaitForChoice(table, false);
