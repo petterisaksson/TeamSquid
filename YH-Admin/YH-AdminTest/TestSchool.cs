@@ -111,11 +111,8 @@ namespace YH_AdminTest
         public void TestGetStudents()
         {
             //Arrenge
-            var expectedList = new List<Student>() { new Student(0, "Allan", "Allansson", 0) };
-
-            School school = new School();
-            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            school.LoadData(Path.Combine(soluPath, "YH-Admin"));
+            School school = GetTestSchool();
+            var expectedList = new List<Student>() { new Student(0, "Allan", "Allansson", 0), new Student(1, "Billy", "Butt", 0) };
 
             //Act
             var actualList = school.GetStudents(0);
