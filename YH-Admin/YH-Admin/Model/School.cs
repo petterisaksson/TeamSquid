@@ -47,201 +47,32 @@ namespace YH_Admin.Model
         public void LoadData(string soluPath)
         {
             SchoolDatabase = new SchoolIO(soluPath);
-            Users = SchoolDatabase.ReadUserFile();
-            Educations = SchoolDatabase.ReadEducationFile();
-            Students = SchoolDatabase.ReadStudentFile();
-            SchoolClasses = SchoolDatabase.ReadClassFile();
-            Courses = SchoolDatabase.ReadCourseFile();
-            ClassCourseTable = SchoolDatabase.ReadClassCourseFile();
-            EducationCourses = SchoolDatabase.ReadEducationCourseFile();
-            Grades = SchoolDatabase.ReadGradeFile();
-
+            
             // Read user file
-            //ReadUserFile(Path.Combine(soluPath, @"DataFiles\users.txt"));
-
+            Users = SchoolDatabase.ReadUserFile();
             // Read student file
-            //ReadStudentFile(Path.Combine(soluPath, @"DataFiles\students.txt"));
-
+            Educations = SchoolDatabase.ReadEducationFile();
             // Read class file
-            //ReadClassFile(Path.Combine(soluPath, @"DataFiles\classes.txt"));
-
+            Students = SchoolDatabase.ReadStudentFile();
             // Read course file
-            //ReadCourseFile(Path.Combine(soluPath, @"DataFiles\courses.txt"));
-
+            SchoolClasses = SchoolDatabase.ReadClassFile();
             // Read class-course file
-            //ReadClassCourseFile(Path.Combine(soluPath, @"DataFiles\class_courses.txt"));
-
+            Courses = SchoolDatabase.ReadCourseFile();
             // Read education file
-            //ReadEducationFile(Path.Combine(soluPath, @"DataFiles\education.txt"));
-
+            ClassCourseTable = SchoolDatabase.ReadClassCourseFile();
             // Read education-course file
-            //ReadEducationCourseFile(Path.Combine(soluPath, @"DataFiles\education_courses.txt"));
-
+            EducationCourses = SchoolDatabase.ReadEducationCourseFile();
             // Read grade file
-            //ReadGradeFile(Path.Combine(soluPath, @"DataFiles\grades.txt"));
+            Grades = SchoolDatabase.ReadGradeFile();
+            
         }
-
-        //private void ReadGradeFile(string path)
-        //{
-        //    try
-        //    {
-        //        Grades = new List<Grade>();
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (var line in lines)
-        //        {
-        //            var splits = line.Split(' ');
-        //            var u = new Grade(Guid.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), splits[3]);
-        //            Grades.Add(u);
-
-        //            //Test code: 
-        //            //Console.WriteLine(u);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception caught in creating Grades: " + ex);
-        //        Console.ReadLine();
-        //    }
-        //}
-
-        //private void ReadUserFile(string path)
-        //{
-        //    try
-        //    {
-        //        Users = new List<User>();
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (var line in lines)
-        //        {
-        //            var splits = line.Split(' ');
-        //            var u = new User(int.Parse(splits[0]), splits[1], splits[2], splits[3], splits[4]);
-        //            Users.Add(u);
-
-        //            //Test code: 
-        //            //Console.WriteLine(u);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
-        //        Console.ReadLine();
-
-        //    }
-        //}
+        
 
         public void SaveToFiles()
         {
-
+            SchoolDatabase.SaveGradeFile(Grades);
         }
-
-        //private void ReadEducationFile(string path)
-        //{
-        //    try
-        //    {
-        //        Educations = new List<Education>();
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (var line in lines)
-        //        {
-        //            var splits = line.Split(' ');
-        //            var name = splits[1];
-        //            for (int i = 2; i < splits.Length - 1; i++)
-        //            {
-        //                name += " " + splits[i];
-        //            }
-        //            var e = new Education(int.Parse(splits[0]), name, int.Parse(splits.Last()));
-        //            Educations.Add(e);
-
-        //            //Test code: 
-        //            //Console.WriteLine(e);
-        //            //Console.ReadLine();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception caught in creating Educations: " + ex);
-        //        Console.ReadLine();
-
-        //    }
-        //}
-
-        //private void ReadEducationCourseFile(string path)
-        //{
-        //    try
-        //    {
-        //        EducationCourses = new List<EducationCourse>();
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (var line in lines)
-        //        {
-        //            var splits = line.Split(' ');
-        //            var ec = new EducationCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]));
-        //            EducationCourses.Add(ec);
-
-        //            //Test code: 
-        //            //Console.WriteLine(ec);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
-        //        Console.ReadLine();
-
-        //    }
-        //}
-
-        //private void ReadClassCourseFile(string path)
-        //{
-        //    try
-        //    {
-        //        ClassCourseTable = new List<ClassCourse>();
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (var line in lines)
-        //        {
-        //            var splits = line.Split(' ');
-        //            var startDate = DateTime.ParseExact(splits[splits.Length - 2], "yyyyMMdd", null);
-        //            var endDate = DateTime.ParseExact(splits[splits.Length - 1], "yyyyMMdd", null);
-        //            var cc = new ClassCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), startDate, endDate);
-        //            ClassCourseTable.Add(cc);
-
-        //            //Test code: 
-        //            //Console.WriteLine(cc);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception caught in creating Courses: " + ex);
-        //        Console.ReadLine();
-
-        //    }
-        //}
-
-        //private void ReadCourseFile(string path)
-        //{
-        //    try
-        //    {
-        //        Courses = new List<Course>();
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (var line in lines)
-        //        {
-        //            var splits = line.Split(' ');
-        //            var name = splits[1];
-        //            for (int i = 2; i < splits.Length; i++)
-        //            {
-        //                name += " " + splits[i];
-        //            }
-        //            var c = new Course(int.Parse(splits[0]), name);
-        //            Courses.Add(c);
-
-        //            //Test code: 
-        //            //Console.WriteLine(c);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception caught in creating Courses: " + ex);
-        //        Console.ReadLine();
-
-        //    }
-        //}
-
+        
         /// <summary>
         /// Read the school classes data
         /// </summary>
@@ -359,35 +190,7 @@ namespace YH_Admin.Model
         {
             return GetClasses(education.EducationId);
         }
-
-        /// <summary>
-        /// Read the students data
-        /// </summary>
-        /// <param name="path"></param>
-        //public void ReadStudentFile(string path)
-        //{
-        //    try
-        //    {
-        //        Students = new List<Student>();
-        //        string[] lines = File.ReadAllLines(path);
-        //        foreach (var line in lines)
-        //        {
-        //            var splits = line.Split(' ');
-        //            var st = new Student(int.Parse(splits[0]), splits[1], splits[2], int.Parse(splits[3]));
-        //            Students.Add(st);
-
-        //            //Test code: 
-        //            //Console.WriteLine(st);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception caught in ReadStudentFile: " + ex);
-        //        Console.ReadLine();
-
-        //    }
-        //}
-
+        
         /// <summary>
         /// Get students from a class with classId.
         /// </summary>

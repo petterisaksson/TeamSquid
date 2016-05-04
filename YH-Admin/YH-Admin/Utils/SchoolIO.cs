@@ -42,6 +42,13 @@ namespace YH_Admin.Utils
             return Grades;
         }
 
+        public void SaveGradeFile(List<Grade> grades)
+        {
+            var path = Path.Combine(DirectoryPath, @"DataFiles\grades.txt");
+            var lines = grades.Select(g => g.ToString()).ToArray();
+            File.WriteAllLines(path, lines);
+        }
+
         public List<User> ReadUserFile()
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\users.txt");
@@ -97,6 +104,8 @@ namespace YH_Admin.Utils
             }
             return educations;
         }
+
+
 
         public List<Student> ReadStudentFile()
         {
@@ -233,5 +242,7 @@ namespace YH_Admin.Utils
             }
             return educationCourse;
         }
+
+
     }
 }
