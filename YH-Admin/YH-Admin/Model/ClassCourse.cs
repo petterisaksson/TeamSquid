@@ -24,7 +24,7 @@ namespace YH_Admin.Model
 
         public bool IsFinished { get { return EndDate < DateTime.Today; } }
 
-        public string Status { get { return IsFinished ? "Avslutat" : "Aktiv"; } }
+        public string Status { get { return IsFinished ? "Avslutad" : "Aktiv"; } }
 
         public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate)
         {

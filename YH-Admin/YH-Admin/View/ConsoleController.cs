@@ -72,6 +72,7 @@ namespace YH_Admin.View
 
         private void GoBack()
         {
+            View.Message = "";
             View.Titles.Pop();
             var p = PreviousMenus.Pop();
             p();
@@ -83,6 +84,7 @@ namespace YH_Admin.View
         public void ShowMainMenu()
         {
             PreviousMenus.Clear();
+            View.Message = "";
             View.Titles.Clear();
             View.Titles.Push($"Huvudmeny - {CurrentUser.Name}");
 
@@ -191,6 +193,7 @@ namespace YH_Admin.View
                 table[i + 1, 1] = CurrentStudents[i].LastName;
                 table[i + 1, 2] = Model.SchoolClasses.Find(sc => sc.SchoolClassId == CurrentStudents[i].ClassId).Name;
             }
+            View.Message = $"Välj en student för att se dennes studieresultat\nTryck {CurrentStudents.Count + 1} för att lägga till en ny student.";
             View.ChoiceHandler = HandleStudentMenuChoice;
             View.ShowTableAndWaitForChoice(table);
         }
@@ -525,6 +528,7 @@ namespace YH_Admin.View
                 else
                     table[i + 1, 4] = "";
             }
+            View.Message = "Välj en kurs för att sätta/ändra betyg, om den är avslutad.";
             View.ChoiceHandler = HandleShowCurrentClassCoursesStudent;
             View.ShowTableAndWaitForChoice(table);
         }
@@ -546,11 +550,15 @@ namespace YH_Admin.View
             {
                 if (index > 0 && index <= CurrentClassCourses.Count)
                 {
-                    PreviousMenus.Push(ShowCurrentClassCoursesStudent);
                     CurrentClassCourse = CurrentClassCourses[index - 1];
-                    View.Titles.Push("Sätta/ ändra betyg");
-                    ShowCurrentClassCourseMenu();
-                    return;
+                    if (CurrentClassCourse.IsFinished)
+                    {
+                        PreviousMenus.Push(ShowCurrentClassCoursesStudent);
+                        View.Titles.Push("Sätta/ ändra betyg");
+                        View.Message = "";
+                        ShowCurrentClassCourseMenu();
+                        return;
+                    }
                 }
             }
             ShowCurrentClassCoursesStudent();

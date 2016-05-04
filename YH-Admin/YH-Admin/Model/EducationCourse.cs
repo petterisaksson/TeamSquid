@@ -10,7 +10,7 @@ namespace YH_Admin.Model
     {
         public int EducationCourseId { get; set; }
 
-        public int EducationId { get; set; }
+        public int EducationId { get; set;} 
 
         public int CourseId { get; set; }
 

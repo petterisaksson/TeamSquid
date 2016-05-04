@@ -193,7 +193,7 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public List<Student> GetStudents()
         {
-            return Students.OrderBy(s => s.ClassId).ToList();
+            return Students.OrderBy(s => s.ClassId).ThenBy(s => s.FirstName).ToList();
         }
 
         /// <summary>
