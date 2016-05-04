@@ -19,7 +19,7 @@ namespace YH_Admin.Model
 
         public List<SchoolClass> SchoolClasses { get; private set; }
 
-        public List<Student> Students { get; private set; }
+        public Dictionary<int, Student> Students { get; private set; }
 
         public List<Course> Courses { get; private set; }
 
@@ -34,7 +34,7 @@ namespace YH_Admin.Model
             Users = new List<User>();
             Educations = new List<Education>();
             SchoolClasses = new List<SchoolClass>();
-            Students = new List<Student>();
+            Students = new Dictionary<int, Student>();
             Courses = new List<Course>();
             EducationCourses = new List<EducationCourse>();
             ClassCourseTable = new List<ClassCourse>();
@@ -72,37 +72,6 @@ namespace YH_Admin.Model
         {
             SchoolDatabase.SaveGradeFile(Grades);
         }
-        
-        /// <summary>
-        /// Read the school classes data
-        /// </summary>
-        /// <param name="path"></param>
-        public void ReadClassFile(string path)
-        {
-            try
-            {
-                SchoolClasses = new List<SchoolClass>();
-                string[] lines = File.ReadAllLines(path);
-                foreach (var line in lines)
-                {
-                    var splits = line.Split(' ');
-                    var startDate = DateTime.ParseExact(splits[3], "yyyyMMdd", null);
-                    var endDate = DateTime.ParseExact(splits[4], "yyyyMMdd", null);
-                    var cl = new SchoolClass(int.Parse(splits[0]), splits[1], int.Parse(splits[2]), startDate, endDate);
-                    SchoolClasses.Add(cl);
-
-                    //Test code: 
-                    //Console.WriteLine(cl);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception caught in creating SchoolClass: " + ex);
-                Console.ReadLine();
-
-            }
-
-        }
 
         public Grade GetGrade(Student student, ClassCourse classCourse)
         {
@@ -116,7 +85,7 @@ namespace YH_Admin.Model
 
             foreach (var grade in failList)
             {
-                var student = Students.Find(s => s.StudentId == grade.StudentId);
+                var student = Students.Values.ToList().Find(s => s.StudentId == grade.StudentId);
                 if (student != null)
                     failedStudent.Add(student);
             }
@@ -175,6 +144,11 @@ namespace YH_Admin.Model
             return ClassCourseTable.Where(c => c.ClassId == schoolClass.SchoolClassId).OrderBy(c => c.StartDate).ToList();
         }
 
+        public int? GetClassId(string className)
+        {
+            return SchoolClasses.Find(c => c.Name == className)?.SchoolClassId;
+        }
+
         /// <summary>
         /// Get the classes within an education with educationId.
         /// </summary>
@@ -198,7 +172,7 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public List<Student> GetStudents(int classId)
         {
-            var students = Students.Where(s => s.ClassId == classId).ToList();
+            var students = GetStudents().Where(s => s.ClassId == classId).ToList();
             return students;
         }
 
@@ -210,6 +184,20 @@ namespace YH_Admin.Model
         public List<Student> GetStudents(SchoolClass schoolClass)
         {
             return GetStudents(schoolClass.SchoolClassId);
+        }
+
+        /// <summary>
+        /// Return all students in school as a list.
+        /// </summary>
+        /// <returns></returns>
+        public List<Student> GetStudents()
+        {
+            return Students.Values.OrderBy(s => s.ClassId).ToList();
+        }
+
+        public void AddStudents(Student student)
+        {
+            Students.Add(student.StudentId, student);
         }
 
     }

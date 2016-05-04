@@ -107,18 +107,19 @@ namespace YH_Admin.Utils
 
 
 
-        public List<Student> ReadStudentFile()
+        public Dictionary<int, Student> ReadStudentFile()
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\students.txt");
-            var students = new List<Student>();
+            var students = new Dictionary<int, Student>();
             try
             {
                 string[] lines = File.ReadAllLines(path);
                 foreach (var line in lines)
                 {
                     var splits = line.Split(' ');
-                    var st = new Student(int.Parse(splits[0]), splits[1], splits[2], int.Parse(splits[3]));
-                    students.Add(st);
+                    var id = int.Parse(splits[0]);
+                    var st = new Student(id , splits[1], splits[2], int.Parse(splits[3]));
+                    students.Add(id, st);
 
                     //Test code: 
                     //Console.WriteLine(st);

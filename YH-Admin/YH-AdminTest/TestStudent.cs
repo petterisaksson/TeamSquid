@@ -10,8 +10,9 @@ namespace YH_AdminTest
         [TestMethod]
         public void TestToString()
         {
+
             Student s = new Student(1, "Al", "Baak", 2);
-            string expected = $"Id: 1; Name: Al Baak; ClassId: 2";
+            string expected = $"1 Al Baak 2";
 
             var actual = s.ToString();
             Assert.AreEqual(expected, actual);

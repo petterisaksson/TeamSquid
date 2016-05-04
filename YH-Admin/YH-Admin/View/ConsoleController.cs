@@ -156,7 +156,7 @@ namespace YH_Admin.View
             {
                 case "1":
                     PreviousMenus.Push(ShowStudentGrade);
-                    CurrentStudents = Model.Students;
+                    CurrentStudents = Model.GetStudents();
                     ShowStudentMenu();
                     break;
                 case "2":
@@ -181,13 +181,15 @@ namespace YH_Admin.View
         private void ShowStudentMenu()
         {
             View.Titles.Push($"Alla studerande");
-            var table = new string[CurrentStudents.Count + 1, 2];
-            table[0, 0] = "Namn";
-            table[0, 1] = "Klass";
+            var table = new string[CurrentStudents.Count + 2, 3];
+            table[0, 0] = "Förnamn";
+            table[0, 1] = "Efternamn";
+            table[0, 2] = "Klass";
             for (int i = 0; i < CurrentStudents.Count; i++)
             {
-                table[i + 1, 0] = CurrentStudents[i].Name;
-                table[i + 1, 1] = Model.SchoolClasses.Find(sc => sc.SchoolClassId == CurrentStudents[i].ClassId).Name;
+                table[i + 1, 0] = CurrentStudents[i].FirstName;
+                table[i + 1, 1] = CurrentStudents[i].LastName;
+                table[i + 1, 2] = Model.SchoolClasses.Find(sc => sc.SchoolClassId == CurrentStudents[i].ClassId).Name;
             }
             View.ChoiceHandler = HandleStudentMenuChoice;
             View.ShowTableAndWaitForChoice(table);
@@ -214,11 +216,34 @@ namespace YH_Admin.View
                     CurrentStudent = CurrentStudents[index - 1];
                     View.Titles.Push($"Kurser som läses av {CurrentStudent.Name}");
                     CurrentClassCourses = Model.GetClassCourses(CurrentStudent);
-                    ShowCurrentClassCourses();
+                    ShowCurrentClassCoursesStudent();
+                    return;
+                }
+                else if (index == CurrentStudents.Count + 1)
+                {
+                    PreviousMenus.Push(ShowStudentMenu);
+                    View.Titles.Push($"Lägg till en ny student");
+                    View.ChoiceHandler = HandleAddStudent;
+                    View.ShowAddStudent(Model.SchoolClasses.Select(c => c.Name).ToArray());
                     return;
                 }
             }
             ShowStudentMenu();
+        }
+
+        private void HandleAddStudent(string choice)
+        {
+            var splits = choice.Split('\n');
+            if (splits.Length == 3)
+            {
+                var classId = Model.GetClassId(splits[2]);
+                if (classId != null)
+                {
+                    Model.AddStudents(new Student(splits[0], splits[1], (int)classId));
+                    CurrentStudents = Model.GetStudents();
+                    GoBack();
+                }
+            }
         }
 
         private void ShowRecruitmentMenu()
@@ -358,6 +383,39 @@ namespace YH_Admin.View
             ShowCourseMenu();
         }
 
+        private void ShowCurrentClassCourses()
+        {
+            var table = new string[CurrentClassCourses.Count + 1, 4];
+            table[0, 0] = "Namn";
+            table[0, 1] = "Startdatum";
+            table[0, 2] = "Slutdatum";
+            table[0, 3] = "Status";
+            for (int i = 0; i < CurrentClassCourses.Count; i++)
+            {
+                table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
+                table[i + 1, 1] = CurrentClassCourses[i].StartDateString;
+                table[i + 1, 2] = CurrentClassCourses[i].EndDateString;
+                table[i + 1, 3] = CurrentClassCourses[i].Status;
+            }
+            View.ChoiceHandler = HandleShowCurrentClassCourses;
+            View.ShowTableAndWaitForChoice(table, choosable: false);
+        }
+
+        private void HandleShowCurrentClassCourses(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            ShowCurrentClassCourses();
+        }
+
         private void ShowStudentInClassMenu()
         {
             View.Titles.Push($"Visa studerande i en viss klass");
@@ -447,7 +505,7 @@ namespace YH_Admin.View
             ShowCurrentClasses();
         }
 
-        private void ShowCurrentClassCourses()
+        private void ShowCurrentClassCoursesStudent()
         {
             var table = new string[CurrentClassCourses.Count + 1, 5];
             table[0, 0] = "Namn";
@@ -467,11 +525,11 @@ namespace YH_Admin.View
                 else
                     table[i + 1, 4] = "";
             }
-            View.ChoiceHandler = HandleShowCurrentClassCourses;
+            View.ChoiceHandler = HandleShowCurrentClassCoursesStudent;
             View.ShowTableAndWaitForChoice(table);
         }
 
-        private void HandleShowCurrentClassCourses(string choice)
+        private void HandleShowCurrentClassCoursesStudent(string choice)
         {
             if (choice.Equals("x"))
             {
@@ -488,14 +546,14 @@ namespace YH_Admin.View
             {
                 if (index > 0 && index <= CurrentClassCourses.Count)
                 {
-                    PreviousMenus.Push(ShowCurrentClassCourses);
+                    PreviousMenus.Push(ShowCurrentClassCoursesStudent);
                     CurrentClassCourse = CurrentClassCourses[index - 1];
                     View.Titles.Push("Sätta/ ändra betyg");
                     ShowCurrentClassCourseMenu();
                     return;
                 }
             }
-            ShowCurrentClassCourses();
+            ShowCurrentClassCoursesStudent();
         }
 
         private void ShowCurrentClassCourseMenu()
@@ -523,6 +581,7 @@ namespace YH_Admin.View
 
         private void HandleShowCurrentClassCourseMenu(string choice)
         {
+            choice = choice.ToUpperInvariant();
             switch (choice)
             {
                 case "IG":
@@ -532,14 +591,14 @@ namespace YH_Admin.View
                     CurrentClassCourse = null;
                     GoBack();
                     break;
-                case "x":
+                case "X":
                     GoBack();
                     return;
-                case "h":
+                case "H":
                     ShowMainMenu();
                     return;
                 default:
-                    View.Message = "Tillåtna val: 'x', 'h', 'IG' 'G' 'VG'";
+                    View.Message = "Tillåtna val: 'X', 'H', 'IG' 'G' 'VG'";
                     ShowCurrentClassCourseMenu();
                     break;
             }
