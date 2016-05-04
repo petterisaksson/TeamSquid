@@ -446,17 +446,20 @@ namespace YH_Admin.View
 
         private void ShowCurrentClassCourses()
         {
-            var table = new string[CurrentClassCourses.Count + 1, 4];
+            var table = new string[CurrentClassCourses.Count + 1, 5];
             table[0, 0] = "Namn";
             table[0, 1] = "Startdatum";
             table[0, 2] = "Slutdatum";
             table[0, 3] = "Status";
+            table[0, 4] = "Betyg";
             for (int i = 0; i < CurrentClassCourses.Count; i++)
             {
                 table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
                 table[i + 1, 1] = CurrentClassCourses[i].StartDateString;
                 table[i + 1, 2] = CurrentClassCourses[i].EndDateString;
                 table[i + 1, 3] = CurrentClassCourses[i].Status;
+                table[i + 1, 4] = CurrentClassCourses[i].Status;
+
             }
             View.ChoiceHandler = HandleShowCurrentClassCourses;
             View.ShowTableAndWaitForChoice(table, false);

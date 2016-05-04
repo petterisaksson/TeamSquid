@@ -30,6 +30,8 @@ namespace YH_Admin.Model
 
         public List<ClassCourse> ClassCourseTable { get; private set; }
 
+        public List<Grade> Grades { get; set; }
+
         public School()
         {
             Users = new List<User>();
@@ -66,6 +68,31 @@ namespace YH_Admin.Model
 
             // Read education-course file
             ReadEducationCourseFile(Path.Combine(soluPath, @"DataFiles\education_courses.txt"));
+
+            // Read grade file
+            ReadGradeFile(Path.Combine(soluPath, @"DataFiles\grades.txt"));
+        }
+
+        private void ReadGradeFile(string path)
+        {
+            try
+            {
+                Grades = new List<Grade>();
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(' ');
+                    var u = new Grade(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), splits[3]);
+                    Grades.Add(u);
+
+                    //Test code: 
+                    //Console.WriteLine(u);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating Grades: " + ex);
+            }
         }
 
         private void ReadUserFile(string path)
@@ -218,6 +245,11 @@ namespace YH_Admin.Model
                 Console.WriteLine("Exception caught in creating SchoolClass: " + ex);
             }
 
+        }
+
+        public Grade GetGrade(Student student, ClassCourse classCourse)
+        {
+            return Grades.Find(g => g.StudentId == student.StudentId && g.ClassCourseId == classCourse.ClassCourseId);
         }
 
         public List<Education> GetEducations(int userId)
