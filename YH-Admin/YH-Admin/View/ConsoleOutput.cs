@@ -14,6 +14,8 @@ namespace YH_Admin.View
 
         public Stack<string> Titles { get; set; }
 
+        public string Message { get; set; }
+
         public ConsoleOutput()
         {
             Titles = new Stack<string>();
@@ -84,6 +86,8 @@ namespace YH_Admin.View
                 Console.ForegroundColor = ConsoleColor.DarkRed; ;
                 Console.WriteLine("Huvudmeny");
             }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(Message);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nDitt val> ");
             var choice = Console.ReadLine();

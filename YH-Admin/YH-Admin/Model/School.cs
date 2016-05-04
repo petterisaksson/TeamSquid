@@ -83,7 +83,7 @@ namespace YH_Admin.Model
                 foreach (var line in lines)
                 {
                     var splits = line.Split(' ');
-                    var u = new Grade(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), splits[3]);
+                    var u = new Grade(Guid.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), splits[3]);
                     Grades.Add(u);
 
                     //Test code: 
@@ -93,6 +93,7 @@ namespace YH_Admin.Model
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in creating Grades: " + ex);
+                Console.ReadLine();
             }
         }
 
@@ -115,6 +116,8 @@ namespace YH_Admin.Model
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
+                Console.ReadLine();
+
             }
         }
 
@@ -143,6 +146,8 @@ namespace YH_Admin.Model
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in creating Educations: " + ex);
+                Console.ReadLine();
+
             }
         }
 
@@ -165,6 +170,8 @@ namespace YH_Admin.Model
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
+                Console.ReadLine();
+
             }
         }
 
@@ -189,6 +196,8 @@ namespace YH_Admin.Model
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in creating Courses: " + ex);
+                Console.ReadLine();
+
             }
         }
 
@@ -216,6 +225,8 @@ namespace YH_Admin.Model
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in creating Courses: " + ex);
+                Console.ReadLine();
+
             }
         }
 
@@ -244,6 +255,8 @@ namespace YH_Admin.Model
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in creating SchoolClass: " + ex);
+                Console.ReadLine();
+
             }
 
         }
@@ -251,6 +264,17 @@ namespace YH_Admin.Model
         public Grade GetGrade(Student student, ClassCourse classCourse)
         {
             return Grades.Find(g => g.StudentId == student.StudentId && g.ClassCourseId == classCourse.ClassCourseId);
+        }
+
+        public void SetGrade(Student student, ClassCourse classCourse, string gradeString)
+        {
+            var grade = GetGrade(student, classCourse);
+            if (grade != null)
+                grade.GradeString = gradeString;
+            else
+            {
+                Grades.Add(new Grade(Guid.NewGuid(), student.StudentId, classCourse.ClassCourseId, gradeString));
+            }
         }
 
         public List<Education> GetEducations(int userId)
@@ -355,6 +379,6 @@ namespace YH_Admin.Model
         {
             return GetStudents(schoolClass.SchoolClassId);
         }
-        
+
     }
 }

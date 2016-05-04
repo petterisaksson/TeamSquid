@@ -156,8 +156,7 @@ namespace YH_AdminTest
             school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
             school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
             school.Users.Add(new User(0, "Tina", "Tina1", "Tina", "Kraft"));
-            school.Grades.Add(new Grade(0, 0, 0, "G"));
-            school.Grades.Add(new Grade(1, 1, 1, "VG"));
+
 
             return school;
 
@@ -193,11 +192,15 @@ namespace YH_AdminTest
         public void TestGetGrade()
         {
             School sc = GetTestSchool();
-            var expectedGrade = new Grade(0, 0, 0, "G");
+            var expectedGrade = new Grade(Guid.NewGuid(), 0, 0, "G");
+
+            sc.Grades.Add(expectedGrade);
+            sc.Grades.Add(new Grade(Guid.NewGuid(), 1, 1, "VG"));
+
 
             var actualGrade = sc.GetGrade(new Student(0, "Allan", "Allansson", 0), new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
 
-            Assert.AreEqual(expectedGrade, actualGrade, actualGrade.ToString());
+            Assert.AreEqual(expectedGrade, actualGrade );
         }
     }
 }

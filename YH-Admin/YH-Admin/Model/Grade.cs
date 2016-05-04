@@ -8,7 +8,7 @@ namespace YH_Admin.Model
 {
     public class Grade
     {
-        public int GradeId { get; set; }
+        public Guid GradeId { get; set; }
 
         public int StudentId { get; set; }
 
@@ -16,7 +16,7 @@ namespace YH_Admin.Model
 
         public string GradeString { get; set; }
 
-        public Grade(int gradeId, int studentId, int classCourseId, string grade)
+        public Grade(Guid gradeId, int studentId, int classCourseId, string grade)
         {
             GradeId = gradeId;
             StudentId = studentId;
