@@ -45,7 +45,7 @@ namespace YH_Admin.Utils
         public void SaveGradeFile(List<Grade> grades)
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\grades.txt");
-            var lines = grades.Select(g => g.ToString()).ToArray();
+            var lines = grades.OrderBy(g => g.StudentId).Select(g => g.ToString()).ToArray();
             File.WriteAllLines(path, lines);
         }
 
@@ -105,7 +105,12 @@ namespace YH_Admin.Utils
             return educations;
         }
 
-
+        public void SaveStudentFile(List<Student> students)
+        {
+            var path = Path.Combine(DirectoryPath, @"DataFiles\students.txt");
+            var lines = students.OrderBy(s => s.StudentId).Select(g => g.ToString()).ToArray();
+            File.WriteAllLines(path, lines);
+        }
 
         public Dictionary<int, Student> ReadStudentFile()
         {

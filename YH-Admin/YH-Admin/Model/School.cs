@@ -70,6 +70,7 @@ namespace YH_Admin.Model
 
         public void SaveToFiles()
         {
+            SchoolDatabase.SaveStudentFile(GetStudents());
             SchoolDatabase.SaveGradeFile(Grades);
         }
 
