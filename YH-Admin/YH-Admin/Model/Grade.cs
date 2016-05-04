@@ -41,5 +41,10 @@ namespace YH_Admin.Model
         {
             return StudentId ^ ClassCourseId;
         }
+
+        public override string ToString()
+        {
+            return $"{GradeId} {StudentId} {ClassCourseId} {GradeString}";
+        }
     }
 }

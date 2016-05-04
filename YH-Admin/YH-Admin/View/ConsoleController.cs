@@ -128,6 +128,7 @@ namespace YH_Admin.View
                     ShowRecruitmentMenu();
                     break;
                 case "x":
+                    Model.SaveToFiles();
                     return;
                 default:
                     ShowMainMenu();

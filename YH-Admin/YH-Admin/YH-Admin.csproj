@@ -50,6 +50,7 @@
     <Compile Include="Model\Grade.cs" />
     <Compile Include="Model\Staffing.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Utils\SchoolIO.cs" />
     <Compile Include="View\ConsoleController.cs" />
     <Compile Include="View\ConsoleOutput.cs" />
     <Compile Include="Model\Course.cs" />
