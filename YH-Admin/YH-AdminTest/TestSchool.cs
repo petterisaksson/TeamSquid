@@ -174,8 +174,17 @@ namespace YH_AdminTest
             CollectionAssert.AreEqual(expectedList, actualList);
         }
 
+        [TestMethod]
+        public void TestGetClassCoursesStu()
+        {
+            School sc = GetTestSchool();
 
+            List<ClassCourse> expectedList = new List<ClassCourse>();
+            expectedList.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
 
+            List<ClassCourse> actualList = sc.GetClassCourses(new Student(0, "Allan", "Allansson", 0));
 
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
     }
 }
