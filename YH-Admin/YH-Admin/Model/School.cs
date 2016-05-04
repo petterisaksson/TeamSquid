@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections;
 
 namespace YH_Admin.Model
 {
@@ -31,8 +30,6 @@ namespace YH_Admin.Model
 
         public List<ClassCourse> ClassCourseTable { get; private set; }
 
-        public SortedList<int, Grade> Grades { get; private set; }
-
         public School()
         {
             Users = new List<User>();
@@ -42,7 +39,6 @@ namespace YH_Admin.Model
             Courses = new List<Course>();
             EducationCourses = new List<EducationCourse>();
             ClassCourseTable = new List<ClassCourse>();
-            Grades = new SortedList<int, Grade>();
         }
 
         /// <summary>
@@ -320,20 +316,6 @@ namespace YH_Admin.Model
         {
             return GetStudents(schoolClass.SchoolClassId);
         }
-
-        public bool AddGrade(int classCourseId, int studentId, string grade)
-        {
-            Grade newGrade = new Grade(0, classCourseId, studentId, grade);
-            if (Grades.Values.Contains(newGrade))
-                return false;
-            while (Grades.ContainsKey(newGrade.GradeId))
-            {
-                ++newGrade.GradeId;
-            }
-
-            Grades.Add(newGrade.GradeId, newGrade);
-            return true;
-        }
-
+        
     }
 }

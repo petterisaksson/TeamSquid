@@ -25,7 +25,7 @@ namespace YH_Admin.Model
                 return false;
 
             Course c = obj as Course;
-            if (c == null)
+            if ((System.Object)c == null)
                 return false;
 
             // Return true if the fields match:
