@@ -68,6 +68,7 @@
     <Content Include="DataFiles\class_courses.txt" />
     <Content Include="DataFiles\courses.txt" />
     <Content Include="DataFiles\education.txt" />
+    <Content Include="DataFiles\grades.txt" />
     <Content Include="DataFiles\students.txt" />
     <Content Include="DataFiles\users.txt" />
   </ItemGroup>
