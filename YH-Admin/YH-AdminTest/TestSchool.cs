@@ -105,7 +105,6 @@ namespace YH_AdminTest
             var actualList = school.GetEducations(1);
 
             CollectionAssert.AreEqual(expectedList, actualList);
-
         }
 
         [TestMethod]
@@ -142,7 +141,6 @@ namespace YH_AdminTest
         {
             School school = new School();
 
-
             school.Educations.Add(new Education(0, "Första education", 0));
             school.Educations.Add(new Education(1, "Andra education", 1));
             school.Courses.Add(new Course(0, "Första Course"));
@@ -159,7 +157,6 @@ namespace YH_AdminTest
 
 
             return school;
-
         }
 
         [TestMethod]

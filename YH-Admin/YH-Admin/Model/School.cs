@@ -266,6 +266,21 @@ namespace YH_Admin.Model
             return Grades.Find(g => g.StudentId == student.StudentId && g.ClassCourseId == classCourse.ClassCourseId);
         }
 
+        public List<Student> GetFailers()
+        {
+            var failList = Grades.Where(g => g.GradeString == "IG");
+            var failedStudent = new List<Student>();
+
+            foreach (var grade in failList)
+            {
+                var student = Students.Find(s => s.StudentId == grade.StudentId);
+                if (student != null)
+                    failedStudent.Add(student);
+            }
+
+            return failedStudent;
+        }
+
         public void SetGrade(Student student, ClassCourse classCourse, string gradeString)
         {
             var grade = GetGrade(student, classCourse);
