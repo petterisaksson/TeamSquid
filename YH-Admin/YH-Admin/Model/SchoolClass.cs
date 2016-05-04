@@ -11,7 +11,7 @@ namespace YH_Admin.Model
         /// <summary>
         /// Identifier to this school class.
         /// </summary>
-        public int ClassId { get; set; }
+        public int SchoolClassId { get; set; }
 
         /// <summary>
         /// Name to this school class.
@@ -26,12 +26,18 @@ namespace YH_Admin.Model
         /// <summary>
         /// The starting date of this school class.
         /// </summary>
-        public DateTime StartDate { get; set; }
+        private DateTime StartDate { get; set; }
 
         /// <summary>
         /// The ending date of this school class.
         /// </summary>
-        public DateTime EndDate { get; set; }
+        private DateTime EndDate { get; set; }
+
+        public string StartDateString { get { return StartDate.ToString("yyyyMMdd"); } }
+
+        public string EndDateString { get { return EndDate.ToString("yyyyMMdd"); } }
+
+        public string Status { get { return (EndDate < DateTime.Today) ? $"Avslutat {EndDateString}" : "Aktiv"; } }
 
         /// <summary>
         /// Constructor.
@@ -43,12 +49,30 @@ namespace YH_Admin.Model
         /// <param name="endDate"></param>
         public SchoolClass(int classId, string name, int educationId, DateTime startDate, DateTime endDate)
         {
-            ClassId = classId;
+            SchoolClassId = classId;
             Name = name;
             EducationId = educationId;
             StartDate = startDate;
             EndDate = endDate;
         }
+
+        ///// <summary>
+        ///// Get the start date of this school class as a string.
+        ///// </summary>
+        ///// <returns></returns>
+        //string GetStartDate()
+        //{
+        //    return StartDate.ToString("yyyyMMdd");
+        //}
+
+        ///// <summary>
+        ///// Get the end date of this school class as a string.
+        ///// </summary>
+        ///// <returns></returns>
+        //string GetEndDate()
+        //{
+        //    return EndDate.ToString("yyyyMMdd");
+        //}
 
         /// <summary>
         /// Default string output.
@@ -56,38 +80,38 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return ClassId + ": " + Name + ", eduId: " + EducationId + "; " + GetStartDate() + "->" + GetEndDate();
+            return SchoolClassId + ": " + Name + ", eduId: " + EducationId + "; " + StartDateString + "->" + EndDateString;
         }
 
-        /// <summary>
-        /// Get the start date of this school class as a string.
-        /// </summary>
-        /// <returns></returns>
-        string GetStartDate()
+        public override bool Equals(object obj)
         {
-            return StartDate.ToString("yyyyMMdd");
+            if (obj == null)
+                return false;
+
+            SchoolClass sc = obj as SchoolClass;
+            if ((System.Object)sc == null)
+                return false;
+
+            // Return true if the fields match:
+            return (SchoolClassId == sc.SchoolClassId) && (StartDate == sc.StartDate) && (EndDate == sc.EndDate);
         }
 
-        /// <summary>
-        /// Get the end date of this school class as a string.
-        /// </summary>
-        /// <returns></returns>
-        string GetEndDate()
+        public override int GetHashCode()
         {
-            return EndDate.ToString("yyyyMMdd");
+            return SchoolClassId ^ StartDate.GetHashCode() ^ EndDate.GetHashCode();
         }
 
         /// <summary>
         /// Get of name, start date and whether the class has ended or not.
         /// </summary>
         /// <returns></returns>
-        public string ShowClassStatus()
-        {
-            string str = "Class: " + Name + "; Startdate: " + GetStartDate();
-            if (EndDate < DateTime.Today)
-                return str + ", Status: ended on " + GetEndDate();
-            else
-                return str + ", Status: active.";
-        }
+        //public string ShowClassStatus()
+        //{
+        //    string str = "Class: " + Name + "; Startdate: " + GetStartDate();
+        //    if (EndDate < DateTime.Today)
+        //        return str + ", Status: ended on " + GetEndDate();
+        //    else
+        //        return str + ", Status: active.";
+        //}
     }
 }

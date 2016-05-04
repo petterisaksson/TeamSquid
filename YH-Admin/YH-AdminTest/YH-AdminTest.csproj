@@ -58,7 +58,7 @@
     <Compile Include="TestStudent.cs" />
     <Compile Include="TestEducation.cs" />
     <Compile Include="TestSchool.cs" />
-    <Compile Include="TestGetStudents1.cs" />
+    <Compile Include="TestConsoleOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YH-Admin\YH-Admin.csproj">

@@ -21,14 +21,27 @@ namespace YH_Admin.Model
             UserId = uId;
         }
 
-        public Education()
+        public override bool Equals(object obj)
         {
+            if (obj == null)
+                return false;
 
+            Education ed = obj as Education;
+            if ((System.Object)ed == null)
+                return false;
+
+            // Return true if the fields match:
+            return (EducationId == ed.EducationId) && (Name == ed.Name) && (UserId == ed.UserId);
+        }
+
+        public override int GetHashCode()
+        {
+            return EducationId ^ Name.GetHashCode() ^ UserId;
         }
 
         public override string ToString()
         {
-            return EducationId + " " + Name + " " + UserId;
+            return $"EducationId: {EducationId}; Name: {Name}; UserId: {UserId}";
         }
     }
 }

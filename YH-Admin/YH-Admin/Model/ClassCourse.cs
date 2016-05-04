@@ -18,11 +18,17 @@ namespace YH_Admin.Model
 
         public DateTime EndDate { get; set; }
 
+        public string StartDateString { get { return StartDate.ToString("yyyyMMdd"); } }
+
+        public string EndDateString { get { return EndDate.ToString("yyyyMMdd"); } }
+
         public bool IsFinished { get { return EndDate < DateTime.Today; } }
+
+        public string Status { get { return IsFinished ? "Avslutat" : "Aktiv"; } }
 
         public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate)
         {
-            ClassCourseId = ClassCourseId;
+            ClassCourseId = classCourseId;
             ClassId = classId;
             CourseId = courseId;
             StartDate = startDate;
@@ -47,6 +53,24 @@ namespace YH_Admin.Model
             return EndDate.ToString("yyyyMMdd");
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            ClassCourse cc = obj as ClassCourse;
+            if ((System.Object)cc == null)
+                return false;
+
+            // Return true if the fields match:
+            return (ClassCourseId == cc.ClassCourseId) && (ClassId == cc.ClassId) && (CourseId == cc.CourseId);
+        }
+
+        public override int GetHashCode()
+        {
+            return ClassCourseId ^ ClassId ^ CourseId;
+        }
+
         /// <summary>
         /// Default string output.
         /// </summary>
@@ -59,7 +83,7 @@ namespace YH_Admin.Model
 
         public string ShowCourseStatus()
         {
-            return GetStartDate() + "->" + GetEndDate() + " Status: " + (IsFinished ? "Avslutat" : "Pågående" );
+            return GetStartDate() + "->" + GetEndDate() + " Status: " + (IsFinished ? "Avslutat" : "Pågående");
         }
 
     }

@@ -20,10 +20,9 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
-       
         public void TestGetStartDate()
         {
-            //Arange
+            //Arrange
             ClassCourse gsd = new ClassCourse(1, 2, 3, new DateTime(2016, 04, 26), new DateTime(2016, 02, 02));
             string expected = "20160426";
 
@@ -33,6 +32,8 @@ namespace YH_AdminTest
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
         public void TestToString()
         {
             ClassCourse cc = new ClassCourse(1, 2, 3, new DateTime(2016, 01, 01), new DateTime(2016, 02, 02));

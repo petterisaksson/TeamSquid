@@ -27,6 +27,8 @@ namespace YH_Admin.View
 
         List<string> CurrentCourses { get; set; }
 
+        List<ClassCourse> CurrentClassCourses { get; set; }
+
         /// <summary>
         /// Constructor to set up Model and View.
         /// </summary>
@@ -41,7 +43,7 @@ namespace YH_Admin.View
 
         public void ShowWelcomeScreen()
         {
-            View.Title = "Inloggning till Yh-Admin";
+            View.Titles.Push("Inloggning till Yh-Admin");
             View.ChoiceHandler = HandleLogIn;
             View.ShowLogIn();
         }
@@ -65,6 +67,7 @@ namespace YH_Admin.View
 
         private void GoBack()
         {
+            View.Titles.Pop();
             var p = PreviousMenus.Pop();
             p();
         }
@@ -74,10 +77,21 @@ namespace YH_Admin.View
         /// </summary>
         public void ShowMainMenu()
         {
-            View.Title = $"Huvudmeny - {CurrentUser.Name}";
-            string[] alts = { "Avsluta", "Utbildning", "Klasser", "Kurser", "Undervisare", "Studerande", "Betyg" };
+            PreviousMenus.Clear();
+            View.Titles.Clear();
+            View.Titles.Push($"Huvudmeny - {CurrentUser.Name}");
+
+            var table = new string[7, 1];
+            table[0, 0] = "Kategorier";
+            table[1, 0] = "Utbildning";
+            table[2, 0] = "Klasser";
+            table[3, 0] = "Kurser";
+            table[4, 0] = "Studerande";
+            table[5, 0] = "Betyg";
+            table[6, 0] = "Bemanning";
+
             View.ChoiceHandler = HandleMainMenuChoice;
-            View.ShowListAndWaitForChoice(alts);
+            View.ShowTableAndWaitForChoice(table, isMainMenu: true);
         }
 
         /// <summary>
@@ -103,17 +117,15 @@ namespace YH_Admin.View
                     break;
                 case "4":
                     PreviousMenus.Push(ShowMainMenu);
-
-                    Console.WriteLine("Undervisare - ej implementerat");
+                    ShowStudentMenu();
                     break;
                 case "5":
                     PreviousMenus.Push(ShowMainMenu);
-                    ShowStudentMenu();
+                    ShowGradeMenu();
                     break;
                 case "6":
                     PreviousMenus.Push(ShowMainMenu);
-
-                    Console.WriteLine("Betyg - ej implementerat");
+                    ShowRecruitmentMenu();
                     break;
                 case "x":
                     return;
@@ -123,17 +135,69 @@ namespace YH_Admin.View
             }
         }
 
+        private void ShowGradeMenu()
+        {
+            View.Titles.Push($"Betygsmeny");
+
+            var table = new string[5, 1];
+            table[0, 0] = "Kategorier";
+            table[1, 0] = "Se studieresultat";
+            table[2, 0] = "Se enskilt betyg";
+            table[3, 0] = "Visa betyg";
+            table[4, 0] = "Sätta betyg";
+
+            View.ChoiceHandler = HandleGradeMenuChoice;
+            View.ShowTableAndWaitForChoice(table);
+        }
+
+        private void HandleGradeMenuChoice(string choice)
+        {
+            switch (choice)
+            {
+                case "1":
+                    //TODO:
+                    break;
+                case "2":
+                    //TODO:
+                    break;
+                case "3":
+                    //TODO:
+                    break;
+                case "4":
+                    //TODO:
+                    break;
+                case "x":
+                    GoBack();
+                    return;
+                case "h":
+                    ShowMainMenu();
+                    return;
+                default:
+                    ShowGradeMenu();
+                    break;
+            }
+        }
+
+        private void ShowRecruitmentMenu()
+        {
+            // TODO: Implement
+            Console.Clear();
+            Console.WriteLine("ShowRecruitmentMenu not implemented\nPress any key to return.");
+            Console.ReadLine();
+            ShowMainMenu();
+        }
+
         private void ShowCurrentEducation()
         {
-            View.Title = $"Utbildningar - {CurrentUser.Name}";
-            string[] alts = new string[CurrentEducations.Count + 1];
-            alts[0] = "Tillbaka";
+            View.Titles.Push($"Utbildningar ansvariga av {CurrentUser.Name}");
+            var table = new string[CurrentEducations.Count + 1, 1];
+            table[0, 0] = "Namn";
             for (int i = 0; i < CurrentEducations.Count; i++)
             {
-                alts[i + 1] = CurrentEducations[i].ToString();
+                table[i + 1, 0] = CurrentEducations[i].Name;
             }
             View.ChoiceHandler = HandleCurrentEducations;
-            View.ShowListAndWaitForChoice(alts);
+            View.ShowTableAndWaitForChoice(table);
         }
 
         private void HandleCurrentEducations(string choice)
@@ -143,13 +207,20 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
             int index;
             if (int.TryParse(choice, out index))
             {
                 if (index > 0 && index <= CurrentEducations.Count)
                 {
                     PreviousMenus.Push(ShowCurrentEducation);
-                    CurrentClasses = Model.GetClasses(CurrentEducations[index - 1]);
+                    var chosen = CurrentEducations[index - 1];
+                    View.Titles.Push($"Klasser i {chosen.Name}");
+                    CurrentClasses = Model.GetClasses(chosen);
                     ShowCurrentClasses();
                     return;
                 }
@@ -160,97 +231,149 @@ namespace YH_Admin.View
 
         private void ShowClassMenu()
         {
-            View.Title = $"Klasser - ";
+            View.Titles.Push($"Visa klasser i en viss utbildning");
+            CurrentEducations = Model.Educations;
+            var table = new string[CurrentEducations.Count + 1, 1];
+            table[0, 0] = "Namn";
+            for (int i = 0; i < CurrentEducations.Count; i++)
+            {
+                table[i + 1, 0] = CurrentEducations[i].Name;
+            }
 
-            string[] alts = { "Tillbaka", "Visa klasser i en viss utbildning" };
             View.ChoiceHandler = HandleClassMenu;
-            View.ShowListAndWaitForChoice(alts);
+            View.ShowTableAndWaitForChoice(table);
         }
 
         private void HandleClassMenu(string choice)
         {
-            switch (choice)
+            if (choice.Equals("x"))
             {
-                case "1":
-                    PreviousMenus.Push(ShowClassMenu);
-                    CurrentEducations = Model.Educations;
-                    ShowCurrentEducation();
-                    break;
-                case "x":
-                    GoBack();
-                    break;
-                default:
-                    ShowClassMenu();
-                    break;
+                GoBack();
+                return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentEducations.Count)
+                {
+                    PreviousMenus.Push(ShowClassMenu);
+                    var chosen = CurrentEducations[index - 1];
+                    View.Titles.Push($"Klasser i {chosen.Name}");
+                    CurrentClasses = Model.GetClasses(chosen);
+                    ShowCurrentClasses();
+                    return;
+                }
+            }
+            ShowClassMenu();
         }
 
         private void ShowCourseMenu()
         {
-            View.Title = $"Kurser - ";
+            View.Titles.Push($"Visa kurser som läses av en viss klass");
+            CurrentClasses = Model.SchoolClasses;
+            var table = new string[CurrentClasses.Count + 1, 1];
+            table[0, 0] = "Namn";
+            for (int i = 0; i < CurrentClasses.Count; i++)
+            {
+                table[i + 1, 0] = CurrentClasses[i].Name;
+            }
 
-            string[] alts = { "Tillbaka", "Visa kurser som läses av en viss klass" };
             View.ChoiceHandler = HandleCourseMenu;
-            View.ShowListAndWaitForChoice(alts);
+            View.ShowTableAndWaitForChoice(table);
         }
 
         private void HandleCourseMenu(string choice)
         {
-            switch (choice)
+            if (choice.Equals("x"))
             {
-                case "1":
-                    PreviousMenus.Push(ShowCourseMenu);
-                    CurrentClasses = Model.SchoolClasses;
-                    ShowCurrentClasses();
-                    break;
-                case "x":
-                    GoBack();
-                    break;
-                default:
-                    ShowCourseMenu();
-                    break;
+                GoBack();
+                return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentClasses.Count)
+                {
+                    PreviousMenus.Push(ShowCourseMenu);
+                    var chosen = CurrentClasses[index - 1];
+                    View.Titles.Push($"Kurser som läses av {chosen.Name}");
+                    CurrentClassCourses = Model.GetClassCourses(chosen);
+                    ShowCurrentClassCourses();
+                    return;
+                }
+            }
+            ShowCourseMenu();
         }
 
         private void ShowStudentMenu()
         {
-            View.Title = $"Studenter - ";
+            View.Titles.Push($"Visa studerande i en viss klass");
+            CurrentClasses = Model.SchoolClasses;
+            var table = new string[CurrentClasses.Count + 1, 1];
+            table[0, 0] = "Namn";
+            for (int i = 0; i < CurrentClasses.Count; i++)
+            {
+                table[i + 1, 0] = CurrentClasses[i].Name;
+            }
 
-            string[] alts = { "Tillbaka", "Visa studerande i en viss klass" };
             View.ChoiceHandler = HandleStudentMenuChoice;
-            View.ShowListAndWaitForChoice(alts);
+            View.ShowTableAndWaitForChoice(table);
         }
 
         private void HandleStudentMenuChoice(string choice)
         {
-            switch (choice)
+            if (choice.Equals("x"))
             {
-                case "1":
-                    PreviousMenus.Push(ShowStudentMenu);
-                    CurrentClasses = Model.SchoolClasses;
-                    ShowCurrentClasses();
-                    break;
-                case "x":
-                    GoBack();
-                    break;
-                default:
-                    ShowStudentMenu();
-                    break;
+                GoBack();
+                return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentClasses.Count)
+                {
+                    PreviousMenus.Push(ShowStudentMenu);
+                    var chosen = CurrentClasses[index - 1];
+                    View.Titles.Push($"Studerande i {chosen.Name}");
+                    CurrentStudents = Model.GetStudents(chosen);
+                    ShowCurrentStudents();
+                    return;
+                }
+            }
+            ShowStudentMenu();
         }
 
         private void ShowCurrentClasses()
         {
-            View.Title = $"Klasser - ";
+            var table = new string[CurrentClasses.Count + 1, 3];
+            table[0, 0] = "Namn";
+            table[0, 1] = "Startdatum";
+            table[0, 2] = "Status";
 
-            string[] alts = new string[CurrentClasses.Count + 1];
-            alts[0] = "Tillbaka";
             for (int i = 0; i < CurrentClasses.Count; i++)
             {
-                alts[i + 1] = CurrentClasses[i].ShowClassStatus();
+                table[i + 1, 0] = CurrentClasses[i].Name;
+                table[i + 1, 1] = CurrentClasses[i].StartDateString;
+                table[i + 1, 2] = CurrentClasses[i].Status;
+
             }
             View.ChoiceHandler = HandleShowCurrentClasses;
-            View.ShowListAndWaitForChoice(alts);
+            View.ShowTableAndWaitForChoice(table);
         }
 
         private void HandleShowCurrentClasses(string choice)
@@ -260,33 +383,63 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
             int index;
             if (int.TryParse(choice, out index))
             {
                 if (index > 0 && index <= CurrentClasses.Count)
                 {
-                    var peek = PreviousMenus.Peek();
                     PreviousMenus.Push(ShowCurrentClasses);
-                    if (peek.Method.Name == "ShowCourseMenu")
-                    {
-
-                        CurrentCourses = Model.GetCourses(CurrentClasses[index - 1]);
-                        ShowCurrentCourses();
-                    }
-                    else
-                    {
-                        CurrentStudents = Model.GetStudents(CurrentClasses[index - 1]);
-                        ShowCurrentStudents();
-                    }
+                    var chosen = CurrentClasses[index - 1];
+                    View.Titles.Push($"Studerande i {chosen.Name}");
+                    CurrentStudents = Model.GetStudents(chosen);
+                    ShowCurrentStudents();
                     return;
                 }
             }
             ShowCurrentClasses();
         }
 
+        private void ShowCurrentClassCourses()
+        {
+            var table = new string[CurrentClassCourses.Count + 1, 4];
+            table[0, 0] = "Namn";
+            table[0, 1] = "Startdatum";
+            table[0, 2] = "Slutdatum";
+            table[0, 3] = "Status";
+            for (int i = 0; i < CurrentClassCourses.Count; i++)
+            {
+                table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
+                table[i + 1, 1] = CurrentClassCourses[i].StartDateString;
+                table[i + 1, 2] = CurrentClassCourses[i].EndDateString;
+                table[i + 1, 3] = CurrentClassCourses[i].Status;
+            }
+            View.ChoiceHandler = HandleShowCurrentClassCourses;
+            View.ShowTableAndWaitForChoice(table, false);
+        }
+
+        private void HandleShowCurrentClassCourses(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            ShowCurrentClassCourses();
+        }
+
         private void ShowCurrentCourses()
         {
-            View.Title = $"Kurser - ";
+            View.Titles.Push($"Kurser - ");
 
             var alts = new List<string>(CurrentCourses);
             alts.Insert(0, "Tillbaka");
@@ -301,22 +454,27 @@ namespace YH_Admin.View
                 GoBack();
                 return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+
 
             ShowCurrentCourses();
+           
         }
 
         private void ShowCurrentStudents()
         {
-            View.Title = $"Studenter - ";
-
-            string[] strs = new string[CurrentStudents.Count + 1];
-            strs[0] = "Tillbaka";
+            var table = new string[CurrentStudents.Count + 1, 1];
+            table[0, 0] = "Namn";
             for (int i = 0; i < CurrentStudents.Count; i++)
             {
-                strs[i + 1] = CurrentStudents[i].Name;
+                table[i + 1, 0] = CurrentStudents[i].Name;
             }
             View.ChoiceHandler = HandleShowCurrentStudents;
-            View.ShowListAndWaitForChoice(strs);
+            View.ShowTableAndWaitForChoice(table, false);
         }
 
         private void HandleShowCurrentStudents(string choice)
@@ -324,6 +482,11 @@ namespace YH_Admin.View
             if (choice.Equals("x"))
             {
                 GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
                 return;
             }
             int index;
@@ -334,7 +497,6 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowClassMenu);
                     // Visar betyg ?
                     {
-                        PreviousMenus.Clear();
                         ShowMainMenu();
                     }
                     return;

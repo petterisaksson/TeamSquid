@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace YH_Admin.Model
 {
@@ -29,14 +30,22 @@ namespace YH_Admin.Model
 
         public List<ClassCourse> ClassCourseTable { get; private set; }
 
+        public School()
+        {
+            Users = new List<User>();
+            Educations = new List<Education>();
+            SchoolClasses = new List<SchoolClass>();
+            Students = new List<Student>();
+            Courses = new List<Course>();
+            EducationCourses = new List<EducationCourse>();
+            ClassCourseTable = new List<ClassCourse>();
+        }
+
         /// <summary>
         /// Read all the datafiles in a specific folder.
         /// </summary>
-        public void LoadData()
+        public void LoadData(string soluPath)
         {
-            // Path to the application solution
-            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
             // Read user file
             ReadUserFile(Path.Combine(soluPath, @"DataFiles\users.txt"));
 
@@ -100,6 +109,7 @@ namespace YH_Admin.Model
 
                     //Test code: 
                     //Console.WriteLine(e);
+                    //Console.ReadLine();
                 }
             }
             catch (Exception ex)
@@ -236,7 +246,12 @@ namespace YH_Admin.Model
 
         public List<string> GetCourses(SchoolClass schoolClass)
         {
-            return GetCourses(schoolClass.ClassId);
+            return GetCourses(schoolClass.SchoolClassId);
+        }
+
+        public List<ClassCourse> GetClassCourses(SchoolClass schoolClass)
+        {
+            return ClassCourseTable.Where(c => c.ClassId == schoolClass.SchoolClassId).OrderBy(c => c.StartDate).ToList();
         }
 
         /// <summary>
@@ -299,8 +314,8 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public List<Student> GetStudents(SchoolClass schoolClass)
         {
-            return GetStudents(schoolClass.ClassId);
+            return GetStudents(schoolClass.SchoolClassId);
         }
-
+        
     }
 }
