@@ -8,6 +8,8 @@ namespace YH_Admin.Model
 {
     public class Student
     {
+        public static int NextStudentId { get; set; }
+
         /// <summary>
         /// Identifier to this student.
         /// </summary>  
@@ -30,15 +32,14 @@ namespace YH_Admin.Model
         /// </summary>
         public int ClassId { get; set; }
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="studentId"></param>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="classId"></param>
+        public Student(string firstName, string lastName, int classId) : this(NextStudentId, firstName, lastName, classId)
+        {
+        }
+
         public Student(int studentId, string firstName, string lastName, int classId)
         {
+            if (studentId >= NextStudentId)
+                NextStudentId = studentId + 1;
             StudentId = studentId;
             FirstName = firstName;
             LastName = lastName;
@@ -69,7 +70,7 @@ namespace YH_Admin.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return $"Id: {StudentId}; Name: {Name}; ClassId: {ClassId}";
+            return $"{StudentId} {FirstName} {LastName} {ClassId}";
         }
 
     }

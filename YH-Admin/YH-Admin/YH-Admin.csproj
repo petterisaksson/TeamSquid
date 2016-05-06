@@ -51,6 +51,7 @@
     <Compile Include="Model\Staffing.cs" />
     <Compile Include="Model\StaffingCourse.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Utils\SchoolIO.cs" />
     <Compile Include="View\ConsoleController.cs" />
     <Compile Include="View\ConsoleOutput.cs" />
     <Compile Include="Model\Course.cs" />
@@ -69,6 +70,7 @@
     <Content Include="DataFiles\class_courses.txt" />
     <Content Include="DataFiles\courses.txt" />
     <Content Include="DataFiles\education.txt" />
+    <Content Include="DataFiles\grades.txt" />
     <Content Include="DataFiles\students.txt" />
     <Content Include="DataFiles\teachers.txt" />
     <Content Include="DataFiles\users.txt" />

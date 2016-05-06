@@ -5,16 +5,17 @@ using YH_Admin.Model;
 namespace YH_AdminTest
 {
     [TestClass]
-    public class TestStudent
+    public class TestGrade
     {
         [TestMethod]
         public void TestToString()
         {
+            var guid = Guid.NewGuid();
+            var grade = new Grade(guid, 0, 0, "A");
 
-            Student s = new Student(1, "Al", "Baak", 2);
-            string expected = $"1 Al Baak 2";
+            var expected = $"{guid} 0 0 A";
 
-            var actual = s.ToString();
+            var actual = grade.ToString();
 
             Assert.AreEqual(expected, actual);
         }

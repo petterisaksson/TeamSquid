@@ -73,7 +73,7 @@ namespace YH_AdminTest
             List<ClassCourse> expectedList = new List<ClassCourse>();
             expectedList.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
 
-            List<ClassCourse> actualList = sc.GetClassCourses(new SchoolClass(1, "SU14", 0, new DateTime(2014, 09, 01), new DateTime(2016, 05, 30)));
+            List<ClassCourse> actualList = sc.GetClassCourses(new SchoolClass(1, "SU14", 0, new DateTime(2014, 08, 01), new DateTime(2016, 08, 31)));
 
             CollectionAssert.AreEqual(expectedList, actualList);
         }
@@ -105,24 +105,20 @@ namespace YH_AdminTest
             var actualList = school.GetEducations(1);
 
             CollectionAssert.AreEqual(expectedList, actualList);
-
         }
 
         [TestMethod]
         public void TestGetStudents()
         {
             //Arrenge
-            var expectedList = new List<Student>() {new Student(0,"Allan", "Allansson", 0)};
-
-            School school = new School();
-            string soluPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            school.LoadData(Path.Combine(soluPath, "YH-Admin"));
+            School school = GetTestSchool();
+            var expectedList = new List<Student>() { new Student(0, "Allan", "Allansson", 0), new Student(1, "Billy", "Butt", 0) };
 
             //Act
             var actualList = school.GetStudents(0);
 
             //Assert
-            CollectionAssert.AreEqual(expectedList,actualList);
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
 
         [TestMethod]
@@ -142,7 +138,6 @@ namespace YH_AdminTest
         {
             School school = new School();
 
-
             school.Educations.Add(new Education(0, "Första education", 0));
             school.Educations.Add(new Education(1, "Andra education", 1));
             school.Courses.Add(new Course(0, "Första Course"));
@@ -151,31 +146,55 @@ namespace YH_AdminTest
             school.SchoolClasses.Add(new SchoolClass(1, "Andra schoolclasses", 0, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
             school.Students.Add(new Student(0, "Allan", "Allansson", 0));
             school.Students.Add(new Student(1, "Billy", "Butt", 0));
-            school.EducationCourses.Add(new EducationCourse(0,0,0));
-            school.EducationCourses.Add(new EducationCourse(1,1,1));
+            school.EducationCourses.Add(new EducationCourse(0, 0, 0));
+            school.EducationCourses.Add(new EducationCourse(1, 1, 1));
             school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
             school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
-            school.Users.Add(new User(0, "Tina","Tina1", "Tina", "Kraft"));
+            school.Users.Add(new User(0, "Tina", "Tina1", "Tina", "Kraft"));
+
 
             return school;
-
         }
 
         [TestMethod]
         public void TestGetCourses2()
         {
-            
+
             School gc = GetTestSchool();
             List<string> expectedList = new List<string>();
             expectedList.Add("CourseId: 0, Name: Första Course | 20140901->20140930 Status: Avslutat");
-            
+
             var actualList = gc.GetCourses(0);
-            
+
             CollectionAssert.AreEqual(expectedList, actualList);
         }
 
+        [TestMethod]
+        public void TestGetClassCoursesStu()
+        {
+            School sc = GetTestSchool();
+
+            List<ClassCourse> expectedList = new List<ClassCourse>();
+            expectedList.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
+
+            List<ClassCourse> actualList = sc.GetClassCourses(new Student(0, "Allan", "Allansson", 0));
+
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
+
+        [TestMethod]
+        public void TestGetGrade()
+        {
+            School sc = GetTestSchool();
+            var expectedGrade = new Grade(Guid.NewGuid(), 0, 0, "G");
+
+            sc.Grades.Add(expectedGrade);
+            sc.Grades.Add(new Grade(Guid.NewGuid(), 1, 1, "VG"));
 
 
+            var actualGrade = sc.GetGrade(new Student(0, "Allan", "Allansson", 0), new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
 
+            Assert.AreEqual(expectedGrade, actualGrade );
+        }
     }
 }

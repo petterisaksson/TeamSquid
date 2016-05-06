@@ -14,6 +14,8 @@ namespace YH_Admin.View
 
         public Stack<string> Titles { get; set; }
 
+        public string Message { get; set; }
+
         public ConsoleOutput()
         {
             Titles = new Stack<string>();
@@ -59,7 +61,8 @@ namespace YH_Admin.View
                     for (int j = 0; j < numCols; j++)
                     {
                         SetColor(j);
-                        Console.Write(content[i, j].PadRight(lengths[j]));
+                        var str = content[i, j] ?? "+";
+                        Console.Write(str.PadRight(lengths[j]));
                     }
                     Console.Write("\n");
                 }
@@ -84,8 +87,11 @@ namespace YH_Admin.View
                 Console.ForegroundColor = ConsoleColor.DarkRed; ;
                 Console.WriteLine("Huvudmeny");
             }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine();
+            Console.WriteLine(Message);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("\nDitt val> ");
+            Console.Write("Ditt val> ");
             var choice = Console.ReadLine();
             Console.ResetColor();
             ChoiceHandler(choice);
@@ -125,11 +131,27 @@ namespace YH_Admin.View
         {
             Console.Clear();
             ShowTitle();
-            Console.Write("Username: ");
+            Console.Write("Användarnamn: ");
             var username = Console.ReadLine();
-            Console.Write("Password: ");
+            Console.Write("Lösenord: ");
             var password = Console.ReadLine();
             ChoiceHandler($"{username}\n{password}");
+        }
+
+        public void ShowAddStudent(string[] classList)
+        {
+            Console.Clear();
+            ShowTitle();
+            Console.Write("Förnman: ");
+            var firstname = Console.ReadLine();
+            Console.Write("Efternamn: ");
+            var lastname = Console.ReadLine();
+            Console.Write($"Klass [{String.Join(", ", classList)}]: ");
+            var answer = Console.ReadLine();
+            if (firstname.Length > 0 && lastname.Length > 0 && classList.Contains(answer))
+                ChoiceHandler($"{firstname}\n{lastname}\n{answer}");
+            else
+                ShowAddStudent(classList);
         }
 
         private void ShowTitle()
@@ -147,7 +169,7 @@ namespace YH_Admin.View
             {
                 for (int i = 0; i < content.GetLength(0); i++)
                 {
-                    if (content[i, j].Length > lengths[j])
+                    if (content[i, j] != null && content[i, j].Length > lengths[j])
                         lengths[j] = content[i, j].Length;
                 }
                 lengths[j]++; // Space between columns
