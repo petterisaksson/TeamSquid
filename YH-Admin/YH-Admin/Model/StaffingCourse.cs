@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YH_Admin.Model
 {
-    class StaffingCourse
+    public class StaffingCourse
     {
         public int StaffingCourseId { get; set; }
 
