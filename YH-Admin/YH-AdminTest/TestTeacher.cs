@@ -5,17 +5,25 @@ using YH_Admin.Model;
 namespace YH_AdminTest
 {
     [TestClass]
-    public class TestStudent
+    public class TestTeacher
     {
+        [TestMethod]
+        public void TestMethod1()
+        {
+
+        }
+
         [TestMethod]
         public void TestToString()
         {
-            Student s = new Student(1, "Al", "Baak", 2);
-            string expected = $"Id: 1; Name: Al Baak; ClassId: 2";
+            Staffing s = new Staffing(0, "Niklas", "Persson");
+            string expected = $"Id: 0; Name: Niklas Persson";
 
             var actual = s.ToString();
 
             Assert.AreEqual(expected, actual);
         }
     }
+
+    
 }

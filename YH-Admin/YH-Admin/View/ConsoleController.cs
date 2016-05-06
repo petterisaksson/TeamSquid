@@ -34,6 +34,8 @@ namespace YH_Admin.View
 
         ClassCourse CurrentCourse { get; set; }
 
+        
+
         /// <summary>
         /// Constructor to set up Model and View.
         /// </summary>
@@ -502,5 +504,7 @@ namespace YH_Admin.View
             }
             ShowCurrentStudents(HandleShowCurrentStudents);
         }
+
+       
     }
 }
