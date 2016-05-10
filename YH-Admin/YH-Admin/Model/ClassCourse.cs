@@ -26,13 +26,16 @@ namespace YH_Admin.Model
 
         public string Status { get { return IsFinished ? "Avslutad" : "Aktiv"; } }
 
-        public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate)
+        public int StaffingId { get; set; }
+
+        public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate, int staffingId)
         {
             ClassCourseId = classCourseId;
             ClassId = classId;
             CourseId = courseId;
             StartDate = startDate;
             EndDate = endDate;
+            StaffingId = StaffingId;
         }
 
         /// <summary>
