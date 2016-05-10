@@ -170,9 +170,12 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowStudentGrade);
                     ShowStudentInClassMenu();
                     break;
-                //case "3":
-                //    //TODO
-                //    break;
+                case "3":
+                    PreviousMenus.Push(ShowStudentGrade);
+                    CurrentStudents = Model.GetFailers();
+                    ShowCurrentStudents();
+                    //ShowFailedStudents();
+                    break;
                 case "x":
                     GoBack();
                     return;
@@ -676,10 +679,18 @@ namespace YH_Admin.View
             }
             ShowCurrentStudents();
         }
-       
-        private void ShowFailedStudents()
-        {
 
-        }
+        //private void ShowFailedStudents()
+        //{
+        //    var table = new string[CurrentStudents.Count + 1, 1];
+        //    table[0, 0] = "Namn";
+
+        //    for (int i = 0; i < CurrentStudents.Count; i++)
+        //    {
+        //        table[i + 1, 0] = CurrentStudents[i].Name;
+        //    }
+        //    View.ChoiceHandler = HandleShowCurrentStudents;
+        //    View.ShowTableAndWaitForChoice(table);
+        //}
     }
 }
