@@ -533,6 +533,7 @@ namespace YH_Admin.View
             View.Message = "Välj en kurs för att sätta/ändra betyg, om den är avslutad.";
             View.ChoiceHandler = HandleShowCurrentClassCoursesStudent;
             View.ShowTableAndWaitForChoice(table);
+            
         }
 
         private void HandleShowCurrentClassCoursesStudent(string choice)
@@ -556,9 +557,12 @@ namespace YH_Admin.View
                     if (CurrentClassCourse.IsFinished)
                     {
                         PreviousMenus.Push(ShowCurrentClassCoursesStudent);
-                        View.Titles.Push("Sätta/ ändra betyg");
+                        View.Titles.Push("Sätta/ ändra betyg" + "\n" + $"{CurrentStudent.Name}");
+                        ShowCurrentClassCoursesStudent();
+                        CurrentClassCourses = Model.GetClassCourses(CurrentStudent);
                         View.Message = "";
                         ShowCurrentClassCourseMenu();
+
                         return;
                     }
                 }
