@@ -35,7 +35,7 @@ namespace YH_Admin.View
 
         ClassCourse CurrentClassCourse { get; set; }
 
-        //List<StaffingCourse> CurrentStaffingCourses { get; set; } 
+        //List<StaffingCourse> CurrentStaffingCourses { get; set; }
 
         
 
@@ -408,11 +408,13 @@ namespace YH_Admin.View
 
         private void ShowCurrentClassCourses()
         {
-            var table = new string[CurrentClassCourses.Count + 1, 4];
+            var table = new string[CurrentClassCourses.Count + 1, 5];
             table[0, 0] = "Namn";
             table[0, 1] = "Startdatum";
             table[0, 2] = "Slutdatum";
             table[0, 3] = "Status";
+            table[0, 4] = "Lärare";
+            
             for (int i = 0; i < CurrentClassCourses.Count; i++)
             {
                 table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
