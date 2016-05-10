@@ -150,6 +150,8 @@ namespace YH_AdminTest
             school.EducationCourses.Add(new EducationCourse(1, 1, 1));
             school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
             school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
+            school.Grades.Add(new Grade(0, 0, "IG"));
+            school.Grades.Add(new Grade(1, 1, "G"));
             school.Users.Add(new User(0, "Tina", "Tina1", "Tina", "Kraft"));
 
 
@@ -195,6 +197,18 @@ namespace YH_AdminTest
             var actualGrade = sc.GetGrade(new Student(0, "Allan", "Allansson", 0), new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
 
             Assert.AreEqual(expectedGrade, actualGrade );
+        }
+
+        [TestMethod]
+        public void TestGetFailers()
+        {
+            School sc = GetTestSchool();
+            List<Student> expectedList = new List<Student>();
+            expectedList.Add(new Student(0, "Allan", "Allansson", 0));
+
+            List<Student> actualList = sc.GetFailers();
+
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
     }
 }
