@@ -35,7 +35,7 @@ namespace YH_Admin.View
 
         ClassCourse CurrentClassCourse { get; set; }
 
-        //List<StaffingCourse> CurrentStaffingCourses { get; set; } 
+        //List<StaffingCourse> CurrentStaffingCourses { get; set; }
 
         
 
@@ -170,9 +170,12 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowStudentGrade);
                     ShowStudentInClassMenu();
                     break;
-                //case "3":
-                //    //TODO
-                //    break;
+                case "3":
+                    PreviousMenus.Push(ShowStudentGrade);
+                    CurrentStudents = Model.GetFailers();
+                    ShowCurrentStudents();
+                    //ShowFailedStudents();
+                    break;
                 case "x":
                     GoBack();
                     return;
@@ -405,11 +408,13 @@ namespace YH_Admin.View
 
         private void ShowCurrentClassCourses()
         {
-            var table = new string[CurrentClassCourses.Count + 1, 4];
+            var table = new string[CurrentClassCourses.Count + 1, 5];
             table[0, 0] = "Namn";
             table[0, 1] = "Startdatum";
             table[0, 2] = "Slutdatum";
             table[0, 3] = "Status";
+            table[0, 4] = "Lärare";
+            
             for (int i = 0; i < CurrentClassCourses.Count; i++)
             {
                 table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
@@ -674,10 +679,18 @@ namespace YH_Admin.View
             }
             ShowCurrentStudents();
         }
-       
-        private void ShowFailedStudents()
-        {
 
-        }
+        //private void ShowFailedStudents()
+        //{
+        //    var table = new string[CurrentStudents.Count + 1, 1];
+        //    table[0, 0] = "Namn";
+
+        //    for (int i = 0; i < CurrentStudents.Count; i++)
+        //    {
+        //        table[i + 1, 0] = CurrentStudents[i].Name;
+        //    }
+        //    View.ChoiceHandler = HandleShowCurrentStudents;
+        //    View.ShowTableAndWaitForChoice(table);
+        //}
     }
 }
