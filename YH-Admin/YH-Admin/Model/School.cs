@@ -27,7 +27,9 @@ namespace YH_Admin.Model
 
         public List<ClassCourse> ClassCourseTable { get; private set; }
 
-        public List<Grade> Grades { get; set; }
+        public List<Grade> Grades { get; private set; }
+
+        public List<StaffingCourse> StaffingCourses { get; private set; }
 
         public School()
         {
@@ -64,7 +66,8 @@ namespace YH_Admin.Model
             EducationCourses = SchoolDatabase.ReadEducationCourseFile();
             // Read grade file
             Grades = SchoolDatabase.ReadGradeFile();
-            
+
+            //StaffingCourses = SchoolDatabase.ReadStaffingCourseFile(); vet inte om den ska vara med här. Mats
         }
         
 
@@ -205,6 +208,19 @@ namespace YH_Admin.Model
         {
             Students.Add(student);
         }
+
+        //public List<Course> GetStaffingCourses()
+        //{
+        //    //Implementera denna!
+        //    /*Psuedo kod:
+        //        Lista alla kurser
+        //        kolla om kursen har en lärare i Staffingcourses
+                
+        //    hmmm den här metoden ska inte vara här :)
+        //    den här ska vara i ConsoleController tror jag. :)
+
+        //    */
+        //}
 
     }
 }
