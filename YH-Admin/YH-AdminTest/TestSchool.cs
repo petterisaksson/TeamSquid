@@ -186,10 +186,10 @@ namespace YH_AdminTest
         public void TestGetGrade()
         {
             School sc = GetTestSchool();
-            var expectedGrade = new Grade(Guid.NewGuid(), 0, 0, "G");
+            var expectedGrade = new Grade(101, 0, 0, "G");
 
             sc.Grades.Add(expectedGrade);
-            sc.Grades.Add(new Grade(Guid.NewGuid(), 1, 1, "VG"));
+            sc.Grades.Add(new Grade(101, 1, 1, "VG")); // Medvetet att betyg är olikt från expected för att vilkor för lika är studentId och classCourseId
 
 
             var actualGrade = sc.GetGrade(new Student(0, "Allan", "Allansson", 0), new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));

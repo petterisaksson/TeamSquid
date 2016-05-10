@@ -16,10 +16,6 @@ namespace YH_Admin.Model
 
         public String Name { get { return $"{FirstName} {LastName}"; } }
 
-        
-
-
-
         public Staffing(int staffingId, string firstName, string lastName)
         {
             StaffingId = staffingId;
@@ -33,12 +29,22 @@ namespace YH_Admin.Model
                 return false;
 
             Staffing sf = obj as Staffing;
-            if ((System.Object) sf == null)
+            if ((System.Object)sf == null)
                 return false;
 
             return (StaffingId == sf.StaffingId) && (Name == sf.Name);
         }
+
+        public override int GetHashCode()
+        {
+            return StaffingId ^ Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return $"Id: {StaffingId}; Name: {Name}";
+        }
     }
 }
 
-    
+

@@ -101,7 +101,7 @@ namespace YH_Admin.Model
                 grade.GradeString = gradeString;
             else
             {
-                Grades.Add(new Grade(Guid.NewGuid(), student.StudentId, classCourse.ClassCourseId, gradeString));
+                Grades.Add(new Grade(student.StudentId, classCourse.ClassCourseId, gradeString));
             }
         }
 
