@@ -28,6 +28,8 @@ namespace YH_Admin.Model
 
         public int StaffingId { get; set; }
 
+        public bool HasTeacher { get { return StaffingId < 0; } }
+
        
         /// <summary>
         /// Skapa en ClassCourse som inte ha en lärare bemannad.
@@ -56,7 +58,7 @@ namespace YH_Admin.Model
             CourseId = courseId;
             StartDate = startDate;
             EndDate = endDate;
-            StaffingId = StaffingId;
+            StaffingId = staffingId;
         }
 
         /// <summary>
