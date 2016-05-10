@@ -19,6 +19,8 @@ namespace YH_Admin.Model
 
         public List<SchoolClass> SchoolClasses { get; private set; }
 
+        public List<Staffing> Staffs { get; private set; }
+
         public List<Student> Students { get; private set; }
 
         public List<Course> Courses { get; private set; }
@@ -27,7 +29,9 @@ namespace YH_Admin.Model
 
         public List<ClassCourse> ClassCourseTable { get; private set; }
 
-        public List<Grade> Grades { get; set; }
+        public List<Grade> Grades { get; private set; }
+
+        public List<StaffingCourse> StaffingCourses { get; private set; }
 
         public School()
         {
@@ -39,6 +43,7 @@ namespace YH_Admin.Model
             EducationCourses = new List<EducationCourse>();
             ClassCourseTable = new List<ClassCourse>();
             Grades = new List<Grade>();
+            Staffs = new List<Staffing>();
         }
 
         /// <summary>
@@ -64,7 +69,11 @@ namespace YH_Admin.Model
             EducationCourses = SchoolDatabase.ReadEducationCourseFile();
             // Read grade file
             Grades = SchoolDatabase.ReadGradeFile();
-            
+
+            // Det här behövs inte då vi spara bemanningen i ClassCourse:
+            //StaffingCourses = SchoolDatabase.ReadStaffingCourseFile(); vet inte om den ska vara med här. Mats
+
+            Staffs = SchoolDatabase.ReadTeacherFile();
         }
         
 
@@ -204,6 +213,17 @@ namespace YH_Admin.Model
         public void AddStudents(Student student)
         {
             Students.Add(student);
+        }
+
+        public List<ClassCourse> GetCoursesWithoutTeacher()
+        {
+            List<ClassCourse> noTeacherCourses = new List<ClassCourse>();
+            foreach (var cc in ClassCourseTable)
+            {
+                if (cc.HasTeacher)
+                    noTeacherCourses.Add(cc);
+            }
+            return noTeacherCourses;
         }
 
     }

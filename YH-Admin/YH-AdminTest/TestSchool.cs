@@ -142,14 +142,20 @@ namespace YH_AdminTest
             school.Educations.Add(new Education(1, "Andra education", 1));
             school.Courses.Add(new Course(0, "Första Course"));
             school.Courses.Add(new Course(1, "Andra Course"));
+            school.Courses.Add(new Course(2, "Tredje Kursen"));
             school.SchoolClasses.Add(new SchoolClass(0, "Första schoolclasses", 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
             school.SchoolClasses.Add(new SchoolClass(1, "Andra schoolclasses", 0, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
             school.Students.Add(new Student(0, "Allan", "Allansson", 0));
             school.Students.Add(new Student(1, "Billy", "Butt", 0));
+            school.Staffs.Add(new Staffing(0, "Magister", "Svensson"));
+            school.Staffs.Add(new Staffing(1, "Fröken", "Ur"));
             school.EducationCourses.Add(new EducationCourse(0, 0, 0));
             school.EducationCourses.Add(new EducationCourse(1, 1, 1));
-            school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
-            school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
+            school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30), 0));
+            school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31), 1));
+            school.ClassCourseTable.Add(new ClassCourse(2, 2, 0, new DateTime(2015, 08, 01), new DateTime(2015, 08, 31), 0));
+            school.ClassCourseTable.Add(new ClassCourse(3, 2, 1, new DateTime(2015, 08, 01), new DateTime(2015, 08, 31), 1));
+            school.ClassCourseTable.Add(new ClassCourse(4, 2, 2, new DateTime(2015, 09, 01), new DateTime(2015, 09, 30)));
             school.Users.Add(new User(0, "Tina", "Tina1", "Tina", "Kraft"));
 
 
@@ -195,6 +201,16 @@ namespace YH_AdminTest
             var actualGrade = sc.GetGrade(new Student(0, "Allan", "Allansson", 0), new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
 
             Assert.AreEqual(expectedGrade, actualGrade );
+        }
+
+        [TestMethod]
+        public void TestGetCoursesWithoutTeacher()
+        {
+            School sc = GetTestSchool();
+            var expectedList = new List<ClassCourse>() { new ClassCourse(4, 2, 2, new DateTime(2015, 09, 01), new DateTime(2015, 09, 30), 2) };
+            var actualList = sc.GetCoursesWithoutTeacher();
+
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
     }
 }
