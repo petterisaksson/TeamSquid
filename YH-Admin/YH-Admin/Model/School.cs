@@ -215,6 +215,10 @@ namespace YH_Admin.Model
             Students.Add(student);
         }
 
+        /// <summary>
+        /// Get ClassCourses that does not have a teacher appointed.
+        /// </summary>
+        /// <returns></returns>
         public List<ClassCourse> GetCoursesWithoutTeacher()
         {
             List<ClassCourse> noTeacherCourses = new List<ClassCourse>();

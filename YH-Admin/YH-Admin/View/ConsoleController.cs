@@ -573,8 +573,6 @@ namespace YH_Admin.View
                     {
                         PreviousMenus.Push(ShowCurrentClassCoursesStudent);
                         View.Titles.Push("Sätta/ ändra betyg" + "\n" + $"{CurrentStudent.Name}");
-                        ShowCurrentClassCoursesStudent();
-                        CurrentClassCourses = Model.GetClassCourses(CurrentStudent);
                         View.Message = "";
                         ShowCurrentClassCourseMenu();
 
