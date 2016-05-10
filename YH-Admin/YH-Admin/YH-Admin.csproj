@@ -73,6 +73,7 @@
     <Content Include="DataFiles\grades.txt" />
     <Content Include="DataFiles\students.txt" />
     <Content Include="DataFiles\teachers.txt" />
+    <Content Include="DataFiles\teacher_courses.txt" />
     <Content Include="DataFiles\users.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
