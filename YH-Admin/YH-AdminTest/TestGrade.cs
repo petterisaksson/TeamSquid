@@ -10,10 +10,10 @@ namespace YH_AdminTest
         [TestMethod]
         public void TestToString()
         {
-            var guid = Guid.NewGuid();
-            var grade = new Grade(guid, 0, 0, "A");
+            
+            var grade = new Grade(101, 0, 0, "A");
 
-            var expected = $"{guid} 0 0 A";
+            var expected = $"101 0 0 A";
 
             var actual = grade.ToString();
 

@@ -27,7 +27,7 @@ namespace YH_Admin.Utils
                 foreach (var line in lines)
                 {
                     var splits = line.Split(' ');
-                    var u = new Grade(Guid.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), splits[3]);
+                    var u = new Grade(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), splits[3]);
                     Grades.Add(u);
 
                     //Test code: 

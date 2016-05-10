@@ -21,7 +21,7 @@ namespace YH_Admin.View
             Titles = new Stack<string>();
         }
 
-        public void ShowTableAndWaitForChoice(string[,] content, bool choosable = true, bool isMainMenu = false)
+        public void ShowTableAndWaitForChoice(string[,] content, bool choosable = true, bool isMainMenu = false, string cursorStr = "Ditt val")
         {
             Console.Clear();
             ShowTitle();
@@ -91,7 +91,7 @@ namespace YH_Admin.View
             Console.WriteLine();
             Console.WriteLine(Message);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Ditt val> ");
+            Console.Write($"{cursorStr}> ");
             var choice = Console.ReadLine();
             Console.ResetColor();
             ChoiceHandler(choice);
@@ -103,28 +103,6 @@ namespace YH_Admin.View
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
             else
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-        }
-
-        public void ShowListAndWaitForChoice(string[] strList)
-        {
-            Console.Clear();
-            ShowTitle();
-            if (strList.Length > 1)
-            {
-                for (int i = 1; i < strList.Length; i++)
-                {
-                    Console.WriteLine($"{i}: {strList[i]}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Hittar tyvärr inget i databasen.");
-            }
-            Console.WriteLine();
-            Console.WriteLine($"x: {strList[0]}");
-            Console.Write("Ditt val: ");
-            var choice = Console.ReadLine();
-            ChoiceHandler(choice);
         }
 
         public void ShowLogIn()

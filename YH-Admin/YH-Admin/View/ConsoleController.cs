@@ -602,8 +602,9 @@ namespace YH_Admin.View
             else
                 table[1, 4] = "?";
 
+            View.Message = "Betyg: 'IG' = icke godkänd, 'G' = godkänd, 'VG' = väl godkänd.";
             View.ChoiceHandler = HandleShowCurrentClassCourseMenu;
-            View.ShowTableAndWaitForChoice(table);
+            View.ShowTableAndWaitForChoice(table, choosable:false, cursorStr:"Betyg ");
         }
 
         private void HandleShowCurrentClassCourseMenu(string choice)
@@ -627,33 +628,6 @@ namespace YH_Admin.View
                 default:
                     View.Message = "Tillåtna val: 'X', 'H', 'IG' 'G' 'VG'";
                     ShowCurrentClassCourseMenu();
-                    break;
-            }
-        }
-
-        private void ShowCurrentCourses()
-        {
-            View.Titles.Push($"Kurser - ");
-
-            var alts = new List<string>(CurrentCourses);
-            alts.Insert(0, "Tillbaka");
-            View.ChoiceHandler = HandleShowCurrentCourses;
-            View.ShowListAndWaitForChoice(alts.ToArray());
-        }
-
-        private void HandleShowCurrentCourses(string choice)
-        {
-            switch (choice)
-            {
-                case "x":
-                    GoBack();
-                    break;
-                case "h":
-                    ShowMainMenu();
-                    break;
-                default:
-                    View.Message = "Tillåtna val: 'x', 'h'";
-                    ShowCurrentCourses();
                     break;
             }
         }

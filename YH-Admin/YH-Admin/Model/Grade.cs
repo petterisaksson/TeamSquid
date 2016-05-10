@@ -8,7 +8,9 @@ namespace YH_Admin.Model
 {
     public class Grade
     {
-        public Guid GradeId { get; set; }
+        private static int NextGradeId { get; set; }
+
+        public int GradeId { get; set; }
 
         public int StudentId { get; set; }
 
@@ -16,8 +18,14 @@ namespace YH_Admin.Model
 
         public string GradeString { get; set; }
 
-        public Grade(Guid gradeId, int studentId, int classCourseId, string grade)
+        public Grade (int studentId, int classCourseId, string grade) : this (NextGradeId, studentId, classCourseId, grade)
+        { 
+}
+
+        public Grade(int gradeId, int studentId, int classCourseId, string grade)
         {
+            if (gradeId >= NextGradeId)
+                NextGradeId = gradeId + 1;
             GradeId = gradeId;
             StudentId = studentId;
             ClassCourseId = classCourseId;
