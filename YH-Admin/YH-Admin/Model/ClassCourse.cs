@@ -26,13 +26,39 @@ namespace YH_Admin.Model
 
         public string Status { get { return IsFinished ? "Avslutad" : "Aktiv"; } }
 
-        public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate)
+        public int StaffingId { get; set; }
+
+        public bool HasTeacher { get { return StaffingId < 0; } }
+
+       
+        /// <summary>
+        /// Skapa en ClassCourse som inte ha en lärare bemannad.
+        /// </summary>
+        /// <param name="classCourseId"></param>
+        /// <param name="classId"></param>
+        /// <param name="courseId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate) : this (classCourseId, classId, courseId, startDate, endDate, -1)
+        { }
+
+        /// <summary>
+        /// Skapa en ClassCourse med bemanning.
+        /// </summary>
+        /// <param name="classCourseId"></param>
+        /// <param name="classId"></param>
+        /// <param name="courseId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="staffingId">Lärarens id</param>
+        public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate, int staffingId)
         {
             ClassCourseId = classCourseId;
             ClassId = classId;
             CourseId = courseId;
             StartDate = startDate;
             EndDate = endDate;
+            StaffingId = staffingId;
         }
 
         /// <summary>

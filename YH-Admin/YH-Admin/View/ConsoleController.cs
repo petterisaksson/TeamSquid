@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YH_Admin.Model;
 using static YH_Admin.View.ConsoleOutput;
 
@@ -33,6 +34,8 @@ namespace YH_Admin.View
         Student CurrentStudent { get; set; }
 
         ClassCourse CurrentClassCourse { get; set; }
+
+        //List<StaffingCourse> CurrentStaffingCourses { get; set; } 
 
         
 
@@ -253,7 +256,19 @@ namespace YH_Admin.View
 
         private void ShowRecruitmentMenu()
         {
-            // TODO: Implement
+           // var tabel = new string[CurrentStraffingCourse.count + 1, 3];
+            // TODO: Implement här ska det vara.
+            /*Psuedo kod:
+                Lista alla kurser
+                kolla om kursen har en lärare i Staffingcourses
+                formatera informationen till en 2-dimensionell matris
+                Anropa ConsoleOutput.ShowTableAndWaitForChoice (...) för att visa det på skärmen.
+
+                tror det räcker så :)
+
+
+            */
+
             Console.Clear();
             Console.WriteLine("ShowRecruitmentMenu not implemented\nPress any key to return.");
             Console.ReadLine();
@@ -568,17 +583,19 @@ namespace YH_Admin.View
 
         private void ShowCurrentClassCourseMenu()
         {
-            var table = new string[2, 5];
+            var table = new string[2, 6];
             table[0, 0] = "Namn";
             table[0, 1] = "Startdatum";
             table[0, 2] = "Slutdatum";
             table[0, 3] = "Status";
             table[0, 4] = "Betyg";
+            table[0, 5] = "Lärare";
 
             table[1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourse.CourseId).Name;
             table[1, 1] = CurrentClassCourse.StartDateString;
             table[1, 2] = CurrentClassCourse.EndDateString;
             table[1, 3] = CurrentClassCourse.Status;
+            table[1, 4] = CurrentClassCourse.StaffingId.ToString(); // inte bara id, utan vi ska lägga in namnet här. men för att det ska kompilera kan vi göra en ToString() först
             var grade = Model.GetGrade(CurrentStudent, CurrentClassCourse);
             if (grade != null)
                 table[1, 4] = Model.GetGrade(CurrentStudent, CurrentClassCourse).GradeString + "?";

@@ -206,10 +206,17 @@ namespace YH_Admin.Utils
                 foreach (var line in lines)
                 {
                     var splits = line.Split(' ');
-                    var startDate = DateTime.ParseExact(splits[splits.Length - 2], "yyyyMMdd", null);
-                    var endDate = DateTime.ParseExact(splits[splits.Length - 1], "yyyyMMdd", null);
-                    var cc = new ClassCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), startDate, endDate);
-                    classCourseTable.Add(cc);
+                    var startDate = DateTime.ParseExact(splits[3], "yyyyMMdd", null);
+                    var endDate = DateTime.ParseExact(splits[4], "yyyyMMdd", null);
+                    ClassCourse cc = null;
+
+                    if (splits.Length == 5)
+                        cc = new ClassCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), startDate, endDate);
+                    else if (splits.Length == 6)
+                        cc = new ClassCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]), startDate, endDate, int.Parse(splits[5]));
+
+                    if (cc != null)
+                        classCourseTable.Add(cc);
 
                     //Test code: 
                     //Console.WriteLine(cc);
@@ -249,6 +256,32 @@ namespace YH_Admin.Utils
             return educationCourse;
         }
 
+        public List<Staffing> ReadTeacherFile()
+        {
+            var path = Path.Combine(DirectoryPath, @"DataFiles\teachers.txt");
+            var teachers = new List<Staffing>();
+            try
+            {
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(' ');
+                    var st = new Staffing(int.Parse(splits[0]), splits[1], splits[2]);
+                    teachers.Add(st);
 
+                    //Test code: 
+                    //Console.WriteLine(st);
+                }
+                //Test code: 
+                //Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating teachers: " + ex);
+                Console.ReadLine();
+
+            }
+            return teachers;
+        }
     }
 }
