@@ -173,6 +173,7 @@ namespace YH_Admin.View
                 case "3":
                     PreviousMenus.Push(ShowStudentGrade);
                     CurrentStudents = Model.GetFailers();
+                    View.Titles.Push("Studenter som har halkat efter");
                     ShowCurrentStudents();
                     //ShowFailedStudents();
                     break;
