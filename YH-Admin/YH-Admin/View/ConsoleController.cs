@@ -422,6 +422,7 @@ namespace YH_Admin.View
                 table[i + 1, 1] = CurrentClassCourses[i].StartDateString;
                 table[i + 1, 2] = CurrentClassCourses[i].EndDateString;
                 table[i + 1, 3] = CurrentClassCourses[i].Status;
+                table[i + 1, 4] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "" ;
             }
             View.ChoiceHandler = HandleShowCurrentClassCourses;
             View.ShowTableAndWaitForChoice(table, choosable: false);
@@ -578,7 +579,8 @@ namespace YH_Admin.View
                     if (CurrentClassCourse.IsFinished)
                     {
                         PreviousMenus.Push(ShowCurrentClassCoursesStudent);
-                        View.Titles.Push("Sätta/ ändra betyg" + "\n" + $"{CurrentStudent.Name}");
+                        View.Titles.Push($"Sätta/ ändra betyg {CurrentStudent.Name}");
+  
                         View.Message = "";
                         ShowCurrentClassCourseMenu();
 
@@ -603,12 +605,15 @@ namespace YH_Admin.View
             table[1, 1] = CurrentClassCourse.StartDateString;
             table[1, 2] = CurrentClassCourse.EndDateString;
             table[1, 3] = CurrentClassCourse.Status;
-            table[1, 4] = CurrentClassCourse.StaffingId.ToString(); // inte bara id, utan vi ska lägga in namnet här. men för att det ska kompilera kan vi göra en ToString() först
+             
             var grade = Model.GetGrade(CurrentStudent, CurrentClassCourse);
+            
             if (grade != null)
                 table[1, 4] = Model.GetGrade(CurrentStudent, CurrentClassCourse).GradeString + "?";
             else
                 table[1, 4] = "?";
+
+            table[1, 5] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourse.StaffingId)?.Name ?? "";
 
             View.Message = "Betyg: 'IG' = icke godkänd, 'G' = godkänd, 'VG' = väl godkänd.";
             View.ChoiceHandler = HandleShowCurrentClassCourseMenu;
@@ -680,7 +685,7 @@ namespace YH_Admin.View
             }
             ShowCurrentStudents();
         }
-
+       
         //private void ShowFailedStudents()
         //{
         //    var table = new string[CurrentStudents.Count + 1, 1];
