@@ -230,5 +230,11 @@ namespace YH_Admin.Model
             return noTeacherCourses;
         }
 
+        public List<Student> GetStudentName(int studentId)
+        {
+            return GetStudentName(studentId);
+        } 
+
+
     }
 }
