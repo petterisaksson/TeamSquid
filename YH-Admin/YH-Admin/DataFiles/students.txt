@@ -5,3 +5,4 @@
 4 Gustav Garn 1
 5 Love Loo 0
 6 Abe Lincoln 0
+7 Niklas Pettersson 1
