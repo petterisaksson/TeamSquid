@@ -230,9 +230,14 @@ namespace YH_Admin.Model
             return noTeacherCourses;
         }
 
-        public List<Student> GetStudentName(int studentId)
+        public string GetStudentName(int studentId)
         {
-            return GetStudentName(studentId);
+            var student =  Students.SingleOrDefault(s => s.StudentId == studentId);
+            //var students =  Students.Find(s => s.StudentId == studentId);
+            if (student != null)
+                return student.Name;
+            return "No matching studentId:" + studentId;
+
         } 
 
 
