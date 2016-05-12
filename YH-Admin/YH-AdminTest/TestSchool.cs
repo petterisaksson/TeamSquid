@@ -156,12 +156,10 @@ namespace YH_AdminTest
             school.ClassCourseTable.Add(new ClassCourse(2, 2, 0, new DateTime(2015, 08, 01), new DateTime(2015, 08, 31), 0));
             school.ClassCourseTable.Add(new ClassCourse(3, 2, 1, new DateTime(2015, 08, 01), new DateTime(2015, 08, 31), 1));
             school.ClassCourseTable.Add(new ClassCourse(4, 2, 2, new DateTime(2015, 09, 01), new DateTime(2015, 09, 30)));
-            school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30)));
-            school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31)));
             school.Grades.Add(new Grade(0, 0, "IG"));
             school.Grades.Add(new Grade(1, 1, "G"));
             school.Users.Add(new User(0, "Tina", "Tina1", "Tina", "Kraft"));
-
+            
 
             return school;
         }
