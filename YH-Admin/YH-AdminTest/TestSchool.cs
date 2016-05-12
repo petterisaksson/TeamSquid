@@ -236,5 +236,16 @@ namespace YH_AdminTest
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestGetGradesFromCourseId()
+        {
+            School sc = GetTestSchool();
+            var expectedList = new List<Grade>() { new Grade(0, 0, "IG") };
+            var actualList = sc.GetGradesFromCourseId(0);
+
+            CollectionAssert.AreEqual(expectedList, actualList);
+
+        }
     }
 }
