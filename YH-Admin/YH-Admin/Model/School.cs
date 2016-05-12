@@ -197,7 +197,7 @@ namespace YH_Admin.Model
         }
 
         /// <summary>
-        /// Return all students in school as a list. Sorted by class first and then by firstname.
+        /// Return all students in school as a list.
         /// </summary>
         /// <returns></returns>
         public List<Student> GetStudents()

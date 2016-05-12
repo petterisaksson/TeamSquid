@@ -8,7 +8,7 @@ namespace YH_Admin.Model
 {
     public class Student
     {
-        private static int NextStudentId { get; set; }
+        public static int NextStudentId { get; set; }
 
         /// <summary>
         /// Identifier to this student.

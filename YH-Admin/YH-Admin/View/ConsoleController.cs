@@ -602,14 +602,12 @@ namespace YH_Admin.View
             table[1, 1] = CurrentClassCourse.StartDateString;
             table[1, 2] = CurrentClassCourse.EndDateString;
             table[1, 3] = CurrentClassCourse.Status;
-
+            table[1, 4] = CurrentClassCourse.StaffingId.ToString(); // inte bara id, utan vi ska lägga in namnet här. men för att det ska kompilera kan vi göra en ToString() först
             var grade = Model.GetGrade(CurrentStudent, CurrentClassCourse);
             if (grade != null)
                 table[1, 4] = Model.GetGrade(CurrentStudent, CurrentClassCourse).GradeString + "?";
             else
                 table[1, 4] = "?";
-
-            table[1, 5] = Model.Staffs.Find(s => s.StaffingId == CurrentClassCourse.StaffingId)?.Name ?? "";//CurrentClassCourse.StaffingId.ToString(); // inte bara id, utan vi ska lägga in namnet här. men för att det ska kompilera kan vi göra en ToString() först
 
             View.Message = "Betyg: 'IG' = icke godkänd, 'G' = godkänd, 'VG' = väl godkänd.";
             View.ChoiceHandler = HandleShowCurrentClassCourseMenu;
