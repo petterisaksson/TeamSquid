@@ -226,5 +226,15 @@ namespace YH_AdminTest
 
             CollectionAssert.AreEqual(expectedList, actualList);
         }
+
+        [TestMethod]
+        public void TestGetStudentName()
+        {
+            School sc = GetTestSchool();
+            var expected = "Allan Allansson";
+            var actual = sc.GetStudentName(0);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
