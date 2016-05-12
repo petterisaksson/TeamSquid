@@ -46,6 +46,7 @@ namespace YH_Admin.Model
             return $"CourseId: {CourseId}, Name: {Name}";
         }
 
+        
 
 
     }
