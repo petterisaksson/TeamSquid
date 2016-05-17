@@ -254,6 +254,13 @@ namespace YH_Admin.Model
 
         }
 
-
+        public string GetText(int textId)
+        {
+            string str;
+            if (CourseContentTexts.TryGetValue(textId, out str))
+                return str;
+            else
+                return null;
+        }
     }
 }

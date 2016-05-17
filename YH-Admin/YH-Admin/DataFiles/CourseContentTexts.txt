@@ -9,3 +9,23 @@
 8 Kunna skala upp projekt
 9 Ha erfarenhetsutvärdering samt utvärdering och förbättring
 10 Kunna säkerställa kvalité och mörkertal
+11 Den studerande kan utförligt redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
+12 Den studerande kan utförligt kunna beskriva ett företags verksamhet: affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen. 
+13 Den studerande kan utförligt kunna redogöra för ekonomiska begrepp och nyckeltal samt utföra kalkyler och lönsamhetsberäkningar
+14 Den studerande kan utförligt kunna utföra kalkyler och lönsamhetsberäkningar
+15 Den studerande kan utförligt kunna beskriva och analysera resultat och balansräkning
+16 Den studerande kan utförligt och nyanserat redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
+17 Den studerande kan utförligt och nyanserat kunna beskriva ett företags verksamhet: affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen. 
+17 Den studerande kan utförligt och nyanserat kunna redogöra för ekonomiska begrepp och nyckeltal.
+18 Den studerande kan utförligt och nyanserat kunna utföra kalkyler och lönsamhetsberäkningar
+19 Den studerande kan detaljerat kunna beskriva och analysera resultat och balansräkning
+20 Den studerande redogör utförligt om hur krav och kravanvändningar hanteras i ett agilt projekt
+21 Den studerande kan med viss säkerhet kunna få sprintarna att fungera i praktiken
+22 Den studerande kan med viss säkerhet kunna skala upp projekt
+23 Den studerande kan med viss säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
+24 Den studerande kan med viss säkerhet säkerställa kvalité och mörkertal
+25 Den studerande redogör utförligt ohc nyanserat om hur krav och kravanvändningar hanteras i ett agilt projekt
+26 Den studerande kan med stor säkerhet kunna få sprintarna att fungera i praktiken
+27 Den studerande kan med stor säkerhet kunna skala upp projekt
+28 Den studerande kan med stor säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
+29 Den studerande kan med stor säkerhet säkerställa kvalité och mörkertal
