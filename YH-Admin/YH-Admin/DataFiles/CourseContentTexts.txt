@@ -16,16 +16,18 @@
 15 Den studerande kan utförligt kunna beskriva och analysera resultat och balansräkning
 16 Den studerande kan utförligt och nyanserat redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
 17 Den studerande kan utförligt och nyanserat kunna beskriva ett företags verksamhet: affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen. 
-17 Den studerande kan utförligt och nyanserat kunna redogöra för ekonomiska begrepp och nyckeltal.
-18 Den studerande kan utförligt och nyanserat kunna utföra kalkyler och lönsamhetsberäkningar
-19 Den studerande kan detaljerat kunna beskriva och analysera resultat och balansräkning
-20 Den studerande redogör utförligt om hur krav och kravanvändningar hanteras i ett agilt projekt
-21 Den studerande kan med viss säkerhet kunna få sprintarna att fungera i praktiken
-22 Den studerande kan med viss säkerhet kunna skala upp projekt
-23 Den studerande kan med viss säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
-24 Den studerande kan med viss säkerhet säkerställa kvalité och mörkertal
-25 Den studerande redogör utförligt ohc nyanserat om hur krav och kravanvändningar hanteras i ett agilt projekt
-26 Den studerande kan med stor säkerhet kunna få sprintarna att fungera i praktiken
-27 Den studerande kan med stor säkerhet kunna skala upp projekt
-28 Den studerande kan med stor säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
-29 Den studerande kan med stor säkerhet säkerställa kvalité och mörkertal
+18 Den studerande kan utförligt och nyanserat kunna redogöra för ekonomiska begrepp och nyckeltal.
+19 Den studerande kan utförligt och nyanserat kunna utföra kalkyler och lönsamhetsberäkningar
+20 Den studerande kan detaljerat kunna beskriva och analysera resultat och balansräkning
+21 Den studerande redogör utförligt om hur krav och kravanvändningar hanteras i ett agilt projekt
+22 Den studerande visa utförligt på fördjupad kunskap om rolldefinitioner
+23 Den studerande kan med viss säkerhet kunna få sprintarna att fungera i praktiken
+24 Den studerande kan med viss säkerhet kunna skala upp projekt
+25 Den studerande kan med viss säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
+26 Den studerande kan med viss säkerhet säkerställa kvalité och mörkertal
+27 Den studerande redogör utförligt och nyanserat om hur krav och kravanvändningar hanteras i ett agilt projekt
+28 Den studerande visa utförligt och nyanserat på fördjupad kunskap om rolldefinitioner
+29 Den studerande kan med stor säkerhet kunna få sprintarna att fungera i praktiken
+30 Den studerande kan med stor säkerhet kunna skala upp projekt
+31 Den studerande kan med stor säkerhet utföra erfarenhetsutvärdering samt utvärdering och förbättring
+32 Den studerande kan med stor säkerhet säkerställa kvalité och mörkertal
