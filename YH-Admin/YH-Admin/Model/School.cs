@@ -253,9 +253,9 @@ namespace YH_Admin.Model
             return "No matching studentId:" + studentId;
         }
 
-        public int GetCourseContent(int classCourseId)
-        {
-            return;
-        } 
+        //public int GetCourseContent(int classCourseId)
+        //{
+        //    return;
+        //} 
     }
 }

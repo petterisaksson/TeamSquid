@@ -285,9 +285,24 @@ namespace YH_AdminTest
         }
 
         [TestMethod]
-        public void TestGetCourseCourse()
+        public void TestGetCourseContent1()
         {
-            
+            School sc = GetTestSchool();
+            sc.
+            int expected = 0;
+            int actual = 0;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestGetCourseContent2()
+        {
+            School sc = GetTestSchool();
+            int expected = 1;
+            int actual = 2;
+
+            Assert.AreNotEqual(expected, actual);
         }
 
         [TestMethod]
