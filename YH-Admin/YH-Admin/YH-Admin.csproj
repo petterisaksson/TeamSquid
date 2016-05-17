@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ClassCourse.cs" />
+    <Compile Include="Model\CourseContent.cs" />
     <Compile Include="Model\Education.cs" />
     <Compile Include="Model\EducationCourse.cs" />
     <Compile Include="Model\Grade.cs" />
