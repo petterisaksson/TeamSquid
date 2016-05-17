@@ -96,7 +96,7 @@ namespace YH_Admin.Model
             foreach (var grade in failList)
             {
                 var student = Students.Find(s => s.StudentId == grade.StudentId);
-                if (student != null)
+                if (student != null && !failedStudent.Contains(student))
                     failedStudent.Add(student);
             }
 
