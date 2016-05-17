@@ -684,18 +684,24 @@ namespace YH_Admin.View
             }
             ShowCurrentStudents();
         }
-       
-        //private void ShowFailedStudents()
-        //{
-        //    var table = new string[CurrentStudents.Count + 1, 1];
-        //    table[0, 0] = "Namn";
 
-        //    for (int i = 0; i < CurrentStudents.Count; i++)
-        //    {
-        //        table[i + 1, 0] = CurrentStudents[i].Name;
-        //    }
-        //    View.ChoiceHandler = HandleShowCurrentStudents;
-        //    View.ShowTableAndWaitForChoice(table);
-        //}
-    }
+        public void GetNameFromGrade()
+        {
+
+
+        }
+
+        //private void ShowFailedStudents()
+            //{
+            //    var table = new string[CurrentStudents.Count + 1, 1];
+            //    table[0, 0] = "Namn";
+
+            //    for (int i = 0; i < CurrentStudents.Count; i++)
+            //    {
+            //        table[i + 1, 0] = CurrentStudents[i].Name;
+            //    }
+            //    View.ChoiceHandler = HandleShowCurrentStudents;
+            //    View.ShowTableAndWaitForChoice(table);
+            //}
+        }
 }
