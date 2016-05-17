@@ -17,6 +17,34 @@ namespace YH_Admin.Utils
             DirectoryPath = path;
         }
 
+
+        public Dictionary<int, string> ReadCourseContentTextFile()
+        {
+            var path = Path.Combine(DirectoryPath, @"DataFiles\courseContentTexts.txt");
+            var texts = new Dictionary<int, string>();
+            try
+            {
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var splits = line.Split(new char[] { ' ' }, 2);
+                    texts.Add(int.Parse(splits[0]), splits[1]);
+
+                    //Test code: 
+                    //Console.WriteLine($"{int.Parse(splits[0])}; {splits[1]}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in creating CourseContentText: " + ex);
+                Console.ReadLine();
+            }
+            //Test code: 
+            //Console.ReadLine();
+
+            return texts;
+        }
+
         public List<Grade> ReadGradeFile()
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\grades.txt");

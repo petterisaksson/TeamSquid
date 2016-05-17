@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataFiles\classes.txt" />
-    <Content Include="DataFiles\CourseContentTexts.txt" />
+    <Content Include="DataFiles\courseContentTexts.txt" />
     <Content Include="DataFiles\education_courses.txt" />
     <Content Include="DataFiles\class_courses.txt" />
     <Content Include="DataFiles\courses.txt" />
