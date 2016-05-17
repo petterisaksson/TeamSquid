@@ -33,6 +33,8 @@ namespace YH_Admin.Model
 
         public List<StaffingCourse> StaffingCourses { get; private set; }
 
+        public Dictionary<int, string> CourseContentTexts { get; private set; }
+
         public School()
         {
             Users = new List<User>();
@@ -44,6 +46,7 @@ namespace YH_Admin.Model
             ClassCourseTable = new List<ClassCourse>();
             Grades = new List<Grade>();
             Staffs = new List<Staffing>();
+            CourseContentTexts = new Dictionary<int, string>();
         }
 
         /// <summary>
@@ -70,10 +73,9 @@ namespace YH_Admin.Model
             // Read grade file
             Grades = SchoolDatabase.ReadGradeFile();
 
-            // Det här behövs inte då vi spara bemanningen i ClassCourse:
-            //StaffingCourses = SchoolDatabase.ReadStaffingCourseFile(); vet inte om den ska vara med här. Mats
-
             Staffs = SchoolDatabase.ReadTeacherFile();
+
+            CourseContentTexts = SchoolDatabase.ReadCourseContentTextFile();
         }
 
 
