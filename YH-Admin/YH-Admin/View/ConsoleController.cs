@@ -93,13 +93,13 @@ namespace YH_Admin.View
             View.Titles.Clear();
             View.Titles.Push($"Huvudmeny - {CurrentUser.Name}");
 
-            var table = new string[6, 1];
+            var table = new string[5, 1];
             table[0, 0] = "Kategorier";
             table[1, 0] = "Utbildning";
             table[2, 0] = "Klasser";
             table[3, 0] = "Kurser";
             table[4, 0] = "Studerande";
-            table[5, 0] = "Bemanning";
+            //table[5, 0] = "Bemanning";
 
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowTableAndWaitForChoice(table, isMainMenu: true);
@@ -130,10 +130,10 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowMainMenu);
                     ShowStudentGrade();
                     break;
-                case "5":
-                    PreviousMenus.Push(ShowMainMenu);
-                    ShowRecruitmentMenu();
-                    break;
+                //case "5":
+                //    PreviousMenus.Push(ShowMainMenu);
+                //    ShowRecruitmentMenu();
+                //    break;
                 case "x":
                     Model.SaveToFiles();
                     return;
@@ -173,6 +173,7 @@ namespace YH_Admin.View
                 case "3":
                     PreviousMenus.Push(ShowStudentGrade);
                     CurrentStudents = Model.GetFailers();
+                    View.Titles.Push("Studenter som har halkat efter");
                     ShowCurrentStudents();
                     //ShowFailedStudents();
                     break;
@@ -684,6 +685,8 @@ namespace YH_Admin.View
             }
             ShowCurrentStudents();
         }
+
+
        
         //private void ShowFailedStudents()
         //{

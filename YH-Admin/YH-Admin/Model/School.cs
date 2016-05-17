@@ -253,9 +253,15 @@ namespace YH_Admin.Model
                 return GradesFromCourse;  
         }
 
-    //public List<Grade> GradesFromCourse = new List<Grade>();
-    //    foreach (var c in )
-        
+        public string GetStudentName(int studentId)
+        {
+            var student =  Students.SingleOrDefault(s => s.StudentId == studentId);
+            //var students =  Students.Find(s => s.StudentId == studentId);
+            if (student != null)
+                return student.Name;
+            return "No matching studentId:" + studentId;
+
+        } 
 
 
     }
