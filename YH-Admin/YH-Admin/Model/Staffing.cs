@@ -8,6 +8,8 @@ namespace YH_Admin.Model
 {
     public class Staffing
     {
+        private static int NextStaffingId { get; set; }
+
         public int StaffingId { get; set; }
 
         public string FirstName { get; set; }
@@ -16,8 +18,14 @@ namespace YH_Admin.Model
 
         public String Name { get { return $"{FirstName} {LastName}"; } }
 
+        public Staffing(string firstName, string lastName) : this(NextStaffingId, firstName, lastName)
+        {
+        }
+
         public Staffing(int staffingId, string firstName, string lastName)
         {
+            if (staffingId >= NextStaffingId)
+                NextStaffingId = staffingId + 1;
             StaffingId = staffingId;
             FirstName = firstName;
             LastName = lastName;
@@ -40,9 +48,14 @@ namespace YH_Admin.Model
             return StaffingId ^ Name.GetHashCode();
         }
 
-        public override string ToString()
+        public string GetStaffString()
         {
             return $"Id: {StaffingId}; Name: {Name}";
+        }
+
+        public override string ToString()
+        {
+            return $"{StaffingId} {FirstName} {LastName}";
         }
     }
 }
