@@ -236,9 +236,9 @@ namespace YH_Admin.Model
             List<Grade> GradesFromCourse = new List<Grade>();
             foreach (var c in Grades)
             {
-                if ()
-                    return GetGradesFromCourseId(c);
-                    
+                if (c.ClassCourseId == classCourseId)
+                    GradesFromCourse.Add(c);
+            
                     
 
                 //if (GetGrade.classCourseId)
