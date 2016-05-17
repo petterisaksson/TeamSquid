@@ -45,6 +45,14 @@ namespace YH_Admin.Utils
             return texts;
         }
 
+        public void SaveCourseContentTextFile(Dictionary<int, string> texts)
+        { 
+            // Need to check!
+            var path = Path.Combine(DirectoryPath, @"DataFiles\courseContentTexts.txt");
+            var lines = texts.OrderBy(t => t.Key).Select(t => t.Value).ToArray();
+            File.WriteAllLines(path, lines);
+        }
+
         public List<Grade> ReadGradeFile()
         {
             var path = Path.Combine(DirectoryPath, @"DataFiles\grades.txt");
