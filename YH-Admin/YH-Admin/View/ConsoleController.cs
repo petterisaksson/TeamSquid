@@ -165,24 +165,17 @@ namespace YH_Admin.View
 
         private void HandleCyllabusMenuChoice(string choice)
         {
-            switch (choice)
+            if (choice.Equals("x"))
             {
-                case "1":
-                    PreviousMenus.Push(ShowCyllabusMenu);
-                    //CurrentCyllabus = Model.GetCyllabus;
-                    ShowCyllabusMenu();
-                    break;
-                case "x":
-                    GoBack();
-                    return;
-                case "h":
-                    ShowMainMenu();
-                    return;
-                default:
-                    ShowCyllabusMenu();
-                    break;
-
+                GoBack();
+                return;
             }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            ShowCyllabusMenu();
         }
 
         private void ShowStudentGrade()
@@ -199,7 +192,7 @@ namespace YH_Admin.View
             View.ShowTableAndWaitForChoice(table);
         }
 
-       
+
 
 
 
@@ -306,7 +299,7 @@ namespace YH_Admin.View
 
         private void ShowRecruitmentMenu()
         {
-           // var tabel = new string[CurrentStraffingCourse.count + 1, 3];
+            // var tabel = new string[CurrentStraffingCourse.count + 1, 3];
             // TODO: Implement här ska det vara.
             /*Psuedo kod:
                 Lista alla kurser
@@ -464,14 +457,14 @@ namespace YH_Admin.View
             table[0, 2] = "Slutdatum";
             table[0, 3] = "Status";
             table[0, 4] = "Lärare";
-            
+
             for (int i = 0; i < CurrentClassCourses.Count; i++)
             {
                 table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
                 table[i + 1, 1] = CurrentClassCourses[i].StartDateString;
                 table[i + 1, 2] = CurrentClassCourses[i].EndDateString;
                 table[i + 1, 3] = CurrentClassCourses[i].Status;
-                table[i + 1, 4] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "" ;
+                table[i + 1, 4] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "";
             }
             View.ChoiceHandler = HandleShowCurrentClassCourses;
             View.ShowTableAndWaitForChoice(table);
@@ -497,7 +490,7 @@ namespace YH_Admin.View
                 {
                     PreviousMenus.Push(ShowCurrentClassCourses);
                     var chosen = CurrentClassCourses[index - 1];
-                    View.Titles.Push($"Betygen i {Model.SchoolClasses.Find(c=>c.SchoolClassId == chosen.ClassId).Name}");
+                    View.Titles.Push($"Betygen i {Model.SchoolClasses.Find(c => c.SchoolClassId == chosen.ClassId).Name}");
                     CurrentClassCourse = (chosen);
                     ShowGradeFromCourseId();
                     return;
@@ -618,7 +611,7 @@ namespace YH_Admin.View
             View.Message = "Välj en kurs för att sätta/ändra betyg, om den är avslutad.";
             View.ChoiceHandler = HandleShowCurrentClassCoursesStudent;
             View.ShowTableAndWaitForChoice(table);
-            
+
         }
 
         private void HandleShowCurrentClassCoursesStudent(string choice)
@@ -643,7 +636,7 @@ namespace YH_Admin.View
                     {
                         PreviousMenus.Push(ShowCurrentClassCoursesStudent);
                         View.Titles.Push($"Sätta/ ändra betyg {CurrentStudent.Name}");
-  
+
                         View.Message = "";
                         ShowCurrentClassCourseMenu();
 
@@ -668,9 +661,9 @@ namespace YH_Admin.View
             table[1, 1] = CurrentClassCourse.StartDateString;
             table[1, 2] = CurrentClassCourse.EndDateString;
             table[1, 3] = CurrentClassCourse.Status;
-             
+
             var grade = Model.GetGrade(CurrentStudent, CurrentClassCourse);
-            
+
             if (grade != null)
                 table[1, 4] = Model.GetGrade(CurrentStudent, CurrentClassCourse).GradeString + "?";
             else
@@ -680,7 +673,7 @@ namespace YH_Admin.View
 
             View.Message = "Betyg: 'IG' = icke godkänd, 'G' = godkänd, 'VG' = väl godkänd.";
             View.ChoiceHandler = HandleShowCurrentClassCourseMenu;
-            View.ShowTableAndWaitForChoice(table, choosable:false, cursorStr:"Betyg ");
+            View.ShowTableAndWaitForChoice(table, choosable: false, cursorStr: "Betyg ");
         }
 
         private void HandleShowCurrentClassCourseMenu(string choice)
@@ -712,7 +705,7 @@ namespace YH_Admin.View
         {
             var grades = Model.GetGradesFromCourseId(CurrentClassCourse.ClassCourseId);
 
-            var table = new string[grades.Count + 1,2];
+            var table = new string[grades.Count + 1, 2];
             table[0, 0] = "Namn";
             table[0, 1] = "Betyg";
             for (int i = 0; i < grades.Count; i++)
@@ -723,9 +716,9 @@ namespace YH_Admin.View
             }
             View.ChoiceHandler = HandleGradeFromCourseID;
             View.ShowTableAndWaitForChoice(table);
-            
 
-            
+
+
         }
 
         public void HandleGradeFromCourseID(string choice)
@@ -785,7 +778,7 @@ namespace YH_Admin.View
             //}
             ShowCurrentStudents();
         }
-       
+
         //private void ShowFailedStudents()
         //{
         //    var table = new string[CurrentStudents.Count + 1, 1];

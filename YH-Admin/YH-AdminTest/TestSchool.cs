@@ -282,7 +282,34 @@ namespace YH_AdminTest
             var actualList = sc.GetGradesFromCourseId(0);
 
             CollectionAssert.AreEqual(expectedList, actualList);
+        }
 
+        [TestMethod]
+        public void TestGetCourseCourse()
+        {
+            
+        }
+
+        [TestMethod]
+        public void TestGetText1()
+        {
+            School sc = GetTestSchool();
+            sc.CourseContentTexts.Add(100, "dummy text");
+            var expected = "dummy text";
+            var actual = sc.GetText(100);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestGetText2()
+        {
+            School sc = GetTestSchool();
+            sc.CourseContentTexts.Add(100, "dummy text");
+            string expected = null;
+            var actual = sc.GetText(101);
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }
