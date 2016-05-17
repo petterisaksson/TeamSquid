@@ -38,7 +38,7 @@ namespace YH_Admin.Model
             Users = new List<User>();
             Educations = new List<Education>();
             SchoolClasses = new List<SchoolClass>();
-            Students = new List< Student>();
+            Students = new List<Student>();
             Courses = new List<Course>();
             EducationCourses = new List<EducationCourse>();
             ClassCourseTable = new List<ClassCourse>();
@@ -52,7 +52,7 @@ namespace YH_Admin.Model
         public void LoadData(string soluPath)
         {
             SchoolDatabase = new SchoolIO(soluPath);
-            
+
             // Read user file
             Users = SchoolDatabase.ReadUserFile();
             // Read student file
@@ -75,7 +75,7 @@ namespace YH_Admin.Model
 
             Staffs = SchoolDatabase.ReadTeacherFile();
         }
-        
+
 
         public void SaveToFiles()
         {
@@ -174,7 +174,7 @@ namespace YH_Admin.Model
         {
             return GetClasses(education.EducationId);
         }
-        
+
         /// <summary>
         /// Get students from a class with classId.
         /// </summary>
@@ -228,6 +228,29 @@ namespace YH_Admin.Model
                     noTeacherCourses.Add(cc);
             }
             return noTeacherCourses;
+        }
+
+
+        public List<Grade> GetGradesFromCourseId(int classCourseId)
+        {
+            List<Grade> GradesFromCourse = new List<Grade>();
+            foreach (var c in Grades)
+            {
+                if (c.ClassCourseId == classCourseId)
+                    GradesFromCourse.Add(c);
+            
+                    
+
+                //if (GetGrade.classCourseId)
+                //    GradesFromCourse.Add(c);
+                    
+                    
+                        
+                        
+                        //GradesFromCourse.Add(c);
+
+            }
+                return GradesFromCourse;  
         }
 
         public string GetStudentName(int studentId)
