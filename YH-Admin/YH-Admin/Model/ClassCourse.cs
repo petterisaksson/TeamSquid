@@ -39,7 +39,8 @@ namespace YH_Admin.Model
         /// <param name="courseId"></param>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
-        public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate) : this (classCourseId, classId, courseId, startDate, endDate, -1)
+        public ClassCourse(int classCourseId, int classId, int courseId, DateTime startDate, DateTime endDate) : this (classCourseId, classId, courseId, startDate,
+            endDate, -1)
         { }
 
         /// <summary>
