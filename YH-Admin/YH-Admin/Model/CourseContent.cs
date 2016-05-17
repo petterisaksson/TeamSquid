@@ -14,23 +14,18 @@ namespace YH_Admin.Model
 
         public int VGCriteriaId { get; set; }
 
-        public int PointId { get; set; }
+        public int Point { get; set; }
 
         public int ClassCourseId { get; set; }
 
 
-        public CourseContent(int objectivesId, int gcriteriaId, int vGcriteriaId, int pointId, int classcourseId)
+        public CourseContent(int objectivesId, int gcriteriaId, int vGcriteriaId, int point, int classcourseId)
         {
             ObjectivesId = ObjectivesId;
             GCriteriaId = gcriteriaId;
             VGCriteriaId = vGcriteriaId;
-            PointId = pointId;
+            Point = point;
             ClassCourseId = classcourseId;
         }
-
-
-
-
-
     }
 }

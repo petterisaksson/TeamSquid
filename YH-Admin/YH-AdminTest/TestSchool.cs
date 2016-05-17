@@ -282,7 +282,12 @@ namespace YH_AdminTest
             var actualList = sc.GetGradesFromCourseId(0);
 
             CollectionAssert.AreEqual(expectedList, actualList);
+        }
 
+        [TestMethod]
+        public void TestGetCourseCourse()
+        {
+            
         }
     }
 }
