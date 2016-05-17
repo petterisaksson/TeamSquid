@@ -238,16 +238,6 @@ namespace YH_Admin.Model
             {
                 if (c.ClassCourseId == classCourseId)
                     GradesFromCourse.Add(c);
-            
-                    
-
-                //if (GetGrade.classCourseId)
-                //    GradesFromCourse.Add(c);
-                    
-                    
-                        
-                        
-                        //GradesFromCourse.Add(c);
 
             }
                 return GradesFromCourse;  
