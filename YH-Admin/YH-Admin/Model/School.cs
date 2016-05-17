@@ -262,9 +262,11 @@ namespace YH_Admin.Model
             if (student != null)
                 return student.Name;
             return "No matching studentId:" + studentId;
+        }
 
-        } 
-
-
+        public int GetCourseContent(int classCourseId)
+        {
+            return;
+        }
     }
 }
