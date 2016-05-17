@@ -18,6 +18,8 @@ namespace YH_Admin.Model
 
         public string GradeString { get; set; }
 
+        public bool GradeSet { get; set; }
+
         public Grade (int studentId, int classCourseId, string grade) : this (NextGradeId, studentId, classCourseId, grade)
         { 
 }
