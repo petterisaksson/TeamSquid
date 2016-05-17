@@ -32,9 +32,11 @@ namespace YH_Admin.View
 
         ClassCourse CurrentClassCourse { get; set; }
 
+        CourseContent CurrentCyllabus { get; set; }
+
         //List<StaffingCourse> CurrentStaffingCourses { get; set; }
 
-        
+
 
         /// <summary>
         /// Constructor to set up Model and View.
@@ -90,13 +92,13 @@ namespace YH_Admin.View
             View.Titles.Clear();
             View.Titles.Push($"Huvudmeny - {CurrentUser.Name}");
 
-            var table = new string[5, 1];
+            var table = new string[6, 1];
             table[0, 0] = "Kategorier";
             table[1, 0] = "Utbildning";
             table[2, 0] = "Klasser";
             table[3, 0] = "Kurser";
             table[4, 0] = "Studerande";
-            //table[5, 0] = "Bemanning";
+            table[5, 0] = "Kursmål";
 
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowTableAndWaitForChoice(table, isMainMenu: true);
@@ -127,16 +129,59 @@ namespace YH_Admin.View
                     PreviousMenus.Push(ShowMainMenu);
                     ShowStudentGrade();
                     break;
-                //case "5":
-                //    PreviousMenus.Push(ShowMainMenu);
-                //    ShowRecruitmentMenu();
-                //    break;
+                case "5":
+                    PreviousMenus.Push(ShowMainMenu);
+                    CurrentClassCourses = Model.ClassCourseTable;
+                    ShowCyllabusMenu();
+                    break;
                 case "x":
                     Model.SaveToFiles();
                     return;
                 default:
                     ShowMainMenu();
                     break;
+            }
+        }
+
+        private void ShowCyllabusMenu()
+        {
+            View.Titles.Push($"Välj en kurs för att se kursmål");
+
+            var table = new string[CurrentClassCourses.Count + 1, 3];
+            table[0, 0] = "Namn";
+            table[0, 1] = "Klass";
+            table[0, 2] = "Lärare";
+
+
+            for (int i = 0; i < CurrentClassCourses.Count; i++)
+            {
+                table[i + 1, 0] = Model.Courses.Find(c => c.CourseId == CurrentClassCourses[i].CourseId).Name;
+                table[i + 1, 1] = Model.SchoolClasses.Find(c => c.SchoolClassId == CurrentClassCourses[i].ClassId).Name;
+                table[i + 1, 2] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "";
+            }
+            View.ChoiceHandler = HandleCyllabusMenuChoice;
+            View.ShowTableAndWaitForChoice(table);
+        }
+
+        private void HandleCyllabusMenuChoice(string choice)
+        {
+            switch (choice)
+            {
+                case "1":
+                    PreviousMenus.Push(ShowCyllabusMenu);
+                    //CurrentCyllabus = Model.GetCyllabus;
+                    ShowCyllabusMenu();
+                    break;
+                case "x":
+                    GoBack();
+                    return;
+                case "h":
+                    ShowMainMenu();
+                    return;
+                default:
+                    ShowCyllabusMenu();
+                    break;
+
             }
         }
 
@@ -153,6 +198,10 @@ namespace YH_Admin.View
             View.ChoiceHandler = HandleStudentGradeChoice;
             View.ShowTableAndWaitForChoice(table);
         }
+
+       
+
+
 
         private void HandleStudentGradeChoice(string choice)
         {

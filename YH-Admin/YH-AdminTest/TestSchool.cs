@@ -289,5 +289,27 @@ namespace YH_AdminTest
         {
             
         }
+
+        [TestMethod]
+        public void TestGetText1()
+        {
+            School sc = GetTestSchool();
+            sc.CourseContentTexts.Add(100, "dummy text");
+            var expected = "dummy text";
+            var actual = sc.GetText(100);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestGetText2()
+        {
+            School sc = GetTestSchool();
+            sc.CourseContentTexts.Add(100, "dummy text");
+            string expected = null;
+            var actual = sc.GetText(101);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

@@ -240,24 +240,13 @@ namespace YH_Admin.Model
             {
                 if (c.ClassCourseId == classCourseId)
                     GradesFromCourse.Add(c);
-            
-                    
-
-                //if (GetGrade.classCourseId)
-                //    GradesFromCourse.Add(c);
-                    
-                    
-                        
-                        
-                        //GradesFromCourse.Add(c);
-
             }
                 return GradesFromCourse;  
         }
 
         public string GetStudentName(int studentId)
         {
-            var student =  Students.SingleOrDefault(s => s.StudentId == studentId);
+            var student = Students.SingleOrDefault(s => s.StudentId == studentId);
             //var students =  Students.Find(s => s.StudentId == studentId);
             if (student != null)
                 return student.Name;
@@ -267,6 +256,6 @@ namespace YH_Admin.Model
         public int GetCourseContent(int classCourseId)
         {
             return;
-        }
+        } 
     }
 }

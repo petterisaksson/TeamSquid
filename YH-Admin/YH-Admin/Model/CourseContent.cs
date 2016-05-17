@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YH_Admin.Model
 {
-    class CourseContent
+    public class CourseContent
     {
         public int ObjectivesId { get; set; }
 
