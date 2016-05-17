@@ -241,7 +241,7 @@ namespace YH_Admin.Model
                 if (c.ClassCourseId == classCourseId)
                     GradesFromCourse.Add(c);
             }
-            return GradesFromCourse;
+                return GradesFromCourse;  
         }
 
         public string GetStudentName(int studentId)
@@ -251,16 +251,11 @@ namespace YH_Admin.Model
             if (student != null)
                 return student.Name;
             return "No matching studentId:" + studentId;
-
         }
 
-        public string GetText(int textId)
+        public int GetCourseContent(int classCourseId)
         {
-            string str;
-            if (CourseContentTexts.TryGetValue(textId, out str))
-                return str;
-            else
-                return null;
-        }
+            return;
+        } 
     }
 }
