@@ -25,8 +25,6 @@ namespace YH_Admin.Model
 
         public List<Course> Courses { get; private set; }
 
-        //public List<EducationCourse> EducationCourses { get; private set; }
-
         public List<ClassCourse> ClassCourseTable { get; private set; }
 
         public List<Grade> Grades { get; private set; }
@@ -42,7 +40,6 @@ namespace YH_Admin.Model
             SchoolClasses = new List<SchoolClass>();
             Students = new List<Student>();
             Courses = new List<Course>();
-            //EducationCourses = new List<EducationCourse>();
             ClassCourseTable = new List<ClassCourse>();
             Grades = new List<Grade>();
             Staffs = new List<Staffing>();
@@ -68,13 +65,11 @@ namespace YH_Admin.Model
             Courses = SchoolDatabase.ReadCourseFile();
             // Read education file
             ClassCourseTable = SchoolDatabase.ReadClassCourseFile();
-            // Read education-course file
-            //EducationCourses = SchoolDatabase.ReadEducationCourseFile();
             // Read grade file
             Grades = SchoolDatabase.ReadGradeFile();
-
+            // Read staff file
             Staffs = SchoolDatabase.ReadTeacherFile();
-
+            // Read Course Content file
             CourseContentTexts = SchoolDatabase.ReadCourseContentTextFile();
         }
 
@@ -83,6 +78,7 @@ namespace YH_Admin.Model
         {
             SchoolDatabase.SaveStudentFile(GetStudents());
             SchoolDatabase.SaveGradeFile(Grades);
+            SchoolDatabase.SaveTeacherFile(Staffs);
         }
 
         public Grade GetGrade(Student student, ClassCourse classCourse)

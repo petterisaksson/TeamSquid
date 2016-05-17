@@ -35,7 +35,7 @@ namespace YH_Admin.View
         CourseContent CurrentCyllabus { get; set; }
 
         List<Staffing> CurrentStaffs { get; set; }
-        
+
         /// <summary>
         /// Constructor to set up Model and View.
         /// </summary>
@@ -151,12 +151,16 @@ namespace YH_Admin.View
         {
             View.Titles.Push($"Alla lärare som finns i databasen");
 
-            var table = new string[CurrentStaffs.Count + 1, 1];
-            table[0, 0] = "Namn";
+            var table = new string[CurrentStaffs.Count + 2, 2];
+            table[0, 0] = "Förnamn";
+            table[0, 1] = "Efternamn";
             for (int i = 0; i < CurrentStaffs.Count; i++)
             {
-                table[i + 1, 0] = CurrentStaffs[i].Name;
+                table[i + 1, 0] = CurrentStaffs[i].FirstName;
+                table[i + 1, 1] = CurrentStaffs[i].LastName;
+
             }
+            View.Message = $"Tryck {CurrentStaffs.Count + 1} för att lägga till en ny lärare.";
             View.ChoiceHandler = HandleShowCurrentStaffs;
             View.ShowTableAndWaitForChoice(table);
 
@@ -174,7 +178,35 @@ namespace YH_Admin.View
                 ShowMainMenu();
                 return;
             }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index == CurrentStaffs.Count + 1)
+                {
+                    PreviousMenus.Push(ShowCurrentStaffsMenu);
+                    View.Titles.Push($"Lägg till en ny lärare");
+                    View.ChoiceHandler = HandleAddTeacher;
+                    View.ShowAddStaff();
+                    return;
+                }
+            }
             ShowCurrentStaffsMenu();
+        }
+
+        private void HandleAddTeacher(string choice)
+        {
+            if (choice == "x")
+            {
+                GoBack();
+                return;
+            }
+
+            var splits = choice.Split('\n');
+            if (splits.Length == 2)
+            {
+                Model.Staffs.Add(new Staffing(splits[0], splits[1]));
+                GoBack();
+            }
         }
 
         private void ShowCyllabusMenu()
@@ -225,10 +257,6 @@ namespace YH_Admin.View
             View.ChoiceHandler = HandleStudentGradeChoice;
             View.ShowTableAndWaitForChoice(table);
         }
-
-
-
-
 
         private void HandleStudentGradeChoice(string choice)
         {

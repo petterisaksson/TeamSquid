@@ -157,5 +157,19 @@ namespace YH_Admin.View
             return lengths;
         }
 
+        internal void ShowAddStaff()
+        {
+            Console.Clear();
+            ShowTitle();
+            Console.Write("Förnman: ");
+            var firstname = Console.ReadLine();
+            Console.Write("Efternamn: ");
+            var lastname = Console.ReadLine();
+
+            if (firstname.Length > 0 && lastname.Length > 0)
+                ChoiceHandler($"{firstname}\n{lastname}");
+            else
+                ChoiceHandler("x");
+        }
     }
 }
