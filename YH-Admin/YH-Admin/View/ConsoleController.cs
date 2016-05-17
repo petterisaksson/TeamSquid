@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YH_Admin.Model;
 using static YH_Admin.View.ConsoleOutput;
@@ -428,7 +430,7 @@ namespace YH_Admin.View
                 table[i + 1, 4] = Model.Staffs.Find(c => c.StaffingId == CurrentClassCourses[i].StaffingId)?.Name ?? "" ;
             }
             View.ChoiceHandler = HandleShowCurrentClassCourses;
-            View.ShowTableAndWaitForChoice(table, choosable: false);
+            View.ShowTableAndWaitForChoice(table);
         }
 
         private void HandleShowCurrentClassCourses(string choice)
@@ -442,6 +444,20 @@ namespace YH_Admin.View
             {
                 ShowMainMenu();
                 return;
+
+            }
+            int index;
+            if (int.TryParse(choice, out index))
+            {
+                if (index > 0 && index <= CurrentClassCourses.Count)
+                {
+                    PreviousMenus.Push(ShowCurrentClassCourses);
+                    var chosen = CurrentClassCourses[index - 1];
+                    View.Titles.Push($"Betygen i {Model.SchoolClasses.Find(c=>c.SchoolClassId == chosen.ClassId).Name}");
+                    CurrentClassCourse = (chosen);
+                    ShowGradeFromCourseId();
+                    return;
+                }
             }
             ShowCurrentClassCourses();
         }
@@ -648,6 +664,43 @@ namespace YH_Admin.View
             }
         }
 
+        public void ShowGradeFromCourseId()
+        {
+            var grades = Model.GetGradesFromCourseId(CurrentClassCourse.ClassCourseId);
+
+            var table = new string[grades.Count + 1,2];
+            table[0, 0] = "Namn";
+            table[0, 1] = "Betyg";
+            for (int i = 0; i < grades.Count; i++)
+            {
+                var studentId = grades[i].StudentId;
+                table[i + 1, 0] = Model.GetStudentName(studentId);
+                table[i + 1, 1] = grades[i].GradeString;
+            }
+            View.ChoiceHandler = HandleGradeFromCourseID;
+            View.ShowTableAndWaitForChoice(table);
+            
+
+            
+        }
+
+        public void HandleGradeFromCourseID(string choice)
+
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            ShowGradeFromCourseId();
+
+        }
+
         private void ShowCurrentStudents()
         {
             var table = new string[CurrentStudents.Count + 1, 1];
@@ -702,4 +755,5 @@ namespace YH_Admin.View
         //    View.ShowTableAndWaitForChoice(table);
         //}
     }
+
 }
