@@ -407,6 +407,9 @@ namespace YH_Admin.View
             ShowCourseMenu();
         }
 
+        /// <summary>
+        /// Används för att sen visa upp alla betyg i en viss kurs.
+        /// </summary>
         private void ShowCurrentClassCourses()
         {
             var table = new string[CurrentClassCourses.Count + 1, 5];
@@ -669,20 +672,20 @@ namespace YH_Admin.View
                 ShowMainMenu();
                 return;
             }
-            int index;
-            if (int.TryParse(choice, out index))
-            {
-                if (index > 0 && index <= CurrentStudents.Count)
-                {
-                    PreviousMenus.Push(ShowClassMenu);
-                    CurrentStudent = CurrentStudents[index];
-                    // Visar betyg ?
-                    {
-                        ShowMainMenu();
-                    }
-                    return;
-                }
-            }
+            //int index;
+            //if (int.TryParse(choice, out index))
+            //{
+            //    if (index > 0 && index <= CurrentStudents.Count)
+            //    {
+            //        PreviousMenus.Push(ShowClassMenu);
+            //        CurrentStudent = CurrentStudents[index];
+            //        // Visar betyg ?
+            //        {
+            //            ShowMainMenu();
+            //        }
+            //        return;
+            //    }
+            //}
             ShowCurrentStudents();
         }
 
