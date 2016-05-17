@@ -8,24 +8,24 @@ namespace YH_Admin.Model
 {
     class CourseContent
     {
-        public String Målsättning { get; set; }
+        public int ObjectivesId { get; set; }
 
-        public String GKriterier { get; set; }
+        public int GCriteriaId { get; set; }
 
-        public String VGKriterier { get; set; }
+        public int VGCriteriaId { get; set; }
 
-        public int Poäng { get; set; }
+        public int PointId { get; set; }
 
-        public int CourseId { get; set; }
+        public int ClassCourseId { get; set; }
 
 
-        public CourseContent(string målsättnig, string gKriterier, string vGKriterier, int poäng, int courseId)
+        public CourseContent(int objectivesId, int gcriteriaId, int vGcriteriaId, int pointId, int classcourseId)
         {
-            Målsättning = målsättnig;
-            GKriterier = gKriterier;
-            VGKriterier = vGKriterier;
-            Poäng = poäng;
-            CourseId = courseId;
+            ObjectivesId = ObjectivesId;
+            GCriteriaId = gcriteriaId;
+            VGCriteriaId = vGcriteriaId;
+            PointId = pointId;
+            ClassCourseId = classcourseId;
         }
 
 
