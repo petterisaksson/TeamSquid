@@ -1,0 +1,11 @@
+﻿0 Kunna redogöra för affärsekonomiska begrepp samt affärsplaneringens grunder
+1 Kunna beskriva och på ett grundläggande vis analysera ett företags verksamhet, affärside, företagsform, organisation, ledarskap, styrning, processer, kvalitetssystem, och intressenter samt samspelet mellan olika funktioner i organisationen
+2 Kunna redogöra för och analysera grundläggande ekonomiska begrepp och nyckeltal
+3 Kunna utföra kalkyler och lönsamhetsberäkningar
+4 Kunna beskriva och analysera resultat och balansräkning
+5 Ge en översikt över hur krav och kravanvändningar hanteras i ett agilt projekt
+6 Visa på fördjupad kunskap om rolldefinitioner
+7 Kunna få sprintarna att fungera i praktiken
+8 Kunna skala upp projekt
+9 Ha erfarenhetsutvärdering samt utvärdering och förbättring
+10 Kunna säkerställa kvalité och mörkertal

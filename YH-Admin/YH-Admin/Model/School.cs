@@ -33,6 +33,8 @@ namespace YH_Admin.Model
 
         public List<StaffingCourse> StaffingCourses { get; private set; }
 
+        public Dictionary<int, string> CourseContentText { get; private set; }
+
         public School()
         {
             Users = new List<User>();
