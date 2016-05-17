@@ -689,12 +689,6 @@ namespace YH_Admin.View
             ShowCurrentStudents();
         }
        
-        public void GetNameFromGrade()
-        {
-
-
-        }
-
         //private void ShowFailedStudents()
         //{
         //    var table = new string[CurrentStudents.Count + 1, 1];
