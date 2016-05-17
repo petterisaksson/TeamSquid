@@ -255,7 +255,20 @@ namespace YH_Admin.Model
 
         public int GetCourseContent(int classCourseId)
         {
-            return;
+            return 0;
         } 
+
+        public string GetText(int textId)
+        {
+            string str;
+            if (CourseContentTexts.TryGetValue(textId, out str))
+            {
+                return str;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
