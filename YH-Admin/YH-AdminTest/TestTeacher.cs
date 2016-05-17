@@ -7,11 +7,6 @@ namespace YH_AdminTest
     [TestClass]
     public class TestTeacher
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-
-        }
 
         [TestMethod]
         public void TestToString()
@@ -19,7 +14,7 @@ namespace YH_AdminTest
             Staffing s = new Staffing(0, "Niklas", "Persson");
             string expected = $"Id: 0; Name: Niklas Persson";
 
-            var actual = s.ToString();
+            var actual = s.GetStaffString();
 
             Assert.AreEqual(expected, actual);
         }

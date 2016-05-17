@@ -34,10 +34,8 @@ namespace YH_Admin.View
 
         CourseContent CurrentCyllabus { get; set; }
 
-        //List<StaffingCourse> CurrentStaffingCourses { get; set; }
-
-
-
+        List<Staffing> CurrentStaffs { get; set; }
+        
         /// <summary>
         /// Constructor to set up Model and View.
         /// </summary>
@@ -92,13 +90,14 @@ namespace YH_Admin.View
             View.Titles.Clear();
             View.Titles.Push($"Huvudmeny - {CurrentUser.Name}");
 
-            var table = new string[6, 1];
+            var table = new string[7, 1];
             table[0, 0] = "Kategorier";
             table[1, 0] = "Utbildning";
             table[2, 0] = "Klasser";
             table[3, 0] = "Kurser";
             table[4, 0] = "Studerande";
             table[5, 0] = "Kursmål";
+            table[6, 0] = "Lärare";
 
             View.ChoiceHandler = HandleMainMenuChoice;
             View.ShowTableAndWaitForChoice(table, isMainMenu: true);
@@ -134,6 +133,11 @@ namespace YH_Admin.View
                     CurrentClassCourses = Model.ClassCourseTable;
                     ShowCyllabusMenu();
                     break;
+                case "6":
+                    PreviousMenus.Push(ShowMainMenu);
+                    CurrentStaffs = Model.Staffs;
+                    ShowCurrentStaffsMenu();
+                    break;
                 case "x":
                     Model.SaveToFiles();
                     return;
@@ -141,6 +145,36 @@ namespace YH_Admin.View
                     ShowMainMenu();
                     break;
             }
+        }
+
+        private void ShowCurrentStaffsMenu()
+        {
+            View.Titles.Push($"Alla lärare som finns i databasen");
+
+            var table = new string[CurrentStaffs.Count + 1, 1];
+            table[0, 0] = "Namn";
+            for (int i = 0; i < CurrentStaffs.Count; i++)
+            {
+                table[i + 1, 0] = CurrentStaffs[i].Name;
+            }
+            View.ChoiceHandler = HandleShowCurrentStaffs;
+            View.ShowTableAndWaitForChoice(table);
+
+        }
+
+        private void HandleShowCurrentStaffs(string choice)
+        {
+            if (choice.Equals("x"))
+            {
+                GoBack();
+                return;
+            }
+            if (choice.Equals("h"))
+            {
+                ShowMainMenu();
+                return;
+            }
+            ShowCurrentStaffsMenu();
         }
 
         private void ShowCyllabusMenu()

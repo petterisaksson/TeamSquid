@@ -266,31 +266,31 @@ namespace YH_Admin.Utils
             return classCourseTable;
         }
 
-        public List<EducationCourse> ReadEducationCourseFile()
-        {
-            var path = Path.Combine(DirectoryPath, @"DataFiles\education_courses.txt");
-            var educationCourse = new List<EducationCourse>();
-            try
-            {
-                string[] lines = File.ReadAllLines(path);
-                foreach (var line in lines)
-                {
-                    var splits = line.Split(' ');
-                    var ec = new EducationCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]));
-                    educationCourse.Add(ec);
+        //public List<EducationCourse> ReadEducationCourseFile()
+        //{
+        //    var path = Path.Combine(DirectoryPath, @"DataFiles\education_courses.txt");
+        //    var educationCourse = new List<EducationCourse>();
+        //    try
+        //    {
+        //        string[] lines = File.ReadAllLines(path);
+        //        foreach (var line in lines)
+        //        {
+        //            var splits = line.Split(' ');
+        //            var ec = new EducationCourse(int.Parse(splits[0]), int.Parse(splits[1]), int.Parse(splits[2]));
+        //            educationCourse.Add(ec);
 
-                    //Test code: 
-                    //Console.WriteLine(ec);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
-                Console.ReadLine();
+        //            //Test code: 
+        //            //Console.WriteLine(ec);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Exception caught in creating EducationCourses: " + ex);
+        //        Console.ReadLine();
 
-            }
-            return educationCourse;
-        }
+        //    }
+        //    return educationCourse;
+        //}
 
         public List<Staffing> ReadTeacherFile()
         {

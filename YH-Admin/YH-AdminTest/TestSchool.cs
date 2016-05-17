@@ -149,8 +149,8 @@ namespace YH_AdminTest
             school.Students.Add(new Student(1, "Billy", "Butt", 0));
             school.Staffs.Add(new Staffing(0, "Magister", "Svensson"));
             school.Staffs.Add(new Staffing(1, "Fröken", "Ur"));
-            school.EducationCourses.Add(new EducationCourse(0, 0, 0));
-            school.EducationCourses.Add(new EducationCourse(1, 1, 1));
+            //school.EducationCourses.Add(new EducationCourse(0, 0, 0));
+            //school.EducationCourses.Add(new EducationCourse(1, 1, 1));
             school.ClassCourseTable.Add(new ClassCourse(0, 0, 0, new DateTime(2014, 09, 01), new DateTime(2014, 09, 30), 0));
             school.ClassCourseTable.Add(new ClassCourse(1, 1, 1, new DateTime(2014, 08, 01), new DateTime(2014, 08, 31), 1));
             school.ClassCourseTable.Add(new ClassCourse(2, 2, 0, new DateTime(2015, 08, 01), new DateTime(2015, 08, 31), 0));
@@ -290,6 +290,9 @@ namespace YH_AdminTest
             
         }
 
+        /// <summary>
+        /// Test that GetText return the right string with a correct textId.
+        /// </summary>
         [TestMethod]
         public void TestGetText1()
         {
@@ -301,6 +304,10 @@ namespace YH_AdminTest
             Assert.AreEqual(expected, actual);
         }
 
+
+        /// <summary>
+        /// Test that GetText return null, if it cannot find string with a specific key.
+        /// </summary>
         [TestMethod]
         public void TestGetText2()
         {
