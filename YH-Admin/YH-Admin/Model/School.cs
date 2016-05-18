@@ -249,9 +249,9 @@ namespace YH_Admin.Model
             return "No matching studentId:" + studentId;
         }
 
-        public int GetCourseContent(int classCourseId)
+        public List<CourseContent> GetCourseContent(int classCourseId)
         {
-            return 0;
+            return null;
         } 
 
         /// <summary>
