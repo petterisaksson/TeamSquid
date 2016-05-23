@@ -288,7 +288,7 @@ namespace YH_AdminTest
         public void TestGetCourseContent1()
         {
             School sc = GetTestSchool();
-            sc.
+            sc.GetCourseContent(0);
             int expected = 0;
             int actual = 0;
 
@@ -299,6 +299,7 @@ namespace YH_AdminTest
         public void TestGetCourseContent2()
         {
             School sc = GetTestSchool();
+            sc.GetCourseContent(1);
             int expected = 1;
             int actual = 2;
 
